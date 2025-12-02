@@ -1,0 +1,12 @@
+Les patrons prévus :
+ - obsereur/observé : pour l'interface graphique.
+ - Factory : pour créer les taches.
+ - Strategie : Pour les différents modes d'affichages des taches (bureau, liste).
+ - Composite : pour gérer les sousTache des Taches.
+
+
+
+
+
+L'architecture prévu: 
+ - Modèle MVC pour l'interface graphique et afficher les taches.
