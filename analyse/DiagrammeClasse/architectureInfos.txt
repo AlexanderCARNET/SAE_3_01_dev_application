@@ -1,12 +1,10 @@
 Les patrons prévus :
  - observeur/observé : pour l'interface graphique.
- - Fabrique : pour créer les taches.
  - Strategie : Pour les différents modes d'affichages des taches (bureau, liste).
  - Composite : pour gérer les sousTache des Taches.
- - Singleton : pour avoir une seule instance qui ouvre le fichier pour enregistrer.
- - ActiveRecord : pour la sauvegarde dans un fichier.
+ - Singleton : pour avoir une seule instance qui se connecte a la base de données.
+ - ActiveRecord : pour la sauvegarde des taches et des colonnes.
 
 
 L'architecture prévu: 
  - Modèle MVC pour l'interface graphique et afficher les taches.
- 
