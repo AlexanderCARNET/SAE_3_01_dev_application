@@ -1,11 +1,9 @@
 Les patrons prévus :
- - obsereur/observé : pour l'interface graphique.
- - Factory : pour créer les taches.
+ - observeur/observé : pour l'interface graphique.
  - Strategie : Pour les différents modes d'affichages des taches (bureau, liste).
  - Composite : pour gérer les sousTache des Taches.
-
-
-
+ - Singleton : pour avoir une seule instance qui se connecte a la base de données.
+ - ActiveRecord : pour la sauvegarde des taches et des colonnes.
 
 
 L'architecture prévu: 
