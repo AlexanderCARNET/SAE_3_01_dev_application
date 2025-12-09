@@ -40,4 +40,12 @@ public abstract class TacheComposite implements Serializable {
         this.description = description;
     }
 
+    public int getDuree() {
+        return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
+    }
+
 }
