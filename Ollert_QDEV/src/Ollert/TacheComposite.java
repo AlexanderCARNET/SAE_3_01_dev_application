@@ -32,4 +32,12 @@ public abstract class TacheComposite implements Serializable {
         this.titre = titre;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }
