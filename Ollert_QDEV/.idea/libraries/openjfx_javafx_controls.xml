@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="openjfx.javafx.controls" type="repository">
-    <properties maven-id="org.openjfx:javafx-controls:21" />
+    <properties maven-id="org.openjfx:javafx-controls:22" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21/javafx-controls-21.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/21/javafx-controls-21-win.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21/javafx-graphics-21.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21/javafx-graphics-21-win.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/21/javafx-base-21.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/21/javafx-base-21-win.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/22/javafx-controls-22.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/22/javafx-controls-22-win.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/22/javafx-graphics-22.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/22/javafx-graphics-22-win.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/22/javafx-base-22.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/22/javafx-base-22-win.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
