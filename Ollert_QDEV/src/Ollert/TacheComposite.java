@@ -20,4 +20,16 @@ public abstract class TacheComposite implements Serializable {
         this.dateDebut = dateDebut;
     }
 
+    public void archiver(){
+
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
 }
