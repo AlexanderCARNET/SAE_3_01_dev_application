@@ -48,4 +48,12 @@ public abstract class TacheComposite implements Serializable {
         this.duree = duree;
     }
 
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
 }
