@@ -6,7 +6,9 @@ class Repository{
     - ObjectOutputStream outputStream
     - Repository instance
     - Repository()
+    - archive : Archive
     + static getInstance() : Repository
+    + closeConnexion()
 }
 
 @enduml
