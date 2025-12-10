@@ -59,7 +59,7 @@ public class VueListes extends TableView<Tache> implements StrategieModeAffichag
     }
 
     @Override
-    public void genererAffichage(){
-
+    public void genererAffichage(List<Tache> taches) {
+        this.setItems(FXCollections.observableArrayList(taches));
     }
 }
