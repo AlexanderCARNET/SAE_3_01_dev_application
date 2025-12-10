@@ -18,31 +18,11 @@ public class Colonne implements Serializable {
     }
 
     public void supprimeTache(TacheComposite t){
-
+        this.liste.remove(t);
     }
 
     public void ajouteTache(TacheComposite t){
-
-    }
-
-    public void save(){
-
-    }
-
-    public void update(){
-
-    }
-
-    public void delete(){
-
-    }
-
-    public static String findById(){
-
-    }
-
-    public static String findAll(){
-
+        this.liste.add(t);
     }
 
     public String getTitre() {
@@ -55,9 +35,5 @@ public class Colonne implements Serializable {
 
     public ArrayList<TacheComposite> getListe() {
         return liste;
-    }
-
-    public void setListe(ArrayList<TacheComposite> liste) {
-        this.liste = liste;
     }
 }
