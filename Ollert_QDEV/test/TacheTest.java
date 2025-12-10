@@ -1,4 +1,3 @@
-package Ollert;
 
 import donnees.Tache;
 import donnees.TacheComposite;
