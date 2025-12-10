@@ -41,7 +41,21 @@ public abstract class TacheComposite implements Serializable {
         this.sousTaches = sousTaches;
     }
 
-    
+    public boolean modifierTache(String titre, String description, int duree, Date dateDebut) {
+
+        if (titre == null) return false;
+        if (duree < 0) return false;
+        if (dateDebut == null) return false;
+
+        this.titre = titre;
+        this.description = description;
+        this.duree = duree;
+        this.dateDebut = dateDebut;
+
+        return true;
+    }
+
+
 
 
 
