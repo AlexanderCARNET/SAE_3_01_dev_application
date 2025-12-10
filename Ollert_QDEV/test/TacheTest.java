@@ -74,7 +74,7 @@ class TacheTest {
     }
 
 
-    
+
     @Test
     void testSetSousTaches() {
         Tache c1 = new Tache("C1", "D1", 1, new Date());

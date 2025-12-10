@@ -1,2 +1,5 @@
-module $MODULE_NAME$ {
+module Ollert_QDEV {
+    requires javafx.controls;
+
+    exports donnees;
 }
