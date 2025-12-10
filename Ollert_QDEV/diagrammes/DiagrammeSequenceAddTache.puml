@@ -1,0 +1,20 @@
+@startuml
+
+actor Client
+
+Client -> TacheComposite : ajouterSousTache(t : TacheComposite)
+TacheComposite --> TacheComposite : sousTaches.add(t)
+
+Client -> TacheComposite : modifierTache(titre, desc, durée, date)
+alt paramètres invalides
+    TacheComposite --> Client : return false
+else paramètres valides
+    TacheComposite -> TacheComposite : modifier les attributs
+    TacheComposite --> Client : return true
+end
+
+Client -> TacheComposite : supprimerSousTache(t)
+TacheComposite --> TacheComposite : sousTaches.remove(t)
+
+@enduml<wQ
+
