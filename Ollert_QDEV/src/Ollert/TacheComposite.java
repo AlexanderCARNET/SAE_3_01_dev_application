@@ -1,7 +1,9 @@
 package Ollert;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public abstract class TacheComposite implements Serializable {
 
@@ -11,6 +13,8 @@ public abstract class TacheComposite implements Serializable {
     private String description;
     private int duree;
     private Date dateDebut;
+
+    protected List<TacheComposite> sousTaches = new ArrayList<>();
 
 
     public TacheComposite(String titre, String description, int duree, Date dateDebut) {
@@ -24,6 +28,10 @@ public abstract class TacheComposite implements Serializable {
 
     }
 
+    public void ajouterSousTache(TacheComposite t) {
+        sousTaches.add(t);
+    }
+
 
     public void save() {
     }
@@ -34,7 +42,7 @@ public abstract class TacheComposite implements Serializable {
     public void delete() {
     }
 
-    
+
     public String getTitre() {
         return titre;
     }
