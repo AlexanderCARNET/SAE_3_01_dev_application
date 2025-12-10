@@ -1,7 +1,10 @@
 package donnees;
 
+import Ollert.TacheComposite;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+
 
 public class Colonne implements Serializable {
     private String titre;
