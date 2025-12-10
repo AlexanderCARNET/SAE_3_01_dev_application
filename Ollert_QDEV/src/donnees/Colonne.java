@@ -1,7 +1,5 @@
 package donnees;
 
-import Ollert.TacheComposite;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
