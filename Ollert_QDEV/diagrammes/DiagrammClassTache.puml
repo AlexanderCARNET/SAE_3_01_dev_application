@@ -1,0 +1,38 @@
+@startuml
+
+package donnees {
+
+    abstract class TacheComposite {
+        - List<TacheComposite> sousTaches
+        - String titre
+        - String description
+        - int duree
+        - Date dateDebut
+
+        + TacheComposite(String, String, int, Date)
+        + void ajouterSousTache(TacheComposite)
+        + void supprimerSousTache(TacheComposite)
+        + List<TacheComposite> getSousTaches()
+        + void setSousTaches(List<TacheComposite>)
+        + boolean modifierTache(String, String, int, Date)
+        + void archiver()
+        + String getTitre()
+        + void setTitre(String)
+        + String getDescription()
+        + void setDescription(String)
+        + int getDuree()
+        + void setDuree(int)
+        + Date getDateDebut()
+        + void setDateDebut(Date)
+    }
+
+    class Tache {
+        + Tache(String, String, int, Date)
+    }
+
+    Tache --|> TacheComposite
+
+    TacheComposite "1" o-- "0..*" TacheComposite : sousTaches
+}
+
+@enduml
