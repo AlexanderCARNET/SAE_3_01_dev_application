@@ -1,0 +1,12 @@
+@startuml
+
+class Repository{
+    - static String nomFichierSauvegarde
+    - ObjectInputStream inputStream
+    - ObjectOutputStream outputStream
+    - static Repository instance
+    - Repository()
+    + static getInstance() : Repository
+}
+
+@enduml
