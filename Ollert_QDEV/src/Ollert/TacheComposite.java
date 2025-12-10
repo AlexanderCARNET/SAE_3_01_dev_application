@@ -37,6 +37,10 @@ public abstract class TacheComposite implements Serializable {
         sousTaches.remove(t);
     }
 
+    public List<TacheComposite> getSousTaches() {
+        return sousTaches;
+    }
+
 
     public void save() {
     }
