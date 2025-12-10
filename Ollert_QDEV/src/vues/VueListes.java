@@ -1,4 +1,9 @@
 package vues;
 
-public class VueListes {
+public class VueListes implements StrategieModeAffichage{
+
+    @Override
+    public void genererAffichage(){
+
+    }
 }
