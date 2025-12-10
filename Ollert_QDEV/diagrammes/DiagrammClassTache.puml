@@ -39,9 +39,10 @@ class Repository{
     - static String nomFichierSauvegarde
     - ObjectInputStream inputStream
     - ObjectOutputStream outputStream
-    - static Repository instance
+    - Repository instance
     - Repository()
     + static getInstance() : Repository
+    + closeConnexion()
 }
 
 
