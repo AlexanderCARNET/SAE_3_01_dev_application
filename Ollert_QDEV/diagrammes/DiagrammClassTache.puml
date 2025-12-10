@@ -35,4 +35,14 @@ package donnees {
     TacheComposite "1" o-- "0..*" TacheComposite : sousTaches
 }
 
+class Repository{
+    - static String nomFichierSauvegarde
+    - ObjectInputStream inputStream
+    - ObjectOutputStream outputStream
+    - static Repository instance
+    - Repository()
+    + static getInstance() : Repository
+}
+
+
 @enduml
