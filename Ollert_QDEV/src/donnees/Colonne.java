@@ -17,6 +17,47 @@ public class Colonne implements Serializable {
         this.titre = nom;
     }
 
+    public void supprimeTache(TacheComposite t){
 
+    }
 
+    public void ajouteTache(TacheComposite t){
+
+    }
+
+    public void save(){
+
+    }
+
+    public void update(){
+
+    }
+
+    public void delete(){
+
+    }
+
+    public static String findById(){
+
+    }
+
+    public static String findAll(){
+
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public ArrayList<TacheComposite> getListe() {
+        return liste;
+    }
+
+    public void setListe(ArrayList<TacheComposite> liste) {
+        this.liste = liste;
+    }
 }
