@@ -9,6 +9,9 @@ public abstract class TacheComposite implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    protected List<TacheComposite> sousTaches = new ArrayList<>();
+
+
     protected String titre;
     protected String description;
     protected int duree;
@@ -21,6 +24,25 @@ public abstract class TacheComposite implements Serializable {
         this.duree = duree;
         this.dateDebut = dateDebut;
     }
+
+    public void ajouterSousTache(TacheComposite t) {
+        sousTaches.add(t);
+    }
+
+    public void supprimerSousTache(TacheComposite t) {
+        sousTaches.remove(t);
+    }
+
+    public List<TacheComposite> getSousTaches() {
+        return sousTaches;
+    }
+
+    public void setSousTaches(List<TacheComposite> sousTaches) {
+        this.sousTaches = sousTaches;
+    }
+
+    
+
 
 
 
