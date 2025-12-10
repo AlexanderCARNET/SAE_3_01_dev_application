@@ -24,6 +24,17 @@ public abstract class TacheComposite implements Serializable {
 
     }
 
+
+    public void save() {
+    }
+
+    public void update() {
+    }
+
+    public void delete() {
+    }
+
+    
     public String getTitre() {
         return titre;
     }
