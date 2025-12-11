@@ -1,8 +1,8 @@
 package vues;
 
-import donnees.Tache;
+import donnees.Colonne;
 import java.util.List;
 
 public interface Observateur {
-    void actualiser(List<Tache> taches);
+    void actualiser(List<Colonne> colonnes);
 }
