@@ -1,5 +1,6 @@
 package vues;
 
+import donnees.Colonne;
 import donnees.Tache;
 import donnees.TacheComposite;
 import javafx.application.Application;
@@ -15,19 +16,29 @@ public class TestVue extends Application {
 
     @Override
     public void start(Stage stage){
-        List<Tache> taches = new ArrayList<>();
-        Date dataOggi = new Date();
-        taches.add(new Tache("Database Design", "Archi", 2, dataOggi));
-        taches.add(new Tache("Implementazione", "Dev", 5, dataOggi));
-        taches.add(new Tache("Testing", "QA", 1, dataOggi));
+        Date date = new Date();
+        List<Colonne> colonnes = new ArrayList<>();
 
-        VueTaches vueTaches = new VueTaches(taches);
+        Colonne c1 = new Colonne("Fini");
+        c1.ajouteTache(new Tache("Database Design", "Archi", 2, date));
+        colonnes.add(c1);
+
+        Colonne c2 = new Colonne("en Cours");
+        c2.ajouteTache(new Tache("ok", "Dev", 5, date));
+        c2.ajouteTache(new Tache("Sleep", "Hobby", 5, date));
+        colonnes.add(c2);
+
+        Colonne c3 = new Colonne("A faire");
+        c3.ajouteTache(new Tache("Testing", "QA", 1, date));
+        colonnes.add(c3);
+
+        VueTaches vueTaches = new VueTaches(colonnes);
 
         VueListes strategiaLista = new VueListes();
 
         vueTaches.setModeAffichage(strategiaLista);
 
-        vueTaches.actualiser(taches);
+        vueTaches.actualiser(colonnes);
 
         VBox root = new VBox(strategiaLista);
         root.setFillWidth(true);
