@@ -1,9 +1,9 @@
 package vues;
 
-import donnees.Tache;
+import donnees.Colonne;
 
 import java.util.List;
 
 public interface StrategieModeAffichage {
-    void genererAffichage(List<Tache> taches);
+    void genererAffichage(List<Colonne> colonnes);
 }
