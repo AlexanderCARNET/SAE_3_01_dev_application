@@ -1,0 +1,34 @@
+@startuml
+
+package vues{
+    interface StrategieModeAffichage{
+        genererAffichage(List<Colonne>):void
+    }
+
+    interface Observateur{
+        actualiser(List<Colonne>):void
+    }
+
+    class VueListes{
+        - colonnes:Map<TacheComposite, String>
+
+        + VueListes()
+        + genererAffichage(List<Colonne>):void
+    }
+
+    class VueTaches{
+        + VueTaches(List<Colonne>)
+        + actualiser(List<Colonne>):void
+        + setModeAffichage(StrategieModeAffichage):void
+    }
+}
+
+class Colonne{}
+
+VueListes ..|> StrategieModeAffichage
+VueTaches ..|> Observateur
+
+VueTaches --> "1" VueListes:modeAffichage
+VueTaches --> "*" Colonne
+
+@enduml
