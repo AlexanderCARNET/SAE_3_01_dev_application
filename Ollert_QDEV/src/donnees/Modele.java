@@ -23,5 +23,27 @@ public class Modele {
         this.observateurs.remove(o);
     }
 
+    public int getNB_MAX_COLONNES() {
+        return NB_MAX_COLONNES;
+    }
 
+    public void setNB_MAX_COLONNES(int NB_MAX_COLONNES) {
+        this.NB_MAX_COLONNES = NB_MAX_COLONNES;
+    }
+
+    public ArrayList<Observateur> getObservateurs() {
+        return observateurs;
+    }
+
+    public void setObservateurs(ArrayList<Observateur> observateurs) {
+        this.observateurs = observateurs;
+    }
+
+    public Archive getArchive() {
+        return archive;
+    }
+
+    public void setArchive(Archive archive) {
+        this.archive = archive;
+    }
 }
