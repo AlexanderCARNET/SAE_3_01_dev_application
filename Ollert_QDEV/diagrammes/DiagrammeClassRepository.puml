@@ -11,6 +11,8 @@ class Repository{
     + loadArchive() : Archive
     + loadColonnes() : ArrayList<Colonne>
     + closeConnexion()
+    + static creerFichier()
+    + static supprimerFichier()
 }
 
 @enduml
