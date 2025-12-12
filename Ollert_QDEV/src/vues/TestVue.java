@@ -38,7 +38,7 @@ public class TestVue extends Application {
 
         vueTaches.setModeAffichage(strategiaLista);
 
-        vueTaches.actualiser(colonnes);
+        vueTaches.actualiser();
 
         VBox root = new VBox(strategiaLista);
         root.setFillWidth(true);
