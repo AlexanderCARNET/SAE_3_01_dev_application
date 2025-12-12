@@ -7,6 +7,12 @@ class Repository{
     - static Repository instance
     - Repository()
     + static getInstance() : Repository
+    + saveAll(Modele m)
+    + loadArchive() : Archive
+    + loadColonnes() : ArrayList<Colonne>
+    + closeConnexion()
+    + static creerFichier()
+    + static supprimerFichier()
 }
 
 @enduml
