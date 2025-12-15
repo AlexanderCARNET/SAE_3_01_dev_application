@@ -49,19 +49,22 @@ public class Modele implements Serializable {
         return true;
     }
 
-    public boolean ajouterTache(Colonne colonne, String titre, String description, int duree, Date dateDebut) {
 
-        if (colonne == null) return false;
-        if (titre == null || titre.isBlank()) return false;
-        if (duree < 0) return false;
-        if (dateDebut == null) return false;
+    public Tache ajouterTache(Colonne colonne, String titre, String description, int duree, Date dateDebut) {
+
+        if (colonne == null) return null;
+        if (titre == null || titre.isBlank()) return null;
+        if (duree < 0) return null;
+        if (dateDebut == null) return null;
 
         Tache tache = new Tache(titre, description, duree, dateDebut);
         colonne.ajouteTache(tache);
 
         notifier();
-        return true;
+        return tache;
     }
+
+
 
     public boolean ajouterSousTache(TacheComposite parent, String titre, String description, int duree, Date dateDebut) {
 
@@ -76,6 +79,7 @@ public class Modele implements Serializable {
         notifier();
         return true;
     }
+
 
     public void ajouterColonne(String titre){
         if(titre != null || !titre.isBlank()){
