@@ -2,6 +2,7 @@ package vues;
 
 import donnees.Colonne;
 
+import donnees.Modele;
 import donnees.TacheComposite;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -12,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class VueListes extends TableView<TacheComposite> implements StrategieModeAffichage{
@@ -52,13 +52,13 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
     }
 
     @Override
-    public void genererAffichage(List<Colonne> colonnes) {
+    public void genererAffichage(Modele model) {
 
         this.colonnes.clear();
 
         ObservableList<TacheComposite> taches = FXCollections.observableArrayList();
 
-        for (Colonne colonne : colonnes) {
+        for (Colonne colonne : model.getColonnes()) {
             String nom = colonne.getTitre();
             for(TacheComposite tache : colonne.getListe()){
                 taches.add(tache);
