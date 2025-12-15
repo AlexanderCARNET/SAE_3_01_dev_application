@@ -28,24 +28,35 @@ public class Repository {
     }
 
     public void saveAll(Modele m) throws IOException {
+        this.outputStream = new ObjectOutputStream(new FileOutputStream(Repository.nomFichierSauvegarde));
         outputStream.writeObject(m.getArchive());
         for(Colonne col : m.getColonnes()){
             outputStream.writeObject(col);
         }
+        this.outputStream.close();
     }
 
     public ArrayList<Colonne> loadColonnes() throws IOException, ClassNotFoundException {
+        this.inputStream = new ObjectInputStream(new FileInputStream(Repository.nomFichierSauvegarde));
         ArrayList<Colonne> colonnes = new ArrayList<>();
         this.inputStream.readObject();// on passe l'objet archive qui est le premier objet du fichier
-        while(inputStream.available() > 0) {
-            colonnes.add((Colonne) inputStream.readObject());
+        boolean finFichier = false;
+        while(!finFichier) {
+            try {
+                colonnes.add((Colonne) inputStream.readObject());
+            }catch(EOFException e){
+                finFichier = true;
+            }
         }
+        this.inputStream.close();
         return colonnes;
     }
 
     public Archive loadArchive() throws IOException, ClassNotFoundException {
+        this.inputStream = new ObjectInputStream(new FileInputStream(Repository.nomFichierSauvegarde));
         Archive archive;
         archive = ((Archive)this.inputStream.readObject());
+        this.inputStream.close();
         return archive;
     }
     public void closeConnexion() throws IOException {
