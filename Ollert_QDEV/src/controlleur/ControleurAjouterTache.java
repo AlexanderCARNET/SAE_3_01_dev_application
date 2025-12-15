@@ -39,27 +39,24 @@ public class ControleurAjouterTache implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent event) {
 
-        // Conversion DatePicker -> Date
         LocalDate localDate = dpDateDebut.getValue();
         Date dateDebut = (localDate == null)
                 ? null
                 : Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        Tache nouvelle = modele.ajouterTache(colonneCourante, tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut
+        Tache nouvelle = modele.ajouterTache(
+                colonneCourante,
+                tfTitre.getText(),
+                taDescription.getText(),
+                spDuree.getValue(),
+                dateDebut
         );
 
-        if (nouvelle == null) {
-            return;
-        }
-
+        if (nouvelle == null) return;
 
         for (TacheComposite dep : lvDependances.getSelectionModel().getSelectedItems()) {
             modele.ajouterDependance(nouvelle, dep);
         }
-
-
-        for (TacheComposite st : lvSousTaches.getSelectionModel().getSelectedItems()) {
-            modele.ajouterSousTache(nouvelle, st.getTitre(), st.getDescription(), st.getDuree(), st.getDateDebut());
-        }
     }
+
 }
