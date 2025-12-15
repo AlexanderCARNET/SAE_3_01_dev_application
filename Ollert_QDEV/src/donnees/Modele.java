@@ -51,4 +51,12 @@ public class Modele {
     public ArrayList<Colonne> getColonnes() {
         return colonnes;
     }
+    
+    public void ajouterColonne(Colonne c){
+        this.colonnes.add(c);
+    }
+
+    public void supprimerColonne(Colonne c){
+        this.colonnes.remove(c);
+    }
 }
