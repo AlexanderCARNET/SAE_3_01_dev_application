@@ -1,22 +1,25 @@
 package controlleur;
 
 import donnees.TacheComposite;
+import donnees.Modele;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
 
-public class ControleurAjouterDependances {
+public class ControleurAjouterDependance implements EventHandler<ActionEvent> {
 
-    private final TacheComposite tacheCible;
+    private Modele modele;
+    private ComboBox<TacheComposite> cbDependance;
 
-    public ControleurAjouterDependances(TacheComposite tacheCible) {
-        this.tacheCible = tacheCible;
+    public ControleurAjouterDependance(Modele modele, ComboBox<TacheComposite> cb) {
+        this.modele = modele;
+        this.cbDependance = cb;
     }
 
-    public boolean ajouterDependance(TacheComposite dependance) {
-
-        if (dependance == null) return false;
-        if (dependance == tacheCible) return false;
-        if (tacheCible.getDependances().contains(dependance)) return false;
-
-        tacheCible.ajouterDependances(dependance);
-        return true;
+    @Override
+    public void handle(ActionEvent event) {
+        TacheComposite dependance = cbDependance.getValue();
+        modele.ajouterDependance(dependance);
     }
 }
+
