@@ -45,5 +45,17 @@ class Repository{
     + closeConnexion()
 }
 
+interface Serializable
+class Colonne {
+- String titre
+- static final long serialVersionUID = 1L
++ Colonne(String)
++ supprimeTache(TacheComposite) : void
++ ajouteTache((TacheComposite) : void
+
+}
+Colonne --> TacheComposite : - ArrayList liste
+Colonne .u.|> Serializable
+
 
 @enduml
