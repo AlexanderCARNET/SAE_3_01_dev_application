@@ -34,15 +34,15 @@ public class TestVue extends Application {
 
         VueTaches vueTaches = new VueTaches(colonnes);
 
-        VueListes strategiaLista = new VueListes();
+        VueListes vue = new VueListes();
 
-        vueTaches.setModeAffichage(strategiaLista);
+        vueTaches.setModeAffichage(vue);
 
         vueTaches.actualiser();
 
-        VBox root = new VBox(strategiaLista);
+        VBox root = new VBox(vue);
         root.setFillWidth(true);
-        strategiaLista.prefHeightProperty().bind(root.heightProperty());
+        vue.prefHeightProperty().bind(root.heightProperty());
 
         Scene scene = new Scene(root, 600, 400);
         stage.setTitle("Ollert");
