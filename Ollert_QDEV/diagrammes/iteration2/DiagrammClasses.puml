@@ -66,6 +66,8 @@ class Repository{
     + static supprimerFichier()
 }
 
+
+
 package vues{
     interface StrategieModeAffichage{
         genererAffichage(Modele m):void
@@ -82,6 +84,11 @@ package vues{
         + genererAffichage(List<Colonne>):void
     }
 
+    class VueBureau{
+        + VueBureau()
+        +actualiser()
+    }
+
     class VueTaches{
         + VueTaches(List<Colonne>)
         + actualiser():void
@@ -90,9 +97,10 @@ package vues{
 }
 
 VueListes ..|> StrategieModeAffichage
+VueBureau ..|> StrategieModeAffichage
 VueTaches ..|> Observateur
 
-VueTaches --> "1" VueListes:modeAffichage
+VueTaches --> "1" StrategieModeAffichage
 VueTaches --> "*" Colonne
 Modele --> Observateur : - ArrayList observateurs
 StrategieModeAffichage .|> Observateur
