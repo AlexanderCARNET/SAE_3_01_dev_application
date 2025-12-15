@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ColonneTest {
 
@@ -34,7 +34,7 @@ public class ColonneTest {
         c.ajouteTache(t);
         listeTest1.add(t);
 
-        assertEquals("pas la même liste", listeTest1, c.getListe());
+        assertEquals(listeTest1, c.getListe(), "pas la même liste");
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ColonneTest {
         listeTest1.add(t);
         listeTest1.add(t2);
 
-        assertEquals("pas la même liste", listeTest1, c.getListe());
+        assertEquals(listeTest1, c.getListe(), "pas la même liste");
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ColonneTest {
         listeTest1.add(t2);
         listeTest1.add(t);
 
-        assertNotEquals("c'est pas censé être la même liste", listeTest1, c.getListe());
+        assertNotEquals(listeTest1, c.getListe(), "c'est pas censé être la même liste");
     }
 
     @Test
@@ -63,7 +63,7 @@ public class ColonneTest {
         listeTest1.add(t);
         c.supprimeTache(t);
 
-        assertTrue("la liste doit être vide", c.getListe().isEmpty());
+        assertTrue(c.getListe().isEmpty(), "la liste doit être vide");
     }
 
     @Test
@@ -72,7 +72,7 @@ public class ColonneTest {
         listeTest1.add(t);
         c.supprimeTache(t2);
 
-        assertFalse("la liste doit pas être vide", c.getListe().isEmpty());
+        assertFalse(c.getListe().isEmpty(), "la liste doit pas être vide");
     }
 
     @Test
@@ -84,7 +84,7 @@ public class ColonneTest {
         listeTest1.add(t3);
         c.supprimeTache(t2);
 
-        assertEquals("la liste n'est pas la même", c.getListe(), listeTest1);
+        assertEquals(c.getListe(), listeTest1, "la liste n'est pas la même");
     }
 
 
