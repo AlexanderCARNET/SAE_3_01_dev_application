@@ -45,5 +45,36 @@ class Repository{
     + closeConnexion()
 }
 
+package vues{
+    interface StrategieModeAffichage{
+        genererAffichage(List<Colonne>):void
+    }
+
+    interface Observateur{
+        actualiser():void
+    }
+
+    class VueListes{
+        - colonnes:Map<TacheComposite, String>
+
+        + VueListes()
+        + genererAffichage(List<Colonne>):void
+    }
+
+    class VueTaches{
+        + VueTaches(List<Colonne>)
+        + actualiser():void
+        + setModeAffichage(StrategieModeAffichage):void
+    }
+}
+
+class Colonne{}
+
+VueListes ..|> StrategieModeAffichage
+VueTaches ..|> Observateur
+
+VueTaches --> "1" VueListes:modeAffichage
+VueTaches --> "*" Colonne
+
 
 @enduml
