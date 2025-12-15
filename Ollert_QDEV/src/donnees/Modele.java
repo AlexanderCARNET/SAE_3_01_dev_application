@@ -77,7 +77,12 @@ public class Modele implements Serializable {
         return true;
     }
 
-
+    public void ajouterColonne(String titre){
+        if(titre != null || !titre.isBlank()){
+            Colonne c = new Colonne(titre);
+            ajouterColonne(c);
+        }
+    }
 
 
     public ArrayList<Observateur> getObservateurs() {
