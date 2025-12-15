@@ -69,4 +69,9 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
 
         this.setItems(taches);
     }
+
+    @Override
+    public void actualiser() {
+
+    }
 }
