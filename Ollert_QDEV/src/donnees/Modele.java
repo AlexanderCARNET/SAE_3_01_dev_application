@@ -33,7 +33,7 @@ public class Modele {
     public int getNB_MAX_COLONNES() {
         return NB_MAX_COLONNES;
     }
-    
+
     public ArrayList<Observateur> getObservateurs() {
         return observateurs;
     }
