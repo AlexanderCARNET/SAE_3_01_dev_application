@@ -25,14 +25,12 @@ class RepositoryTest {
         m.setArchive(a);
 
         //ajout de colonnes dans le modele
-        ArrayList<Colonne> colonnes = new ArrayList<Colonne>();
         Colonne c1 = new Colonne("colonne1");
         Colonne c2 = new Colonne("colonne2");
         c1.ajouteTache(new Tache("tache11","description11", 2, new Date(11)));
         c1.ajouteTache(new Tache("tache2","description2", 2, new Date(11)));
-        colonnes.add(c1);
-        colonnes.add(c2);
-        m.setColonnes(colonnes);
+        m.ajouterColonne(c1);
+        m.ajouterColonne(c2);
     }
 
     @AfterEach
