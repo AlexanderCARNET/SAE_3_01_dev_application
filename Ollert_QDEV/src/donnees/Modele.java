@@ -51,4 +51,8 @@ public class Modele {
     public ArrayList<Colonne> getColonnes() {
         return colonnes;
     }
+
+    public void setColonnes(ArrayList<Colonne> colonnes) {
+        this.colonnes = colonnes;
+    }
 }
