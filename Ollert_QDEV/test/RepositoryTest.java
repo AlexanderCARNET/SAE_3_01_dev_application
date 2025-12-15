@@ -22,15 +22,15 @@ class RepositoryTest {
         //ajout de l'archive dans le modele
         Archive a = new Archive();
         a.ajouterTache(new Tache("tache1","description1", 2, new Date(11)));
-        m.setArchive(new Archive());
+        m.setArchive(a);
 
         //ajout de colonnes dans le modele
-        ArrayList<Colonne> colonnes = new ArrayList<Colonne>();
         Colonne c1 = new Colonne("colonne1");
         Colonne c2 = new Colonne("colonne2");
         c1.ajouteTache(new Tache("tache11","description11", 2, new Date(11)));
         c1.ajouteTache(new Tache("tache2","description2", 2, new Date(11)));
-        m.setColonnes(colonnes);
+        m.ajouterColonne(c1);
+        m.ajouterColonne(c2);
     }
 
     @AfterEach
@@ -43,8 +43,10 @@ class RepositoryTest {
         Repository r = Repository.getInstance();
         r.saveAll(m);
 
-        Archive a = r.loadArchive();
-        ArrayList<Colonne> c = r.loadColonnes();
+        Modele m = r.loadAll();
+
+        Archive a = m.getArchive();
+        ArrayList<Colonne> c = m.getColonnes();
 
         //test de la recuperation du bon
         assertEquals(1, a.getTaches().size());
@@ -52,14 +54,39 @@ class RepositoryTest {
 
         //test de la recupereation de la bonne liste de colonnes
         assertEquals(2, c.size());
-        assertEquals("colonne1",c.getFirst());
-        assertEquals("colonne2",c.get(1));
+        assertEquals("colonne1",c.getFirst().getTitre());
+        assertEquals("colonne2",c.get(1).getTitre());
 
         assertEquals("tache11",c.getFirst().getListe().get(0).getTitre());
         assertEquals("tache2",c.getFirst().getListe().get(1).getTitre());
         assertEquals("description11",c.getFirst().getListe().get(0).getDescription());
         assertEquals("description2",c.getFirst().getListe().get(1).getDescription());
         assertEquals(0,c.get(1).getListe().size());
+
+        //verif sur l'archive
+        assertEquals(1,a.getTaches().size());
+
+    }
+
+    @Test
+    public void test_saveLoad_modeleNull() throws IOException, ClassNotFoundException {
+        Repository r = Repository.getInstance();
+        Modele modeleNull =  new Modele();
+        r.saveAll(modeleNull);
+
+        Modele m = r.loadAll();
+
+        Archive a = m.getArchive();
+        ArrayList<Colonne> c = m.getColonnes();
+
+        //test de la recuperation du bon
+        assertEquals(0, a.getTaches().size());
+
+        //test de la recupereation de la bonne liste de colonnes
+        assertEquals(0, c.size());
+
+        //test de l'archive
+        assertEquals(0, a.getTaches().size());
 
     }
 }
