@@ -16,5 +16,5 @@ end
 Client -> TacheComposite : supprimerSousTache(t)
 TacheComposite --> TacheComposite : sousTaches.remove(t)
 
-@enduml
+@enduml<wQ
 

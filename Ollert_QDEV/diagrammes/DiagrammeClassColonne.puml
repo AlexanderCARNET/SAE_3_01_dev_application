@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+interface Serializable
+class Colonne {
+- String titre
+- ArrayList<TacheComposite> liste
+- static final long serialVersionUID = 1L
++ Colonne(String)
++ supprimeTache(TacheComposite) : void
++ ajouteTache((TacheComposite) : void
+
+}
+
+Colonne .u.|> Serializable
+
+@enduml
