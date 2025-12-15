@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Modele {
 
+    private ArrayList<Colonne> colonnes;
     private int NB_MAX_COLONNES;
     private ArrayList<Observateur> observateurs;
     private Archive archive;
@@ -45,5 +46,9 @@ public class Modele {
 
     public void setArchive(Archive archive) {
         this.archive = archive;
+    }
+
+    public ArrayList<Colonne> getColonnes() {
+        return colonnes;
     }
 }
