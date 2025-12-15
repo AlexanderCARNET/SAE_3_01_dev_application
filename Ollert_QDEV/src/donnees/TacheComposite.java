@@ -34,11 +34,11 @@ public abstract class TacheComposite implements Serializable {
         sousTaches.remove(t);
     }
 
-    public void ajouterDependances(TacheComposite t) {
+    public void ajouterDependance(TacheComposite t) {
         dependances.add(t);
     }
 
-    public void supprimerDependances(TacheComposite t) {
+    public void supprimerDependance(TacheComposite t) {
         dependances.remove(t);
     }
 
