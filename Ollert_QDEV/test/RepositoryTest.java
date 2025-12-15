@@ -43,8 +43,10 @@ class RepositoryTest {
         Repository r = Repository.getInstance();
         r.saveAll(m);
 
-        Archive a = r.loadArchive();
-        ArrayList<Colonne> c = r.loadColonnes();
+        Modele m = r.loadAll();
+
+        Archive a = m.getArchive();
+        ArrayList<Colonne> c = m.getColonnes();
 
         //test de la recuperation du bon
         assertEquals(1, a.getTaches().size());
@@ -60,6 +62,31 @@ class RepositoryTest {
         assertEquals("description11",c.getFirst().getListe().get(0).getDescription());
         assertEquals("description2",c.getFirst().getListe().get(1).getDescription());
         assertEquals(0,c.get(1).getListe().size());
+
+        //verif sur l'archive
+        assertEquals(1,a.getTaches().size());
+
+    }
+
+    @Test
+    public void test_saveLoad_modeleNull() throws IOException, ClassNotFoundException {
+        Repository r = Repository.getInstance();
+        Modele modeleNull =  new Modele();
+        r.saveAll(modeleNull);
+
+        Modele m = r.loadAll();
+
+        Archive a = m.getArchive();
+        ArrayList<Colonne> c = m.getColonnes();
+
+        //test de la recuperation du bon
+        assertEquals(0, a.getTaches().size());
+
+        //test de la recupereation de la bonne liste de colonnes
+        assertEquals(0, c.size());
+
+        //test de l'archive
+        assertEquals(0, a.getTaches().size());
 
     }
 }

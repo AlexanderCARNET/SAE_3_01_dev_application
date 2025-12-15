@@ -1,9 +1,10 @@
 package donnees;
 import vues.Observateur;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Modele {
+public class Modele implements Serializable {
 
     private ArrayList<Colonne> colonnes;
     private final int NB_MAX_COLONNES = 5;
