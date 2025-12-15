@@ -33,6 +33,18 @@ package donnees {
     Tache --|> TacheComposite
 
     TacheComposite "1" o-- "0..*" TacheComposite : sousTaches
+
+    interface Serializable
+    class Colonne {
+    - String titre
+    - static final long serialVersionUID = 1L
+    + Colonne(String)
+    + supprimeTache(TacheComposite) : void
+    + ajouteTache((TacheComposite) : void
+
+    }
+    Colonne --> TacheComposite : - ArrayList liste
+    Colonne .u.|> Serializable
 }
 
 class Repository{
@@ -45,17 +57,36 @@ class Repository{
     + closeConnexion()
 }
 
-interface Serializable
-class Colonne {
-- String titre
-- static final long serialVersionUID = 1L
-+ Colonne(String)
-+ supprimeTache(TacheComposite) : void
-+ ajouteTache((TacheComposite) : void
+package vues{
+    interface StrategieModeAffichage{
+        genererAffichage(List<Colonne>):void
+    }
 
+    interface Observateur{
+        actualiser():void
+    }
+
+    class VueListes{
+        - colonnes:Map<TacheComposite, String>
+
+        + VueListes()
+        + genererAffichage(List<Colonne>):void
+    }
+
+    class VueTaches{
+        + VueTaches(List<Colonne>)
+        + actualiser():void
+        + setModeAffichage(StrategieModeAffichage):void
+    }
 }
-Colonne --> TacheComposite : - ArrayList liste
-Colonne .u.|> Serializable
+
+class Colonne{}
+
+VueListes ..|> StrategieModeAffichage
+VueTaches ..|> Observateur
+
+VueTaches --> "1" VueListes:modeAffichage
+VueTaches --> "*" Colonne
 
 
 @enduml
