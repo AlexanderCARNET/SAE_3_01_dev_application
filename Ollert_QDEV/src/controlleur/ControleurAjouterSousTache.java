@@ -4,43 +4,29 @@ import donnees.Modele;
 import donnees.TacheComposite;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.*;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import javafx.scene.control.ComboBox;
 
 public class ControleurAjouterSousTache implements EventHandler<ActionEvent> {
 
     private final Modele modele;
     private final ComboBox<TacheComposite> cbParente;
-    private final TextField tfTitre;
-    private final TextArea taDescription;
-    private final Spinner<Integer> spDuree;
-    private final DatePicker dpDateDebut;
+    private final ComboBox<TacheComposite> cbSousTache;
 
-    public ControleurAjouterSousTache(Modele modele, ComboBox<TacheComposite> cbParente, TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut) {
+    public ControleurAjouterSousTache(Modele modele, ComboBox<TacheComposite> cbParente, ComboBox<TacheComposite> cbSousTache) {
+
         this.modele = modele;
         this.cbParente = cbParente;
-        this.tfTitre = tfTitre;
-        this.taDescription = taDescription;
-        this.spDuree = spDuree;
-        this.dpDateDebut = dpDateDebut;
+        this.cbSousTache = cbSousTache;
     }
 
     @Override
     public void handle(ActionEvent event) {
 
-        LocalDate localDate = dpDateDebut.getValue();
-        Date dateDebut = null;
+        TacheComposite parent = cbParente.getValue();
+        TacheComposite sousTache = cbSousTache.getValue();
 
-        if (localDate != null) {
-            dateDebut = Date.from(
-                    localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
-            );
-        }
+        if (parent == null || sousTache == null) return;
 
-        modele.ajouterSousTache(cbParente.getValue(), tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut
-        );
+        modele.ajouterSousTache(parent, sousTache);
     }
 }

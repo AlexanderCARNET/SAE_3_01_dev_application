@@ -44,10 +44,11 @@ public class Modele implements Serializable {
         if (cible == dependance) return false;
         if (cible.getDependances().contains(dependance)) return false;
 
-        cible.ajouterDependances(dependance);
+        cible.ajouterDependance(dependance);
         notifier();
         return true;
     }
+
 
 
     public Tache ajouterTache(Colonne colonne, String titre, String description, int duree, Date dateDebut) {
@@ -66,15 +67,11 @@ public class Modele implements Serializable {
 
 
 
-    public boolean ajouterSousTache(TacheComposite parent, String titre, String description, int duree, Date dateDebut) {
+    public boolean ajouterSousTache(TacheComposite parent, TacheComposite sousTacheExistante) {
 
-        if (parent == null) return false;
-        if (titre == null || titre.isBlank()) return false;
-        if (duree < 0) return false;
-        if (dateDebut == null) return false;
+        if (parent == null || sousTacheExistante == null) return false;
 
-        Tache nouvelle = new Tache(titre, description, duree, dateDebut);
-        parent.ajouterSousTache(nouvelle);
+        parent.ajouterSousTache(sousTacheExistante);
 
         notifier();
         return true;
