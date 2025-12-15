@@ -6,9 +6,15 @@ import java.util.ArrayList;
 public class Modele {
 
     private ArrayList<Colonne> colonnes;
-    private int NB_MAX_COLONNES;
+    private final int NB_MAX_COLONNES = 5;
     private ArrayList<Observateur> observateurs;
     private Archive archive;
+
+    public Modele(){
+        this.colonnes = new ArrayList<Colonne>();
+        this.observateurs = new ArrayList<Observateur>();
+        this.archive = new Archive();
+    }
 
     public void notifier(){
         for(Observateur o : observateurs){
@@ -27,11 +33,7 @@ public class Modele {
     public int getNB_MAX_COLONNES() {
         return NB_MAX_COLONNES;
     }
-
-    public void setNB_MAX_COLONNES(int NB_MAX_COLONNES) {
-        this.NB_MAX_COLONNES = NB_MAX_COLONNES;
-    }
-
+    
     public ArrayList<Observateur> getObservateurs() {
         return observateurs;
     }
@@ -51,12 +53,16 @@ public class Modele {
     public ArrayList<Colonne> getColonnes() {
         return colonnes;
     }
-    
+
     public void ajouterColonne(Colonne c){
         this.colonnes.add(c);
     }
 
     public void supprimerColonne(Colonne c){
         this.colonnes.remove(c);
+    }
+
+    public void setColonnes(ArrayList<Colonne> colonnes) {
+        this.colonnes = colonnes;
     }
 }
