@@ -22,7 +22,7 @@ class RepositoryTest {
         //ajout de l'archive dans le modele
         Archive a = new Archive();
         a.ajouterTache(new Tache("tache1","description1", 2, new Date(11)));
-        m.setArchive(new Archive());
+        m.setArchive(a);
 
         //ajout de colonnes dans le modele
         ArrayList<Colonne> colonnes = new ArrayList<Colonne>();
@@ -30,6 +30,8 @@ class RepositoryTest {
         Colonne c2 = new Colonne("colonne2");
         c1.ajouteTache(new Tache("tache11","description11", 2, new Date(11)));
         c1.ajouteTache(new Tache("tache2","description2", 2, new Date(11)));
+        colonnes.add(c1);
+        colonnes.add(c2);
         m.setColonnes(colonnes);
     }
 
@@ -52,8 +54,8 @@ class RepositoryTest {
 
         //test de la recupereation de la bonne liste de colonnes
         assertEquals(2, c.size());
-        assertEquals("colonne1",c.getFirst());
-        assertEquals("colonne2",c.get(1));
+        assertEquals("colonne1",c.getFirst().getTitre());
+        assertEquals("colonne2",c.get(1).getTitre());
 
         assertEquals("tache11",c.getFirst().getListe().get(0).getTitre());
         assertEquals("tache2",c.getFirst().getListe().get(1).getTitre());
