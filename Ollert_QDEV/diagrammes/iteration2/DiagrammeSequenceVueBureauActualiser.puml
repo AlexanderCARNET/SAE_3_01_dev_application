@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Diagramme de sequence appel actualiser de VueTaches
+
+participant Modele as "Modele m"
+participant VueTaches as "VueTaches : vT"
+participant VueBureau as "VueBureau : vB"
+
+activate Modele
+Modele -> VueTaches : actualiser()
+activate VueTaches
+VueTaches -> VueBureau : actualiser()
+activate VueBureau
+VueTaches <-- VueBureau
+deactivate VueBureau
+Modele <-- VueTaches
+deactivate VueTaches
+
+@enduml
