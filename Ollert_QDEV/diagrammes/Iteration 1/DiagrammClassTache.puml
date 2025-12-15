@@ -33,6 +33,18 @@ package donnees {
     Tache --|> TacheComposite
 
     TacheComposite "1" o-- "0..*" TacheComposite : sousTaches
+
+    interface Serializable
+    class Colonne {
+    - String titre
+    - static final long serialVersionUID = 1L
+    + Colonne(String)
+    + supprimeTache(TacheComposite) : void
+    + ajouteTache((TacheComposite) : void
+
+    }
+    Colonne --> TacheComposite : - ArrayList liste
+    Colonne .u.|> Serializable
 }
 
 class Repository{
