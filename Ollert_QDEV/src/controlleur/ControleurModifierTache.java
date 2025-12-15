@@ -1,27 +1,46 @@
 package controlleur;
 
+import donnees.Modele;
 import donnees.TacheComposite;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
-public class ControleurModifierTache {
+public class ControleurModifierTache implements EventHandler<ActionEvent> {
 
-    private final TacheComposite tache;
+    private final Modele modele;
+    private final ComboBox<TacheComposite> cbTache;
+    private final TextField tfTitre;
+    private final TextArea taDescription;
+    private final Spinner<Integer> spDuree;
+    private final DatePicker dpDateDebut;
 
-    public ControleurModifierTache(TacheComposite tache) {
-        this.tache = tache;
+    public ControleurModifierTache(Modele modele, ComboBox<TacheComposite> cbTache,TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut) {
+        this.modele = modele;
+        this.cbTache = cbTache;
+        this.tfTitre = tfTitre;
+        this.taDescription = taDescription;
+        this.spDuree = spDuree;
+        this.dpDateDebut = dpDateDebut;
     }
 
-    public boolean modifierTache(String titre, String description, int duree, Date dateDebut) {
+    @Override
+    public void handle(ActionEvent event) {
 
-        if (titre == null || titre.isBlank()) return false;
-        if (duree < 0) return false;
-        if (dateDebut == null) return false;
+        LocalDate localDate = dpDateDebut.getValue();
+        Date dateDebut = null;
 
-        tache.setTitre(titre);
-        tache.setDescription(description);
-        tache.setDuree(duree);
-        tache.setDateDebut(dateDebut);
+        if (localDate != null) {
+            dateDebut = Date.from(
+                    localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+            );
+        }
 
-        return true;
+        modele.modifierTache(cbTache.getValue(), tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut
+        );
     }
 }

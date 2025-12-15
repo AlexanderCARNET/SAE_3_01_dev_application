@@ -83,6 +83,23 @@ public class Modele implements Serializable {
             ajouterColonne(c);
         }
     }
+    public boolean modifierTache(TacheComposite tache, String titre, String description, int duree, Date dateDebut) {
+
+        if (tache == null) return false;
+        if (titre == null || titre.isBlank()) return false;
+        if (duree < 0) return false;
+        if (dateDebut == null) return false;
+
+        tache.setTitre(titre);
+        tache.setDescription(description);
+        tache.setDuree(duree);
+        tache.setDateDebut(dateDebut);
+
+        notifier();
+        return true;
+    }
+
+
 
 
     public ArrayList<Observateur> getObservateurs() {

@@ -1,21 +1,16 @@
 package vues;
 
-import donnees.Colonne;
-import donnees.Tache;
-
-
-
-import java.util.List;
+import donnees.Modele;
 
 public class VueTaches implements Observateur{
 
-    private List<Colonne> colonnes;
+    private Modele model;
 
     private StrategieModeAffichage modeAffichage;
 
-    public VueTaches(List<Colonne> colonnes) {
+    public VueTaches(Modele mod) {
         super();
-        this.colonnes = colonnes;
+        this.model = mod;
     }
 
     public void setModeAffichage(StrategieModeAffichage mode){
@@ -24,6 +19,6 @@ public class VueTaches implements Observateur{
 
     @Override
     public void actualiser(){
-        this.modeAffichage.genererAffichage(this.colonnes);
+        this.modeAffichage.genererAffichage(this.model);
     }
 }
