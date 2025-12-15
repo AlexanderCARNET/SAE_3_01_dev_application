@@ -2,6 +2,9 @@ package donnees;
 import vues.Observateur;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.time.LocalDate;
+
 
 public class Modele {
 
@@ -44,6 +47,22 @@ public class Modele {
         notifier();
         return true;
     }
+
+    public boolean ajouterTache(Colonne colonne, String titre, String description, int duree, Date dateDebut) {
+
+        if (colonne == null) return false;
+        if (titre == null || titre.isBlank()) return false;
+        if (duree < 0) return false;
+        if (dateDebut == null) return false;
+
+        Tache tache = new Tache(titre, description, duree, dateDebut);
+        colonne.ajouteTache(tache);
+
+        notifier();
+        return true;
+    }
+
+
 
     public ArrayList<Observateur> getObservateurs() {
         return observateurs;

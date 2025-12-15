@@ -1,28 +1,36 @@
 package controlleur;
 
 import donnees.Colonne;
-import donnees.Tache;
+import donnees.Modele;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
-public class ControleurAjouterTache {
+public class ControleurAjouterTache implements EventHandler<ActionEvent> {
 
-    private final Colonne colonne;
+    private Modele modele;
+    private TextField tfTitre;
+    private TextArea taDescription;
+    private Spinner<Integer> spDuree;
+    private DatePicker dpDateDebut;
+    private ComboBox<Colonne> cbColonne;
 
-    public ControleurAjouterTache(Colonne colonne) {
-        this.colonne = colonne;
-    }
+    @Override
+    public void handle(ActionEvent event) {
 
-    public boolean ajouterTache(String titre, String description, int duree, Date dateDebut) {
+        LocalDate localDate = dpDateDebut.getValue();
 
-        if (titre == null || titre.isBlank()) return false;
-        if (duree < 0) return false;
-        if (dateDebut == null) return false;
+        Date dateDebut = null;
+        if (localDate != null) {
+            dateDebut = Date.from(
+                    localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+            );
+        }
 
-        Tache t = new Tache(titre, description, duree, dateDebut);
-
-        colonne.ajouteTache(t);
-
-        return true;
+        modele.ajouterTache(cbColonne.getValue(), tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut);
     }
 }
