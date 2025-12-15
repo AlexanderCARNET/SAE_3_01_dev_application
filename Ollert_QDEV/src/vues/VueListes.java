@@ -9,7 +9,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.converter.DefaultStringConverter;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -18,9 +20,12 @@ import java.util.Map;
 public class VueListes extends TableView<TacheComposite> implements StrategieModeAffichage{
 
     private Map<TacheComposite, String> colonnes = new HashMap<>();
+    private ObservableList<String> nomColonnes = FXCollections.observableArrayList();
+    private Modele model;
 
     public VueListes() {
         super();
+        this.setEditable(true);
         this.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         TableColumn<TacheComposite,String> colTache = new TableColumn<>("Tache");
@@ -32,6 +37,19 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
             String colonne = colonnes.get(tache);
             return new SimpleStringProperty(colonne);
         });
+
+        colCol.setCellFactory(ComboBoxTableCell.forTableColumn(new DefaultStringConverter(), nomColonnes));
+
+        colCol.setOnEditCommit(event -> {
+            String newCol = event.getNewValue();
+            String oldCol = event.getOldValue();
+            TacheComposite tache = event.getRowValue();
+
+            this.colonnes.put(tache, newCol);
+
+            deplacerTache(tache, newCol, oldCol);
+        });
+
         colCol.setStyle("-fx-alignment: CENTER;");
 
         TableColumn<TacheComposite, String> colDate = new TableColumn<>("Date debut");
@@ -53,6 +71,7 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
 
     @Override
     public void genererAffichage(Modele model) {
+        this.model=model;
 
         this.colonnes.clear();
 
@@ -60,6 +79,8 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
 
         for (Colonne colonne : model.getColonnes()) {
             String nom = colonne.getTitre();
+
+            this.nomColonnes.add(nom);
             for(TacheComposite tache : colonne.getListe()){
                 taches.add(tache);
 
@@ -68,5 +89,14 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
         }
 
         this.setItems(taches);
+    }
+
+    private void deplacerTache(TacheComposite tache, String newCol, String oldCol){
+        for(Colonne colonne: this.model.getColonnes()){
+            if(colonne.getTitre().equals(oldCol))
+                colonne.supprimeTache(tache);
+            if(colonne.getTitre().equals(newCol))
+                colonne.ajouteTache(tache);
+        }
     }
 }
