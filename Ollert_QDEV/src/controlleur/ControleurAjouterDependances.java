@@ -6,20 +6,24 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ComboBox;
 
-public class ControleurAjouterDependance implements EventHandler<ActionEvent> {
+public class ControleurAjouterDependances implements EventHandler<ActionEvent> {
 
-    private Modele modele;
-    private ComboBox<TacheComposite> cbDependance;
+    private final Modele modele;
+    private final ComboBox<TacheComposite> cbCible;
+    private final ComboBox<TacheComposite> cbDependance;
 
-    public ControleurAjouterDependance(Modele modele, ComboBox<TacheComposite> cb) {
+    public ControleurAjouterDependances(Modele modele, ComboBox<TacheComposite> cbCible, ComboBox<TacheComposite> cbDependance) {
         this.modele = modele;
-        this.cbDependance = cb;
+        this.cbCible = cbCible;
+        this.cbDependance = cbDependance;
     }
 
     @Override
     public void handle(ActionEvent event) {
+        TacheComposite cible = cbCible.getValue();
         TacheComposite dependance = cbDependance.getValue();
-        modele.ajouterDependance(dependance);
+        modele.ajouterDependance(cible, dependance);
     }
 }
+
 
