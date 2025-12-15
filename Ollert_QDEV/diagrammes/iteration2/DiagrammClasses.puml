@@ -2,6 +2,14 @@
 
 package donnees {
 
+    class Modele {
+            - final int NB_MAX_COLONNES = 5;
+        }
+        Modele ..|> Serializable
+        Modele --> Colonne : - ArrayList colonnes
+
+        Modele --> Archive : - archive
+
     abstract class TacheComposite {
         - List<TacheComposite> sousTaches
         - String titre
@@ -85,6 +93,8 @@ VueListes ..|> StrategieModeAffichage
 VueTaches ..|> Observateur
 
 VueTaches --> "1" VueListes:modeAffichage
+VueTaches --> "*" Colonne
+Modele --> Observateur : - ArrayList observateurs
 StrategieModeAffichage .|> Observateur
 
 

@@ -1,26 +1,17 @@
 package controlleur;
-import donnees.Colonne;
 import donnees.Modele;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.TextArea;
 
-import java.util.ArrayList;
 
-public class ControleurAjouterColonne {
+public class ControleurAjouterColonne implements EventHandler<ActionEvent> {
 
-    private final Modele modele;
+    private Modele modele;
+    private TextArea taTitre;
 
-    public ControleurAjouterColonne(Modele m){
-        this.modele = m;
+    @Override
+    public void handle(ActionEvent actionEvent) {
+        modele.ajouterColonne(taTitre.getText());
     }
-
-    public boolean ajouterColonne(String titre){
-        if(titre == null || titre.isBlank()){
-            return false;
-        }
-        Colonne c = new Colonne(titre);
-        modele.ajouterColonne(c);
-
-        return true;
-    }
-
-
 }
