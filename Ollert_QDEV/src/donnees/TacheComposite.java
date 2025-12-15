@@ -10,6 +10,7 @@ public abstract class TacheComposite implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected List<TacheComposite> sousTaches = new ArrayList<>();
+    protected List<TacheComposite> dépendances = new ArrayList<>();
 
 
     protected String titre;
