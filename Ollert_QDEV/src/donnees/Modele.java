@@ -82,6 +82,9 @@ public class Modele implements Serializable {
             Colonne c = new Colonne(titre);
             ajouterColonne(c);
         }
+
+        notifier();
+
     }
     public boolean modifierTache(TacheComposite tache, String titre, String description, int duree, Date dateDebut) {
 
