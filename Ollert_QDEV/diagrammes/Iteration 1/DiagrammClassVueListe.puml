@@ -6,7 +6,7 @@ package vues{
     }
 
     interface Observateur{
-        actualiser(List<Colonne>):void
+        actualiser():void
     }
 
     class VueListes{
@@ -18,7 +18,7 @@ package vues{
 
     class VueTaches{
         + VueTaches(List<Colonne>)
-        + actualiser(List<Colonne>):void
+        + actualiser():void
         + setModeAffichage(StrategieModeAffichage):void
     }
 }

@@ -1,19 +1,16 @@
 package vues;
 
 import donnees.Colonne;
-import donnees.Tache;
 
 import donnees.TacheComposite;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,30 +34,18 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
         });
         colCol.setStyle("-fx-alignment: CENTER;");
 
-        TableColumn<TacheComposite, Date> colDate = new TableColumn<>("Date debut");
-        colDate.setCellValueFactory(new PropertyValueFactory<>("dateDebut"));
-        colDate.setStyle("-fx-alignment: CENTER;");
-        colDate.setCellFactory(column -> new TableCell<TacheComposite, Date>() {
-            private final SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
-            @Override
-            protected void updateItem(Date item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) setText(null);
-                else setText(format.format(item));
-            }
+        TableColumn<TacheComposite, String> colDate = new TableColumn<>("Date debut");
+        colDate.setCellValueFactory(cellData -> {
+            TacheComposite tache = cellData.getValue();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String date = sdf.format(tache.getDateDebut());
+            return new SimpleStringProperty(date);
         });
+        colDate.setStyle("-fx-alignment: CENTER;");
 
         TableColumn<TacheComposite, Integer> colDuree = new TableColumn<>("Duree");
         colDuree.setCellValueFactory(new PropertyValueFactory<>("duree"));
         colDuree.setStyle("-fx-font-size: 15px; -fx-alignment: CENTER;");
-        colDuree.setCellFactory(column -> new TableCell<TacheComposite, Integer>() {
-            @Override
-            protected void updateItem(Integer item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) setText(null);
-                else setText(item+"");
-            }
-        });
 
         this.getColumns().addAll(colTache,colCol,colDate,colDuree);
 

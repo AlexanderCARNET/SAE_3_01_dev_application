@@ -23,7 +23,7 @@ public class VueTaches implements Observateur{
     }
 
     @Override
-    public void actualiser(List<Colonne> colonnes){
-        this.modeAffichage.genererAffichage(colonnes);
+    public void actualiser(){
+        this.modeAffichage.genererAffichage(this.colonnes);
     }
 }
