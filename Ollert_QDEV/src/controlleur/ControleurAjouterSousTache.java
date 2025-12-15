@@ -1,31 +1,46 @@
 package controlleur;
 
-import donnees.Tache;
+import donnees.Modele;
 import donnees.TacheComposite;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
-public class ControleurAjouterSousTache  {
+public class ControleurAjouterSousTache implements EventHandler<ActionEvent> {
 
-    private final TacheComposite tacheParente;
+    private final Modele modele;
+    private final ComboBox<TacheComposite> cbParente;
+    private final TextField tfTitre;
+    private final TextArea taDescription;
+    private final Spinner<Integer> spDuree;
+    private final DatePicker dpDateDebut;
 
-    public ControleurAjouterSousTache(TacheComposite parent) {
-        this.tacheParente = parent;
+    public ControleurAjouterSousTache(Modele modele, ComboBox<TacheComposite> cbParente, TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut) {
+        this.modele = modele;
+        this.cbParente = cbParente;
+        this.tfTitre = tfTitre;
+        this.taDescription = taDescription;
+        this.spDuree = spDuree;
+        this.dpDateDebut = dpDateDebut;
     }
 
+    @Override
+    public void handle(ActionEvent event) {
 
-    public boolean ajouterSousTache(String titre, String description, int duree, Date dateDebut) {
+        LocalDate localDate = dpDateDebut.getValue();
+        Date dateDebut = null;
 
-        if (titre == null || titre.isBlank()) return false;
-        if (duree < 0) return false;
-        if (dateDebut == null) return false;
+        if (localDate != null) {
+            dateDebut = Date.from(
+                    localDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+            );
+        }
 
-        Tache nouvelle = new Tache(titre, description, duree, dateDebut);
-
-        tacheParente.ajouterSousTache(nouvelle);
-
-        return true;
+        modele.ajouterSousTache(cbParente.getValue(), tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut
+        );
     }
 }
-
-

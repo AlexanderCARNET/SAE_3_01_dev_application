@@ -1,6 +1,10 @@
 package vues;
 
+import donnees.Colonne;
 
-public interface Observateur {
+import java.io.Serializable;
+import java.util.List;
+
+public interface Observateur extends Serializable {
     void actualiser();
 }
