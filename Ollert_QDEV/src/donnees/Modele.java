@@ -34,7 +34,18 @@ public class Modele implements Serializable {
     public int getNB_MAX_COLONNES() {
         return NB_MAX_COLONNES;
     }
-    
+
+    public boolean ajouterDependance(TacheComposite cible, TacheComposite dependance) {
+
+        if (cible == null || dependance == null) return false;
+        if (cible == dependance) return false;
+        if (cible.getDependances().contains(dependance)) return false;
+
+        cible.ajouterDependances(dependance);
+        notifier();
+        return true;
+    }
+
     public ArrayList<Observateur> getObservateurs() {
         return observateurs;
     }
