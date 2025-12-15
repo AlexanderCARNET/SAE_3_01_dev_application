@@ -34,7 +34,6 @@ public class Modele {
         return NB_MAX_COLONNES;
     }
 
-
     public boolean ajouterDependance(TacheComposite cible, TacheComposite dependance) {
 
         if (cible == null || dependance == null) return false;
@@ -45,7 +44,6 @@ public class Modele {
         notifier();
         return true;
     }
-
 
     public ArrayList<Observateur> getObservateurs() {
         return observateurs;
