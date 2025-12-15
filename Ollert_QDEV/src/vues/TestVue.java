@@ -45,7 +45,7 @@ public class TestVue extends Application {
         strategiaLista.prefHeightProperty().bind(root.heightProperty());
 
         Scene scene = new Scene(root, 600, 400);
-        stage.setTitle("Test Pattern Strategy");
+        stage.setTitle("Ollert");
         stage.setScene(scene);
         stage.show();
     }
