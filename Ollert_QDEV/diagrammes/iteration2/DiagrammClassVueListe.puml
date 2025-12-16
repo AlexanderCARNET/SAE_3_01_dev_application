@@ -1,0 +1,58 @@
+@startuml
+
+package vues{
+    interface StrategieModeAffichage{
+        genererAffichage(List<Colonne>):void
+    }
+
+    interface Observateur{
+        actualiser():void
+    }
+
+    class VueListes{
+        - addTache:Button
+        - colonnes:Map<TacheComposite, String>
+        - table:TableView<TacheComposite>
+        - nomColonnes:ObservableList<String>
+
+
+        + VueListes()
+        + genererAffichage(List<Colonne>):void
+        - creeTable():void
+        - deplacerTache(TacheComposite, String, String):void
+        - gestionAjout(): void
+    }
+
+    class VueTaches{
+        + VueTaches(List<Colonne>)
+        + actualiser():void
+        + setModeAffichage(StrategieModeAffichage):void
+    }
+
+    class PopupAddTache{
+        +display(Modele, Colonne): void
+    }
+}
+
+class Colonne{}
+
+class Modele{}
+
+class VBox{}
+
+class ControleurAjouterTache{}
+
+VueListes ..|> StrategieModeAffichage
+VueListes --> "1" Modele:model
+VueListes --|> VBox
+VueListes ...> "<<use>>" PopupAddTache
+
+
+VueTaches ..|> Observateur
+VueTaches --> "1" StrategieModeAffichage:modeAffichage
+VueTaches --> "*" Colonne
+VueTaches --> "1" Modele:model
+
+PopupAddTache ...> "<<use>>" ControleurAjouterTache
+
+@enduml

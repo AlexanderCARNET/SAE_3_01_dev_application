@@ -1,0 +1,64 @@
+@startuml
+
+actor "Utilisateur" as User
+participant "VueListes" as V
+participant "PopupAddTache" as P
+participant "ControleurAjouterTache" as C
+participant "Modele" as M
+participant "Colonne" as Col
+participant "Tache" as T
+
+title Séquence : Ajout d'une nouvelle tâche
+
+User -> V : Clique sur le bouton "Ajouter"
+activate V
+
+V -> P : display(modele, colonne)
+activate P
+
+Note right of P : Création de l'interface graphique\n(TextField, DatePicker, etc.)
+
+create C
+P -> C : new(modele, colonne, tfTitre, ...)
+
+P --> User : Affiche la fenêtre (showAndWait)
+
+User -> P : Saisit les données (Titre, Date...)
+User -> P : Clique sur "Ajouter"
+
+P -> C : handle(event)
+activate C
+
+C -> C : Lit les données des champs (tfTitre.getText...)
+C -> M : ajouterTache(colonne, titre, ...)
+activate M
+
+create T
+M -> T : new(...)
+M -> Col : ajouteTache(nouvelleTache)
+M --> C : retourne nouvelleTache
+deactivate M
+
+loop Pour chaque dépendance sélectionnée
+    C -> M : ajouterDependance(nouvelleTache, dep)
+end
+
+loop Pour chaque sous-tâche sélectionnée
+    C -> M : ajouterSousTache(nouvelleTache, sous)
+end
+
+C --> P : return (void)
+deactivate C
+
+P -> P : window.close()
+
+P -> M : notifier()
+activate M
+M -> V : actualiser() / genererAffichage()
+deactivate M
+
+return Retour au contrôle de l'UI
+deactivate P
+deactivate V
+
+@enduml
