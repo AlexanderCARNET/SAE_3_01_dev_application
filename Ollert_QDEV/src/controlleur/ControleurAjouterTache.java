@@ -57,6 +57,10 @@ public class ControleurAjouterTache implements EventHandler<ActionEvent> {
         for (TacheComposite dep : lvDependances.getSelectionModel().getSelectedItems()) {
             modele.ajouterDependance(nouvelle, dep);
         }
+
+        for (TacheComposite sous : lvSousTaches.getSelectionModel().getSelectedItems()){
+            modele.ajouterSousTache(nouvelle, sous);
+        }
     }
 
 }
