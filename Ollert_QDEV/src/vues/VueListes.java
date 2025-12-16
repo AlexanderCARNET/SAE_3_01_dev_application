@@ -7,26 +7,36 @@ import donnees.TacheComposite;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.util.converter.DefaultStringConverter;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VueListes extends TableView<TacheComposite> implements StrategieModeAffichage{
+public class VueListes extends VBox implements StrategieModeAffichage{
+
+    private TableView<TacheComposite> table;
+    private Button addTache;
 
     private Map<TacheComposite, String> colonnes = new HashMap<>();
     private ObservableList<String> nomColonnes = FXCollections.observableArrayList();
     private Modele model;
 
     public VueListes() {
-        super();
-        this.setEditable(true);
-        this.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        super(10);
+        this.setPadding(new Insets(10));
+
+        this.table = new TableView<>();
+        this.table.setEditable(true);
+        this.table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         VBox.setVgrow(table, Priority.ALWAYS);
 
@@ -77,15 +87,14 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
         colDuree.setCellValueFactory(new PropertyValueFactory<>("duree"));
         colDuree.setStyle("-fx-font-size: 15px; -fx-alignment: CENTER;");
 
-        this.getColumns().addAll(colTache,colCol,colDate,colDuree);
-
+        this.table.getColumns().addAll(colTache,colCol,colDate,colDuree);
     }
 
     @Override
     public void genererAffichage(Modele model) {
-        this.model=model;
-
+        this.model = model;
         this.colonnes.clear();
+        this.nomColonnes.clear();
 
         ObservableList<TacheComposite> taches = FXCollections.observableArrayList();
 
@@ -100,7 +109,7 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
             }
         }
 
-        this.setItems(taches);
+        this.table.setItems(taches);
     }
 
     private void deplacerTache(TacheComposite tache, String newCol, String oldCol){
