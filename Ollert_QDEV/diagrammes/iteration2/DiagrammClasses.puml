@@ -6,7 +6,7 @@ package donnees {
             - final int NB_MAX_COLONNES = 5;
         }
         Modele ..|> Serializable
-        Modele --> Colonne : - ArrayList colonnes
+        Modele --> "*" Colonne : - colonnes
 
         Modele --> Archive : - archive
 
@@ -51,7 +51,7 @@ package donnees {
     + ajouteTache((TacheComposite) : void
 
     }
-    Colonne --> TacheComposite : - ArrayList liste
+    Colonne -->  "*" TacheComposite : - liste
     Colonne .u.|> Serializable
 }
 
@@ -95,6 +95,6 @@ VueTaches ..|> Observateur
 
 VueTaches --> "1" VueListes:modeAffichage
 VueTaches --> "*" Colonne
-Modele --> Observateur : - ArrayList observateurs
+Modele --> "* "Observateur : - observateurs
 
 @enduml
