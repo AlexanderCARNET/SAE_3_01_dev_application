@@ -1,31 +1,32 @@
 package controlleur;
 
-import donnees.Tache;
+import donnees.Modele;
 import donnees.TacheComposite;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.ComboBox;
 
-import java.util.Date;
+public class ControleurAjouterSousTache implements EventHandler<ActionEvent> {
 
-public class ControleurAjouterSousTache  {
+    private final Modele modele;
+    private final ComboBox<TacheComposite> cbParente;
+    private final ComboBox<TacheComposite> cbSousTache;
 
-    private final TacheComposite tacheParente;
+    public ControleurAjouterSousTache(Modele modele, ComboBox<TacheComposite> cbParente, ComboBox<TacheComposite> cbSousTache) {
 
-    public ControleurAjouterSousTache(TacheComposite parent) {
-        this.tacheParente = parent;
+        this.modele = modele;
+        this.cbParente = cbParente;
+        this.cbSousTache = cbSousTache;
     }
 
+    @Override
+    public void handle(ActionEvent event) {
 
-    public boolean ajouterSousTache(String titre, String description, int duree, Date dateDebut) {
+        TacheComposite parent = cbParente.getValue();
+        TacheComposite sousTache = cbSousTache.getValue();
 
-        if (titre == null || titre.isBlank()) return false;
-        if (duree < 0) return false;
-        if (dateDebut == null) return false;
+        if (parent == null || sousTache == null) return;
 
-        Tache nouvelle = new Tache(titre, description, duree, dateDebut);
-
-        tacheParente.ajouterSousTache(nouvelle);
-
-        return true;
+        modele.ajouterSousTache(parent, sousTache);
     }
 }
-
-
