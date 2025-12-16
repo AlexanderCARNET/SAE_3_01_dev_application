@@ -99,4 +99,19 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
                 colonne.ajouteTache(tache);
         }
     }
+
+    private void gestionAjout(){
+        if(this.model == null || this.model.getColonnes().isEmpty()){
+            //throw new ;
+
+            System.out.println("You dont have a model or the colonnes are empty.");
+            return;
+        }
+
+        Colonne col = this.model.getColonnes().get(0);
+
+        PopupAddTache.display(this.model, col);
+
+        this.genererAffichage(this.model);
+    }
 }
