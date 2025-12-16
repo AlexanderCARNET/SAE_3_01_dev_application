@@ -58,6 +58,12 @@ public class PopupAddTache {
         ListView<TacheComposite> sousTaches = new ListView<>();
         sousTaches.setPrefHeight(100);
 
+        sousTaches.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        for (Colonne c : modele.getColonnes()) {
+            sousTaches.getItems().addAll(c.getListe());
+        }
+
         grid.add(lTitre, 0, 0);       grid.add(tTitre, 1, 0);
         grid.add(lDesc, 0, 1);        grid.add(tDesc, 1, 1);
         grid.add(lDuree, 0, 2);       grid.add(duree, 1, 2);
@@ -66,9 +72,9 @@ public class PopupAddTache {
         VBox boxListes = new VBox(5, lDep, dependances, lSous, sousTaches);
         grid.add(boxListes, 0, 4, 2, 1);
 
-        Button btnAjouter = new Button("Ajouter");
-        Button btnAnnuler = new Button("Annuler");
-        HBox buttonBox = new HBox(10, btnAnnuler, btnAjouter);
+        Button ajouter = new Button("Ajouter");
+        Button annuler = new Button("Annuler");
+        HBox buttonBox = new HBox(10, annuler, ajouter);
         buttonBox.setAlignment(Pos.CENTER_RIGHT);
         grid.add(buttonBox, 1, 5);
 
@@ -83,7 +89,7 @@ public class PopupAddTache {
                 sousTaches
         );
 
-        btnAjouter.setOnAction(event -> {
+        ajouter.setOnAction(event -> {
 
             controller.handle(event);
 
@@ -92,7 +98,7 @@ public class PopupAddTache {
             modele.notifier();
         });
 
-        btnAnnuler.setOnAction(e -> window.close());
+        annuler.setOnAction(e -> window.close());
 
         Scene scene = new Scene(grid);
         window.setScene(scene);
