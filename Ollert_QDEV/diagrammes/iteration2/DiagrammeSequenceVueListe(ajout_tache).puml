@@ -1,0 +1,64 @@
+@startuml
+
+actor "Utilisateur" as User
+participant "VueListes" as VL
+participant "PopupAddTache" as POP
+participant "ControleurAjouterTache" as CTRL
+participant "Modele" as MOD
+participant "Colonne" as COL
+participant "Tache" as T
+
+title Séquence : Ajout d'une nouvelle tâche
+
+User -> VL : Clique sur le bouton "Ajouter"
+activate VL
+
+VL -> POP : display(modele, colonne)
+activate POP
+
+Note right of POP : Création de l'interface graphique\n(TextField, DatePicker, etc.)
+
+create CTRL
+POP -> CTRL : new(modele, colonne, tfTitre, ...)
+
+POP --> User : Affiche la fenêtre (showAndWait)
+
+User -> POP : Saisit les données (Titre, Date...)
+User -> POP : Clique sur "Ajouter"
+
+POP -> CTRL : handle(event)
+activate CTRL
+
+CTRL -> CTRL : Lit les données des champs (tfTitre.getText...)
+CTRL -> MOD : ajouterTache(colonne, titre, ...)
+activate MOD
+
+create T
+MOD -> T : new(...)
+MOD -> COL : ajouteTache(nouvelleTache)
+MOD --> CTRL : retourne nouvelleTache
+deactivate MOD
+
+loop Pour chaque dépendance sélectionnée
+    CTRL -> MOD : ajouterDependance(nouvelleTache, dep)
+end
+
+loop Pour chaque sous-tâche sélectionnée
+    CTRL -> MOD : ajouterSousTache(nouvelleTache, sous)
+end
+
+CTRL --> POP : return (void)
+deactivate CTRL
+
+POP -> POP : window.close()
+
+POP -> MOD : notifier()
+activate MOD
+MOD -> VL : actualiser() / genererAffichage()
+deactivate MOD
+
+return Retour au contrôle de l'UI
+deactivate POP
+deactivate VL
+
+@enduml
