@@ -28,6 +28,18 @@ public class VueListes extends TableView<TacheComposite> implements StrategieMod
         this.setEditable(true);
         this.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        VBox.setVgrow(table, Priority.ALWAYS);
+
+        creeTable();
+
+        this.addTache = new Button("Ajouter une tache");
+        this.addTache.setMaxWidth(150);
+        this.addTache.setOnAction( e -> gestionAjout());
+
+        this.getChildren().addAll(table, addTache);
+    }
+
+    private void creeTable(){
         TableColumn<TacheComposite,String> colTache = new TableColumn<>("Tache");
         colTache.setCellValueFactory(new PropertyValueFactory<>("titre"));
 
