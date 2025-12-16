@@ -119,6 +119,16 @@ public class VueListes extends VBox implements StrategieModeAffichage{
             if(colonne.getTitre().equals(newCol))
                 colonne.ajouteTache(tache);
         }
+
+        System.out.println("\n");
+        for(Colonne colonne: this.model.getColonnes()){
+            if(colonne.getTitre().equals(oldCol) || colonne.getTitre().equals(newCol)){
+                System.out.println(colonne.getTitre());
+                for(TacheComposite task : colonne.getListe()){
+                    System.out.println(task.getTitre());
+                }
+            }
+        }
     }
 
     private void gestionAjout(){
