@@ -4,6 +4,14 @@ package donnees {
 
     class Modele {
             - final int NB_MAX_COLONNES = 5;
+
+            + ajouterTache(col : Colonne, titre : String, description : String, duree : int, date : Date) : Tache
+            + modifierTache(t : TacheComposite, titre : String, description : String, duree : int, date : Date) : boolean
+            + ajouterSousTache(parent : TacheComposite, enfant : TacheComposite) : boolean
+            + ajouterDependance(cible : TacheComposite, dep : TacheComposite) : boolean
+            + notifier() : void
+
+
         }
         Modele ..|> Serializable
         Modele --> "*" Colonne : - colonnes
@@ -11,7 +19,6 @@ package donnees {
         Modele --> Archive : - archive
 
     abstract class TacheComposite {
-        - List<TacheComposite> sousTaches
         - String titre
         - String description
         - int duree
@@ -23,15 +30,8 @@ package donnees {
         + List<TacheComposite> getSousTaches()
         + void setSousTaches(List<TacheComposite>)
         + boolean modifierTache(String, String, int, Date)
-        + void archiver()
-        + String getTitre()
-        + void setTitre(String)
-        + String getDescription()
-        + void setDescription(String)
-        + int getDuree()
-        + void setDuree(int)
-        + Date getDateDebut()
-        + void setDateDebut(Date)
++ ajouterDependance(t : TacheComposite) : void
++ supprimerDependance(t : TacheComposite) : void
     }
 
     class Tache {
@@ -40,7 +40,9 @@ package donnees {
 
     Tache --|> TacheComposite
 
-    TacheComposite "1" o-- "0..*" TacheComposite : sousTaches
+    TacheComposite "1" --> "0..*" TacheComposite : sousTaches
+        TacheComposite "1" --> "0..*" TacheComposite : dependances
+
 
     interface Serializable
     class Colonne {
@@ -88,6 +90,38 @@ package vues{
         + setModeAffichage(StrategieModeAffichage):void
     }
 }
+
+ class ControleurAjouterTache  {
+
+
+    private final TextField tfTitre;
+    private final TextArea taDescription;
+    private final Spinner<Integer> spDuree;
+    private final DatePicker dpDateDebut;
+
+    private final ListView<TacheComposite> lvDependances;
+    private final ListView<TacheComposite> lvSousTaches;
+
+    public ControleurAjouterTache(Modele modele, Colonne colonneCourante, \n TextField tfTitre,TextArea taDescription, Spinner<Integer> spDuree, \n DatePicker dpDateDebut,ListView<TacheComposite> lvDependances, \n ListView<TacheComposite> lvSousTaches);
+
+    public void handle(ActionEvent event);
+
+}
+
+class ControleurAjouterSousTache{
+- modele : Modele
+- cbParente : ComboBox<TacheComposite>
+- cbSousTache : ComboBox<TacheComposite>
++ ControleurAjouterSousTache( modele : Modele\n,  cbParente : ComboBox<TacheComposite>, \n cbSousTache : ComboBox<TacheComposite>)
++ handle(event : ActionEvent) : void
+}
+
+ControleurAjouterSousTache --> Modele : modele
+
+
+
+ ControleurAjouterTache --> Modele : - modele
+ ControleurAjouterTache --> Colonne : -colonneCourante
 
 
 VueListes ..|> StrategieModeAffichage
