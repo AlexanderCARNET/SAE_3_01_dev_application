@@ -4,14 +4,21 @@ package donnees {
 
     class Modele {
             - final int NB_MAX_COLONNES = 5;
+
+            + ajouterTache(col : Colonne, titre : String, description : String, duree : int, date : Date) : Tache
+            + modifierTache(t : TacheComposite, titre : String, description : String, duree : int, date : Date) : boolean
+            + ajouterSousTache(parent : TacheComposite, enfant : TacheComposite) : boolean
+            + ajouterDependance(cible : TacheComposite, dep : TacheComposite) : boolean
+            + notifier() : void
+
+
         }
         Modele ..|> Serializable
-        Modele --> Colonne : - ArrayList colonnes
+        Modele --> "*" Colonne : - colonnes
 
         Modele --> Archive : - archive
 
     abstract class TacheComposite {
-        - List<TacheComposite> sousTaches
         - String titre
         - String description
         - int duree
@@ -23,15 +30,8 @@ package donnees {
         + List<TacheComposite> getSousTaches()
         + void setSousTaches(List<TacheComposite>)
         + boolean modifierTache(String, String, int, Date)
-        + void archiver()
-        + String getTitre()
-        + void setTitre(String)
-        + String getDescription()
-        + void setDescription(String)
-        + int getDuree()
-        + void setDuree(int)
-        + Date getDateDebut()
-        + void setDateDebut(Date)
++ ajouterDependance(t : TacheComposite) : void
++ supprimerDependance(t : TacheComposite) : void
     }
 
     class Tache {
@@ -40,7 +40,9 @@ package donnees {
 
     Tache --|> TacheComposite
 
-    TacheComposite "1" o-- "0..*" TacheComposite : sousTaches
+    TacheComposite "1" --> "0..*" TacheComposite : sousTaches
+        TacheComposite "1" --> "0..*" TacheComposite : dependances
+
 
     interface Serializable
     class Colonne {
@@ -51,7 +53,7 @@ package donnees {
     + ajouteTache((TacheComposite) : void
 
     }
-    Colonne --> TacheComposite : - ArrayList liste
+    Colonne -->  "*" TacheComposite : - liste
     Colonne .u.|> Serializable
 }
 
@@ -68,7 +70,7 @@ class Repository{
 
 package vues{
     interface StrategieModeAffichage{
-        genererAffichage(List<Colonne>):void
+        genererAffichage(Modele m):void
     }
 
     interface Observateur{
@@ -82,6 +84,11 @@ package vues{
         + genererAffichage(List<Colonne>):void
     }
 
+    class VueBureau{
+        + VueBureau()
+        +actualiser()
+    }
+
     class VueTaches{
         + VueTaches(List<Colonne>)
         + actualiser():void
@@ -89,12 +96,47 @@ package vues{
     }
 }
 
+ class ControleurAjouterTache  {
+
+
+    -  tfTitre : TextField;
+    - taDescription : TextArea ;
+    - spDuree : Spinner<Integer> ;
+    - dpDateDebut : DatePicker ;
+
+    - lvDependances: ListView<TacheComposite> ;
+    - lvSousTaches : ListView<TacheComposite> ;
+
+    + ControleurAjouterTache(Modele modele, Colonne colonneCourante, \n TextField tfTitre,TextArea taDescription, Spinner<Integer> spDuree, \n DatePicker dpDateDebut,ListView<TacheComposite> lvDependances, \n ListView<TacheComposite> lvSousTaches);
+
+    + void handle(ActionEvent event);
+
+}
+
+class ControleurAjouterSousTache{
+- modele : Modele
+- cbParente : ComboBox<TacheComposite>
+- cbSousTache : ComboBox<TacheComposite>
++ ControleurAjouterSousTache( modele : Modele\n,  cbParente : ComboBox<TacheComposite>, \n cbSousTache : ComboBox<TacheComposite>)
++ handle(event : ActionEvent) : void
+}
+
+ControleurAjouterSousTache --> Modele : modele
+
+
+
+ ControleurAjouterTache --> Modele : - modele
+ ControleurAjouterTache --> Colonne : -colonneCourante
+
 
 VueListes ..|> StrategieModeAffichage
+VueBureau ..|> StrategieModeAffichage
 VueTaches ..|> Observateur
 
-VueTaches --> "1" VueListes:modeAffichage
+VueTaches --> "1" StrategieModeAffichage
 VueTaches --> "*" Colonne
 Modele --> Observateur : - ArrayList observateurs
+StrategieModeAffichage .|> Observateur
+
 
 @enduml

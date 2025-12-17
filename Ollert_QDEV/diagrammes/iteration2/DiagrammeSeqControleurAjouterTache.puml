@@ -1,0 +1,41 @@
+@startuml
+participant ControleurAjouterTache as C
+participant Modele as M
+participant Colonne as Col
+participant Tache as T
+participant VueListes as V
+
+C -> M : ajouterTache(colonneCourante,\n titre, description,\n duree, dateDebut)
+activate M
+
+M -> Col : ajouteTache(tache)
+activate Col
+Col --> M
+deactivate Col
+
+M -> M : notifier()
+
+loop pour chaque Observateur
+    M -> V : actualiser()
+    V --> M
+end
+
+M --> C
+deactivate M
+
+alt tache != null
+    loop pour chaque dépendance
+        C -> M : ajouterDependance(tache, dependance)
+        activate M
+        M -> T : ajouterDependance(dependance)
+        T --> M
+        M -> M : notifier()
+        loop Observateurs
+            M -> V : actualiser()
+            V --> M
+        end
+        M --> C
+        deactivate M
+    end
+end
+@enduml
