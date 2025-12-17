@@ -1,18 +1,13 @@
 package vues;
 
-import donnees.Colonne;
+import donnees.*;
 
-import donnees.Modele;
-import donnees.TacheComposite;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Priority;
@@ -25,7 +20,7 @@ import java.util.Map;
 
 public class VueListes extends VBox implements StrategieModeAffichage{
 
-    private TableView<TacheComposite> table;
+    private TableView<Tache> table;
     private Button addTache;
 
     private Map<TacheComposite, String> colonnes = new HashMap<>();
@@ -81,12 +76,12 @@ public class VueListes extends VBox implements StrategieModeAffichage{
     }
 
     private void creeTable(){
-        TableColumn<TacheComposite,String> colTache = new TableColumn<>("Tache");
+        TableColumn<Tache,String> colTache = new TableColumn<>("Tache");
         colTache.setCellValueFactory(new PropertyValueFactory<>("titre"));
 
-        TableColumn<TacheComposite,String> colCol = new TableColumn<>("Colonne");
+        TableColumn<Tache,String> colCol = new TableColumn<>("Colonne");
         colCol.setCellValueFactory(cellData -> {
-            TacheComposite tache = cellData.getValue();
+            Tache tache = cellData.getValue();
             String colonne = colonnes.get(tache);
             return new SimpleStringProperty(colonne);
         });
@@ -96,7 +91,7 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         colCol.setOnEditCommit(event -> {
             String newCol = event.getNewValue();
             String oldCol = event.getOldValue();
-            TacheComposite tache = event.getRowValue();
+            Tache tache = event.getRowValue();
 
             this.colonnes.put(tache, newCol);
 
@@ -105,7 +100,7 @@ public class VueListes extends VBox implements StrategieModeAffichage{
 
         colCol.setStyle("-fx-alignment: CENTER;");
 
-        TableColumn<TacheComposite, String> colDate = new TableColumn<>("Date debut");
+        TableColumn<Tache, String> colDate = new TableColumn<>("Date debut");
         colDate.setCellValueFactory(cellData -> {
             TacheComposite tache = cellData.getValue();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -114,17 +109,16 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         });
         colDate.setStyle("-fx-alignment: CENTER;");
 
-        TableColumn<TacheComposite, Integer> colDuree = new TableColumn<>("Duree");
+        TableColumn<Tache, Integer> colDuree = new TableColumn<>("Duree");
         colDuree.setCellValueFactory(new PropertyValueFactory<>("duree"));
         colDuree.setStyle("-fx-font-size: 15px; -fx-alignment: CENTER;");
 
-        TableColumn<TacheComposite, Integer> colDependence = new TableColumn<>("Dependences");
+        TableColumn<Tache, Integer> colDependence = new TableColumn<>("Dependences");
         colDependence.setCellValueFactory( cellData -> {
             TacheComposite tache = cellData.getValue();
             int n = tache.getDependances().size();
             return new SimpleObjectProperty<>(n);
         });
-
         colDependence.setStyle("-fx-font-size: 15px; -fx-alignment: CENTER;");
 
         this.table.getColumns().addAll(colTache,colCol,colDate,colDuree, colDependence);
@@ -136,13 +130,13 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         this.colonnes.clear();
         this.nomColonnes.clear();
 
-        ObservableList<TacheComposite> taches = FXCollections.observableArrayList();
+        ObservableList<Tache> taches = FXCollections.observableArrayList();
 
         for (Colonne colonne : model.getColonnes()) {
             String nom = colonne.getTitre();
 
             this.nomColonnes.add(nom);
-            for(TacheComposite tache : colonne.getListe()){
+            for(Tache tache : colonne.getListe()){
                 taches.add(tache);
 
                 this.colonnes.put(tache, nom);
@@ -150,9 +144,11 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         }
 
         this.table.setItems(taches);
+
+        this.table.refresh();
     }
 
-    private void deplacerTache(TacheComposite tache, String newCol, String oldCol){
+    private void deplacerTache(Tache tache, String newCol, String oldCol){
         for(Colonne colonne: this.model.getColonnes()){
             if(colonne.getTitre().equals(oldCol))
                 colonne.supprimeTache(tache);
@@ -182,6 +178,7 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         Colonne col = this.model.getColonnes().get(0);
 
         PopupAddTache.display(this.model, col);
+    }
 
     private void gestionArchive(Tache tache){
         for(Colonne col : this.model.getColonnes()){

@@ -6,20 +6,20 @@ import java.util.ArrayList;
 
 public class Colonne implements Serializable {
     private String titre;
-    private ArrayList<TacheComposite> liste;
+    private ArrayList<Tache> liste;
     private static final long serialVersionUID = 1L;
 
 
     public Colonne(String nom){
-        this.liste = new ArrayList<TacheComposite>();
+        this.liste = new ArrayList<>();
         this.titre = nom;
     }
 
-    public void supprimeTache(TacheComposite t){
+    public void supprimeTache(Tache t){
         this.liste.remove(t);
     }
 
-    public void ajouteTache(TacheComposite t){
+    public void ajouteTache(Tache t){
         this.liste.add(t);
     }
 
@@ -31,7 +31,7 @@ public class Colonne implements Serializable {
         this.titre = titre;
     }
 
-    public ArrayList<TacheComposite> getListe() {
+    public ArrayList<Tache> getListe() {
         return liste;
     }
 }
