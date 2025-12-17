@@ -4,6 +4,8 @@ import donnees.Colonne;
 
 import donnees.Modele;
 import donnees.TacheComposite;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -87,7 +89,16 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         colDuree.setCellValueFactory(new PropertyValueFactory<>("duree"));
         colDuree.setStyle("-fx-font-size: 15px; -fx-alignment: CENTER;");
 
-        this.table.getColumns().addAll(colTache,colCol,colDate,colDuree);
+        TableColumn<TacheComposite, Integer> colDependence = new TableColumn<>("Dependences");
+        colDependence.setCellValueFactory( cellData -> {
+            TacheComposite tache = cellData.getValue();
+            int n = tache.getDependances().size();
+            return new SimpleObjectProperty<>(n);
+        });
+
+        colDependence.setStyle("-fx-font-size: 15px; -fx-alignment: CENTER;");
+
+        this.table.getColumns().addAll(colTache,colCol,colDate,colDuree, colDependence);
     }
 
     @Override
