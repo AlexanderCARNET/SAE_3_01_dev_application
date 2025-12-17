@@ -48,6 +48,35 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         this.addTache.setMaxWidth(150);
         this.addTache.setOnAction( e -> gestionAjout());
 
+        this.table.setRowFactory(ms -> {
+            TableRow<Tache> row = new TableRow<>();
+
+            ContextMenu contextMenu = new ContextMenu();
+
+            MenuItem archiverTache = new MenuItem("Archiver");
+            MenuItem modifierTache = new MenuItem("Modifier");
+
+            modifierTache.setOnAction(event -> {
+                Tache tache = row.getItem();
+                this.gestionModification(tache);
+            });
+
+            archiverTache.setOnAction(event -> {
+                Tache tache = row.getItem();
+                this.gestionArchive(tache);
+            });
+
+            contextMenu.getItems().addAll(archiverTache, modifierTache);
+
+            row.contextMenuProperty().bind(
+                    javafx.beans.binding.Bindings.when(row.emptyProperty())
+                            .then((ContextMenu)null)
+                            .otherwise(contextMenu)
+            );
+
+            return row;
+        });
+
         this.getChildren().addAll(table, addTache);
     }
 
