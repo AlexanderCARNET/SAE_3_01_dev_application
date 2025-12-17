@@ -12,6 +12,27 @@ Modele -> VueTaches : actualiser()
 activate VueTaches
 VueTaches -> VueBureau : actualiser()
 activate VueBureau
+
+VueBureau -> Modele : getColonnes()
+activate Modele
+Modele --> VueBureau : colonnes
+deactivate Modele
+
+VueBureau -> VueBureau : genererColonne(colonne)
+activate VueBureau
+
+VueBureau -> Modele : getListe()
+activate Modele
+Modele --> VueBureau : liste
+deactivate Modele
+VueBureau -> VueBureau : genererTache(tache)
+activate VueBureau
+VueBureau -->VueBureau : label
+deactivate VueBureau
+
+VueBureau -->VueBureau : Vbox
+deactivate VueBureau
+
 VueTaches <-- VueBureau
 deactivate VueBureau
 Modele <-- VueTaches
