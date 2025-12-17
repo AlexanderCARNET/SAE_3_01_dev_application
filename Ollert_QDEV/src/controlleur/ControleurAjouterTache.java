@@ -44,13 +44,7 @@ public class ControleurAjouterTache implements EventHandler<ActionEvent> {
                 ? null
                 : Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        Tache nouvelle = modele.ajouterTache(
-                colonneCourante,
-                tfTitre.getText(),
-                taDescription.getText(),
-                spDuree.getValue(),
-                dateDebut
-        );
+        Tache nouvelle = modele.ajouterTache(colonneCourante, tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut);
 
         if (nouvelle == null) return;
 
