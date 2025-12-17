@@ -8,10 +8,13 @@ import javafx.scene.control.TextArea;
 public class ControleurAjouterColonne implements EventHandler<ActionEvent> {
 
     private Modele modele;
-    private TextArea taTitre;
+
+    public ControleurAjouterColonne(Modele modele) {
+        this.modele = modele;
+    }
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        modele.ajouterColonne(taTitre.getText());
+        modele.ajouterColonne("Nouvelle colonne");
     }
 }
