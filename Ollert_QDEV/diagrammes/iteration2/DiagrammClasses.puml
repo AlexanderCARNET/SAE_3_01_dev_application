@@ -85,8 +85,9 @@ package vues{
     }
 
     class VueBureau{
-        + VueBureau()
-        +actualiser()
+        +genererAffichage(Modele m)
+        - genererColonne(Colonne c)
+        - genererTache(TacheComposite t)
     }
 
     class VueTaches{
@@ -136,7 +137,6 @@ VueTaches ..|> Observateur
 VueTaches --> "1" StrategieModeAffichage
 VueTaches --> "*" Colonne
 Modele --> Observateur : - ArrayList observateurs
-StrategieModeAffichage .|> Observateur
 
 
 @enduml
