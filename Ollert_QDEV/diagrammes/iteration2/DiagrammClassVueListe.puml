@@ -2,7 +2,7 @@
 
 package vues{
     interface StrategieModeAffichage{
-        genererAffichage(List<Colonne>):void
+        genererAffichage(Modele):void
     }
 
     interface Observateur{
@@ -17,14 +17,14 @@ package vues{
 
 
         + VueListes()
-        + genererAffichage(List<Colonne>):void
+        + genererAffichage(Modele):void
         - creeTable():void
         - deplacerTache(TacheComposite, String, String):void
         - gestionAjout(): void
     }
 
     class VueTaches{
-        + VueTaches(List<Colonne>)
+        + VueTaches(Modele)
         + actualiser():void
         + setModeAffichage(StrategieModeAffichage):void
     }
