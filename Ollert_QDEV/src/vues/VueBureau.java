@@ -17,20 +17,12 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
 
     Modele modele;
 
-    public VueBureau(Modele modele){
-        this.modele = modele;
-        this.genererAffichage(modele);
+    public VueBureau() {
+
     }
 
     @Override
     public void genererAffichage(Modele model) {
-        for(Colonne c :modele.getColonnes()){
-            this.getChildren().add(genererColonne(c));
-        }
-    }
-
-    @Override
-    public void actualiser(){
         this.getChildren().clear();
         for(Colonne c :modele.getColonnes()){
             this.getChildren().add(genererColonne(c));
@@ -53,7 +45,6 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     }
 
     private Label genererTache(TacheComposite t){
-        System.out.println(t.getTitre());
         return new Label(t.getTitre());
     }
 

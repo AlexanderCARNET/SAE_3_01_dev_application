@@ -37,7 +37,7 @@ public class TestVue extends Application {
         VueTaches vueTaches = new VueTaches(model);
         model.ajouterObservateur(vueTaches);
 
-        VueListes vue = new VueListes();
+        VueBureau vue = new VueBureau();
 
         vueTaches.setModeAffichage(vue);
 

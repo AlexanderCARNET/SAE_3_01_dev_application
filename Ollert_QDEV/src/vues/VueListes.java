@@ -157,8 +157,4 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         this.genererAffichage(this.model);
     }
 
-    @Override
-    public void actualiser() {
-
-    }
 }
