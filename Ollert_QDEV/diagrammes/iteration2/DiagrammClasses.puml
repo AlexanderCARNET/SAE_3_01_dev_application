@@ -70,7 +70,7 @@ class Repository{
 
 package vues{
     interface StrategieModeAffichage{
-        genererAffichage(List<Colonne>):void
+        genererAffichage(Modele m):void
     }
 
     interface Observateur{
@@ -82,6 +82,11 @@ package vues{
 
         + VueListes()
         + genererAffichage(List<Colonne>):void
+    }
+
+    class VueBureau{
+        + VueBureau()
+        +actualiser()
     }
 
     class VueTaches{
@@ -125,10 +130,13 @@ ControleurAjouterSousTache --> Modele : modele
 
 
 VueListes ..|> StrategieModeAffichage
+VueBureau ..|> StrategieModeAffichage
 VueTaches ..|> Observateur
 
-VueTaches --> "1" VueListes:modeAffichage
+VueTaches --> "1" StrategieModeAffichage
 VueTaches --> "*" Colonne
-Modele --> "* "Observateur : - observateurs
+Modele --> Observateur : - ArrayList observateurs
+StrategieModeAffichage .|> Observateur
+
 
 @enduml
