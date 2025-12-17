@@ -154,7 +154,16 @@ public class VueListes extends VBox implements StrategieModeAffichage{
 
         PopupAddTache.display(this.model, col);
 
-        this.genererAffichage(this.model);
+    private void gestionArchive(Tache tache){
+        for(Colonne col : this.model.getColonnes()){
+            if(col.getListe().contains(tache)){
+                col.supprimeTache(tache);
+                break;
+            }
+        }
+        Archive archive = this.model.getArchive();
+        archive.ajouterTache(tache);
+        this.model.notifier();
     }
 
     @Override
