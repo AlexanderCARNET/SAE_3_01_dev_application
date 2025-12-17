@@ -94,17 +94,17 @@ package vues{
  class ControleurAjouterTache  {
 
 
-    private final TextField tfTitre;
-    private final TextArea taDescription;
-    private final Spinner<Integer> spDuree;
-    private final DatePicker dpDateDebut;
+    -  tfTitre : TextField;
+    - taDescription : TextArea ;
+    - spDuree : Spinner<Integer> ;
+    - dpDateDebut : DatePicker ;
 
-    private final ListView<TacheComposite> lvDependances;
-    private final ListView<TacheComposite> lvSousTaches;
+    - lvDependances: ListView<TacheComposite> ;
+    - lvSousTaches : ListView<TacheComposite> ;
 
-    public ControleurAjouterTache(Modele modele, Colonne colonneCourante, \n TextField tfTitre,TextArea taDescription, Spinner<Integer> spDuree, \n DatePicker dpDateDebut,ListView<TacheComposite> lvDependances, \n ListView<TacheComposite> lvSousTaches);
+    + ControleurAjouterTache(Modele modele, Colonne colonneCourante, \n TextField tfTitre,TextArea taDescription, Spinner<Integer> spDuree, \n DatePicker dpDateDebut,ListView<TacheComposite> lvDependances, \n ListView<TacheComposite> lvSousTaches);
 
-    public void handle(ActionEvent event);
+    + void handle(ActionEvent event);
 
 }
 
