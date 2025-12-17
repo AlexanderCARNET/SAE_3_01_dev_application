@@ -195,8 +195,14 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         this.model.notifier();
     }
 
-    @Override
-    public void actualiser() {
+    private void gestionModification(Tache tache){
+        if(this.model == null || this.model.getColonnes().isEmpty()){
+            //throw new ;
 
+            System.out.println("You dont have a model or the colonnes are empty.");
+            return;
+        }
+
+        PopupEditTache.display(this.model, tache);
     }
 }
