@@ -1,14 +1,9 @@
 package vues;
 
 import donnees.Modele;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 
@@ -52,16 +47,6 @@ public class VueAccueil extends VBox implements Observateur{
         this.getChildren().add(menu);
     }
 
-    public VueAccueil(Modele m, String s){
-        this.vT = new VueTaches(m);
-        if(s.equals("Liste") || s.equals("Listes")){
-            vT.setModeAffichage(new VueListes());
-        }
-        else {
-            vT.setModeAffichage(new VueBureau());
-        }
-    }
-
     @Override
     public void actualiser() {
         if(this.getChildren().size()==2){
@@ -97,5 +82,9 @@ public class VueAccueil extends VBox implements Observateur{
 
     private void afficherArchive(){
         PopupArchive.display(this.model);
+    }
+
+    private void setModeAffichage(StrategieModeAffichage mode){
+        this.modeAffichage = mode;
     }
 }
