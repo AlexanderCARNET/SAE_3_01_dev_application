@@ -22,7 +22,7 @@ public class PopupEditTache {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Nouvelle Tâche");
+        window.setTitle("Modifier la Tâche");
         window.setMinWidth(400);
 
         GridPane grid = new GridPane();
