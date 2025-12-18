@@ -17,10 +17,33 @@ public class VueAccueil extends HBox implements Observateur{
     private VueTaches vT;
     private Modele mod;
 
-    public VueAccueil(Modele m){
-        this.vT = new VueTaches(m);
-        vT.setModeAffichage(new VueBureau());
-        this.mod = m;
+        super();
+
+        this.setPadding(new Insets(10));
+
+        HBox menu = new HBox();
+        menu.setPadding(new Insets(5));
+        menu.setSpacing(5);
+
+        Button vBureau = new Button("Bur");
+        vBureau.setMaxWidth(50);
+        vBureau.setOnAction(e -> setVueBureau());
+
+        Button vListe = new Button("List");
+        vListe.setMaxWidth(50);
+        vListe.setOnAction( e -> setVueListe());
+
+        Button vGantt = new Button("Gantt");
+        vGantt.setMaxWidth(50);
+        vGantt.setOnAction(e -> setVueGantt());
+
+        Button archive = new Button("Archive");
+        archive.setMaxWidth(80);
+        archive.setOnAction( e -> afficherArchive());
+
+        menu.getChildren().addAll(vBureau, vListe, vGantt, archive);
+
+        this.getChildren().add(menu);
     }
 
     public VueAccueil(Modele m, String s){
@@ -39,24 +62,31 @@ public class VueAccueil extends HBox implements Observateur{
         vT.actualiser();
     }
 
-    public void genererAffichage(){
-        this.getChildren().clear();
-        Button Bureau = new Button("Bureau");
-        Button Liste = new Button("Liste");
+    private void setVueBureau(){
+        ArrayList<Observateur> obs = this.model.getObservateurs();
+        for(Observateur ob : obs){
+            if(ob instanceof VueAccueil){
+                ((VueAccueil) ob).setModeAffichage(VueBureau.getInstance());
+            }
+        }
+        this.model.notifier();
+    }
 
-        Bureau.setMinHeight(25);
-        Bureau.setMaxHeight(25);
-        Liste.setMinHeight(25);
-        Liste.setMaxHeight(25);
-        this.getChildren().add(Bureau);
-        this.getChildren().add(Liste);
+    private void setVueListe(){
+        ArrayList<Observateur> obs = this.model.getObservateurs();
+        for(Observateur ob : obs){
+            if(ob instanceof VueAccueil){
+                ((VueAccueil) ob).setModeAffichage(VueListes.getInstance());
+            }
+        }
+        this.model.notifier();
+    }
 
-        Liste.setOnAction( event -> {
-            this.vT.setModeAffichage(new VueListes());
-            this.mod.notifier();
-            System.out.println("ok");
-        });
+    private void setVueGantt(){
+        return;
+    }
 
-
+    private void afficherArchive(){
+        PopupArchive.display(this.model);
     }
 }
