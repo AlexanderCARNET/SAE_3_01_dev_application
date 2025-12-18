@@ -41,9 +41,31 @@ public class VueListes extends VBox implements StrategieModeAffichage{
 
         creeTable();
 
-        this.addTache = new Button("Ajouter une tache");
-        this.addTache.setMaxWidth(150);
-        this.addTache.setOnAction( e -> gestionAjout());
+        HBox menu = new HBox();
+        menu.setPadding(new Insets(5));
+        menu.setSpacing(5);
+
+        Button vBureau = new Button("Bur");
+        vBureau.setMaxWidth(50);
+        vBureau.setOnAction(e -> setVueBureau());
+
+        Button vListe = new Button("List");
+        vListe.setMaxWidth(50);
+        vListe.setOnAction( e -> setVueListe());
+
+        Button vGantt = new Button("Gantt");
+        vGantt.setMaxWidth(50);
+        vGantt.setOnAction(e -> setVueGantt());
+
+        Button archive = new Button("Archive");
+        archive.setMaxWidth(80);
+        archive.setOnAction( e -> afficherArchive());
+
+        menu.getChildren().addAll(vBureau, vListe, vGantt, archive);
+
+        Button addTache = new Button("Ajouter une tache");
+        addTache.setMaxWidth(150);
+        addTache.setOnAction( e -> gestionAjout());
 
         this.table.setRowFactory(ms -> {
             TableRow<Tache> row = new TableRow<>();
@@ -211,5 +233,27 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         }
 
         PopupEditTache.display(this.model, tache);
+    }
+
+    private void setVueBureau(){
+        ArrayList<Observateur> obs = this.model.getObservateurs();
+        for(Observateur ob : obs){
+            if(ob instanceof VueTaches){
+                ((VueTaches) ob).setModeAffichage(VueBureau.getInstance());
+            }
+        }
+        this.model.notifier();
+    }
+
+    private void setVueListe(){
+        return;
+    }
+
+    private void setVueGantt(){
+        return;
+    }
+
+    private void afficherArchive(){
+        PopupArchive.display(this.model);
     }
 }
