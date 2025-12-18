@@ -10,14 +10,12 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.DefaultStringConverter;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,28 +39,6 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         VBox.setVgrow(table, Priority.ALWAYS);
 
         creeTable();
-
-        HBox menu = new HBox();
-        menu.setPadding(new Insets(5));
-        menu.setSpacing(5);
-
-        Button vBureau = new Button("Bur");
-        vBureau.setMaxWidth(50);
-        vBureau.setOnAction(e -> setVueBureau());
-
-        Button vListe = new Button("List");
-        vListe.setMaxWidth(50);
-        vListe.setOnAction( e -> setVueListe());
-
-        Button vGantt = new Button("Gantt");
-        vGantt.setMaxWidth(50);
-        vGantt.setOnAction(e -> setVueGantt());
-
-        Button archive = new Button("Archive");
-        archive.setMaxWidth(80);
-        archive.setOnAction( e -> afficherArchive());
-
-        menu.getChildren().addAll(vBureau, vListe, vGantt, archive);
 
         Button addTache = new Button("Ajouter une tache");
         addTache.setMaxWidth(150);
@@ -97,7 +73,7 @@ public class VueListes extends VBox implements StrategieModeAffichage{
             return row;
         });
 
-        this.getChildren().addAll(menu, table, addTache);
+        this.getChildren().addAll(table, addTache);
     }
 
     private void creeTable(){
@@ -234,27 +210,5 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         }
 
         PopupEditTache.display(this.model, tache);
-    }
-
-    private void setVueBureau(){
-        ArrayList<Observateur> obs = this.model.getObservateurs();
-        for(Observateur ob : obs){
-            if(ob instanceof VueTaches){
-                ((VueTaches) ob).setModeAffichage(VueBureau.getInstance());
-            }
-        }
-        this.model.notifier();
-    }
-
-    private void setVueListe(){
-        return;
-    }
-
-    private void setVueGantt(){
-        return;
-    }
-
-    private void afficherArchive(){
-        PopupArchive.display(this.model);
     }
 }
