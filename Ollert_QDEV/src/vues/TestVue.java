@@ -31,14 +31,15 @@ public class TestVue extends Application {
 
 
 
+        model = Repository.getInstance().loadAll();
+
+        if (model == null) {
             model = new Modele();
             model.ajouterColonne(c1);
             model.ajouterColonne(c2);
             model.ajouterColonne(c3);
+        }
 
-
-
-        model = Repository.getInstance().loadAll();
 
         VueTaches vueTaches = new VueTaches(model);
         model.ajouterObservateur(vueTaches);

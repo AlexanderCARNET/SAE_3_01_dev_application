@@ -11,9 +11,7 @@ public class Repository {
 
     private Repository() throws IOException {
         File file = new File(nomFichierSauvegarde);
-        if(!file.exists()) {
-            file.createNewFile();
-        }
+
         instance = this;
     }
 
@@ -31,14 +29,24 @@ public class Repository {
     }
 
     public synchronized Modele loadAll() throws IOException, ClassNotFoundException {
+        try {
+
             ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(Repository.nomFichierSauvegarde));
 
             Modele m = (Modele) inputStream.readObject();
+
+            if (m == null) {
+                return null;
+            }
 
             inputStream.close();
 
             return m;
 
+        }
+catch (FileNotFoundException e) {
+            return null;
+}
 
     }
 
