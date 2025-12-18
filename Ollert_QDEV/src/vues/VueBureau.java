@@ -1,6 +1,7 @@
 package vues;
 
 import controlleur.ControleurAjouterColonne;
+import controlleur.ControleurAjouterTache;
 import donnees.Colonne;
 import donnees.Modele;
 import donnees.Tache;
@@ -34,13 +35,16 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         }
 
         //creation du controleur pour ajouter une colonne
-        Button ajoutColonne = new Button("+");
-        ajoutColonne.setMinHeight(25);
-        ajoutColonne.setMaxHeight(25);
-        ajoutColonne.setMinWidth(VueBureau.LARGEUR_COLONNE);
-        EventHandler<ActionEvent> controleur = new ControleurAjouterColonne(modele);
-        ajoutColonne.addEventHandler(ActionEvent.ACTION,controleur);
-        this.getChildren().add(ajoutColonne);
+        if(modele.getColonnes().size()< modele.getNB_MAX_COLONNES()){
+            Button ajoutColonne = new Button("+");
+            ajoutColonne.setMinHeight(25);
+            ajoutColonne.setMaxHeight(25);
+            ajoutColonne.setMinWidth(VueBureau.LARGEUR_COLONNE);
+            EventHandler<ActionEvent> controleur = new ControleurAjouterColonne(modele);
+            ajoutColonne.addEventHandler(ActionEvent.ACTION,controleur);
+            this.getChildren().add(ajoutColonne);
+        }
+
 
     }
 
@@ -56,6 +60,10 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         vBox.setSpacing(10);
 
         //creation du controleur pour ajouter une tache a la colonne
+        Button BajoutTache = new Button("+");
+        BajoutTache.setMinHeight(25);
+        BajoutTache.setMaxHeight(25);
+        BajoutTache.setMinWidth(VueBureau.LARGEUR_COLONNE);
 
 
         //creation du scrollPane pour les taches
@@ -74,7 +82,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         }
 
         //ajout du titre et du scrollPane dans le conteneur principal
-        res.getChildren().addAll(new Label(c.getTitre()),scrollPane);
+        res.getChildren().addAll(new Label(c.getTitre()),BajoutTache,scrollPane);
         return res;
     }
 
