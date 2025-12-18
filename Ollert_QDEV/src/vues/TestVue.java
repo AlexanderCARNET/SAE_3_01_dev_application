@@ -34,14 +34,18 @@ public class TestVue extends Application {
         model.ajouterColonne(c2);
         model.ajouterColonne(c3);
 
-        VueTaches vueTaches = new VueTaches(model);
-        model.ajouterObservateur(vueTaches);
+//        VueTaches vueTaches = new VueTaches(model);
+//        model.ajouterObservateur(vueTaches);
+//
+//        VueBureau vue = new VueBureau();
+//
+//        vueTaches.setModeAffichage(vue);
+//
+//        vueTaches.actualiser();
 
-        VueBureau vue = new VueBureau();
-
-        vueTaches.setModeAffichage(vue);
-
-        vueTaches.actualiser();
+        VueAccueil vue = new VueAccueil(model);
+        model.ajouterObservateur(vue);
+        vue.actualiser();
 
         VBox root = new VBox(vue);
         root.setFillWidth(true);
