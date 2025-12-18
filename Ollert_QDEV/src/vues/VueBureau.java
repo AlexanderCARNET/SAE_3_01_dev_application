@@ -60,7 +60,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             this.getChildren().add(ajoutColonne);
         }
 
-
+        return this;
     }
 
     private VBox genererColonne(Colonne c, Modele modele){
