@@ -14,8 +14,12 @@ public class VueAccueil extends HBox implements Observateur{
 
     private static final int LARGEUR_INTERFACE = 400;
     private static final double HAUTEUR_COLONNE = 50;
-    private VueTaches vT;
-    private Modele mod;
+    private StrategieModeAffichage modeAffichage;
+    private Modele model;
+
+    public VueAccueil(Modele modele){
+        this.modeAffichage = VueBureau.getInstance();
+        this.model = modele;
 
         super();
 
