@@ -94,7 +94,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         scrollPane.setMinWidth(VueBureau.LARGEUR_COLONNE);
 
         //ajout des taches dans le conteneur qui ets dans le scrollPane qui contient les taches
-        for (TacheComposite t : c.getListe()) {
+        for (Tache t : c.getListe()) {
             Label labelTache = genererTache(t);
             dnd.activerDragTache(labelTache, t);
             vBox.getChildren().add(labelTache);

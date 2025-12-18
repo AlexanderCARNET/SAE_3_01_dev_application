@@ -55,7 +55,7 @@ public class Modele implements Serializable {
         return true;
     }
 
-    public void deplacerTache(TacheComposite tache, Colonne cible) {
+    public void deplacerTache(Tache tache, Colonne cible) {
 
 
         if (tache == null || cible == null) return;
