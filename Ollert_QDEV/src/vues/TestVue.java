@@ -1,22 +1,22 @@
 package vues;
 
-import donnees.Colonne;
-import donnees.Modele;
-import donnees.Tache;
-import donnees.TacheComposite;
+import donnees.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class TestVue extends Application {
 
+    Modele model;
+
     @Override
-    public void start(Stage stage){
+    public void start(Stage stage) throws Exception {
         Date date = new Date();
 
         Colonne c1 = new Colonne("Fini");
@@ -29,10 +29,16 @@ public class TestVue extends Application {
         Colonne c3 = new Colonne("A faire");
         c3.ajouteTache(new Tache("Testing", "QA", 1, date));
 
-        Modele model = new Modele();
-        model.ajouterColonne(c1);
-        model.ajouterColonne(c2);
-        model.ajouterColonne(c3);
+
+
+            model = new Modele();
+            model.ajouterColonne(c1);
+            model.ajouterColonne(c2);
+            model.ajouterColonne(c3);
+
+
+
+        model = Repository.getInstance().loadAll();
 
         VueTaches vueTaches = new VueTaches(model);
         model.ajouterObservateur(vueTaches);
@@ -40,6 +46,7 @@ public class TestVue extends Application {
         VueBureau vue = new VueBureau();
 
         vueTaches.setModeAffichage(vue);
+
 
         vueTaches.actualiser();
 
@@ -52,6 +59,14 @@ public class TestVue extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+    @Override
+    public void stop() throws Exception {
+        Repository.getInstance().saveAll(model);
+    }
+
+
+
 
     public static void main(String[] args) {
         launch(args);
