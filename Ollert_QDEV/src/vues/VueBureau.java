@@ -25,6 +25,8 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     private static final double HAUTEUR_COLONNE = 400;
     private ControleurDragAndDrop dnd;
 
+    private static VueBureau instance;
+
 
     public VueBureau() {
         this.setSpacing(20);
