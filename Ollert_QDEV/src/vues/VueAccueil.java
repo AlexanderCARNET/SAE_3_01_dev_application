@@ -58,8 +58,11 @@ public class VueAccueil extends HBox implements Observateur{
 
     @Override
     public void actualiser() {
-        this.genererAffichage();
-        vT.actualiser();
+        if(this.getChildren().size()==2){
+            this.getChildren().remove(1);
+        }
+        Pane pane = this.modeAffichage.genererAffichage(this.model);
+        this.getChildren().add(pane);
     }
 
     private void setVueBureau(){
