@@ -32,6 +32,13 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         this.setSpacing(20);
     }
 
+    public static VueBureau getInstance(){
+        if(instance == null){
+            instance = new VueBureau();
+        }
+        return instance;
+    }
+
     @Override
     public void genererAffichage(Modele modele) {
         this.getChildren().clear();
