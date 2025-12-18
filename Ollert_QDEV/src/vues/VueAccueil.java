@@ -10,7 +10,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-public class VueAccueil extends HBox implements Observateur{
+import java.util.ArrayList;
+
+public class VueAccueil extends VBox implements Observateur{
 
     private static final int LARGEUR_INTERFACE = 400;
     private static final double HAUTEUR_COLONNE = 50;
