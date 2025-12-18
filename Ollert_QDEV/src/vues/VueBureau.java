@@ -40,7 +40,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     }
 
     @Override
-    public void genererAffichage(Modele modele) {
+    public Pane genererAffichage(Modele modele) {
         this.getChildren().clear();
 
         dnd = new ControleurDragAndDrop(modele);
