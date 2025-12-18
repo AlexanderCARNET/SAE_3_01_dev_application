@@ -1,4 +1,5 @@
 package donnees;
+import exception.MaxColonneException;
 import vues.Observateur;
 
 import java.io.Serializable;
@@ -110,10 +111,16 @@ public class Modele implements Serializable {
     }
 
 
-    public void ajouterColonne(String titre){
+    public void ajouterColonne(String titre) throws MaxColonneException{
         if(titre != null || !titre.isBlank()){
-            Colonne c = new Colonne(titre);
-            ajouterColonne(c);
+            if(this.colonnes.size() < this.NB_MAX_COLONNES) {
+                Colonne c = new Colonne(titre);
+                ajouterColonne(c);
+            }
+            else{
+                new MaxColonneException();
+                throw new MaxColonneException();
+            }
         }
 
         notifier();
