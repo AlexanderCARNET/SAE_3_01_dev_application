@@ -23,6 +23,10 @@ public class Colonne implements Serializable {
         this.liste.add(t);
     }
 
+    public boolean contient(TacheComposite t) {
+        return liste.contains(t);
+    }
+
     public String getTitre() {
         return titre;
     }
