@@ -27,6 +27,8 @@ public class VueListes extends VBox implements StrategieModeAffichage{
     private ObservableList<String> nomColonnes = FXCollections.observableArrayList();
     private Modele model;
 
+    private static VueListes instance;
+
     public VueListes() {
         super(10);
         this.setPadding(new Insets(10));
@@ -146,6 +148,14 @@ public class VueListes extends VBox implements StrategieModeAffichage{
         this.table.setItems(taches);
 
         this.table.refresh();
+        return this;
+    }
+
+    public static VueListes getInstance(){
+        if(instance == null){
+            instance = new VueListes();
+        }
+        return instance;
     }
 
     private void deplacerTache(Tache tache, String newCol, String oldCol){
