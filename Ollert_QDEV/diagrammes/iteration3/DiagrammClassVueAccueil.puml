@@ -1,0 +1,19 @@
+@startuml
+package vue {
+interface Observateur{
++ actualiser()
+}
+class VueAccueil implements Observateur {
++ actualiser()
+}
+
+class VueTache{
++ actualiser()
++ setModeAffichage()
+}
+
+VueTache <- VueAccueil : - vueTache
+
+
+
+@enduml
