@@ -1,7 +1,6 @@
 package vues;
 
 import controlleur.ControleurAjouterColonne;
-import controlleur.ControleurAjouterTache;
 import controlleur.ControleurDragAndDrop;
 import donnees.Colonne;
 import donnees.Modele;
@@ -15,9 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class VueBureau extends HBox implements StrategieModeAffichage {
 
