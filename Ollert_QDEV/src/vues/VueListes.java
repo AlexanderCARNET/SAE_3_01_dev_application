@@ -10,19 +10,20 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.DefaultStringConverter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class VueListes extends VBox implements StrategieModeAffichage{
 
     private TableView<Tache> table;
-    private Button addTache;
-
     private Map<TacheComposite, String> colonnes = new HashMap<>();
     private ObservableList<String> nomColonnes = FXCollections.observableArrayList();
     private Modele model;
@@ -96,7 +97,7 @@ public class VueListes extends VBox implements StrategieModeAffichage{
             return row;
         });
 
-        this.getChildren().addAll(table, addTache);
+        this.getChildren().addAll(menu, table, addTache);
     }
 
     private void creeTable(){
@@ -149,7 +150,7 @@ public class VueListes extends VBox implements StrategieModeAffichage{
     }
 
     @Override
-    public void genererAffichage(Modele model) {
+    public Pane genererAffichage(Modele model) {
         this.model = model;
         this.colonnes.clear();
         this.nomColonnes.clear();
