@@ -2,6 +2,7 @@ package vues;
 
 import controlleur.ControleurAjouterColonne;
 import controlleur.ControleurAjouterTache;
+import controlleur.ControleurDragAndDrop;
 import donnees.Colonne;
 import donnees.Modele;
 import donnees.Tache;
@@ -22,6 +23,8 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
 
     private static final int LARGEUR_COLONNE = 100;
     private static final double HAUTEUR_COLONNE = 400;
+    private ControleurDragAndDrop dnd;
+
 
     public VueBureau() {
         this.setSpacing(20);
@@ -30,8 +33,11 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     @Override
     public void genererAffichage(Modele modele) {
         this.getChildren().clear();
+
+        dnd = new ControleurDragAndDrop(modele);
+
         for(Colonne c :modele.getColonnes()){
-            this.getChildren().add(genererColonne(c));
+            this.getChildren().add(genererColonne(c, modele));
         }
 
         //creation du controleur pour ajouter une colonne
@@ -48,7 +54,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
 
     }
 
-    private VBox genererColonne(Colonne c){
+    private VBox genererColonne(Colonne c, Modele modele){
         //creation du conteneur principal
         VBox res = new VBox();
         res.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,new CornerRadii(5), new BorderWidths(1))));
@@ -59,11 +65,15 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         vBox.setPrefHeight(VueBureau.LARGEUR_COLONNE);
         vBox.setSpacing(10);
 
+        dnd.activerDropColonne(vBox, c);
+
+
         //creation du controleur pour ajouter une tache a la colonne
         Button BajoutTache = new Button("+");
         BajoutTache.setMinHeight(25);
         BajoutTache.setMaxHeight(25);
         BajoutTache.setMinWidth(VueBureau.LARGEUR_COLONNE);
+
 
 
         //creation du scrollPane pour les taches
@@ -77,9 +87,12 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         scrollPane.setMinWidth(VueBureau.LARGEUR_COLONNE);
 
         //ajout des taches dans le conteneur qui ets dans le scrollPane qui contient les taches
-        for(TacheComposite t : c.getListe()){
-            vBox.getChildren().add(genererTache(t));
+        for (TacheComposite t : c.getListe()) {
+            Label labelTache = genererTache(t);
+            dnd.activerDragTache(labelTache, t);
+            vBox.getChildren().add(labelTache);
         }
+
 
         //ajout du titre et du scrollPane dans le conteneur principal
         res.getChildren().addAll(new Label(c.getTitre()),BajoutTache,scrollPane);
