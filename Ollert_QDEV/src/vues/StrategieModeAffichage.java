@@ -1,9 +1,8 @@
 package vues;
 
 import donnees.Modele;
-
-import java.util.List;
+import javafx.scene.layout.Pane;
 
 public interface StrategieModeAffichage{
-    void genererAffichage(Modele model);
+    Pane genererAffichage(Modele model);
 }
