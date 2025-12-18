@@ -31,7 +31,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     public void genererAffichage(Modele modele) {
         this.getChildren().clear();
         for(Colonne c :modele.getColonnes()){
-            this.getChildren().add(genererColonne(c));
+            this.getChildren().add(genererColonne(c, modele));
         }
 
         //creation du controleur pour ajouter une colonne
@@ -48,7 +48,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
 
     }
 
-    private VBox genererColonne(Colonne c){
+    private VBox genererColonne(Colonne c, Modele modele){
         //creation du conteneur principal
         VBox res = new VBox();
         res.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,new CornerRadii(5), new BorderWidths(1))));
@@ -64,6 +64,13 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         BajoutTache.setMinHeight(25);
         BajoutTache.setMaxHeight(25);
         BajoutTache.setMinWidth(VueBureau.LARGEUR_COLONNE);
+        EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                PopupAddTache.display(modele, c);
+            }
+        };
+        BajoutTache.addEventHandler(ActionEvent.ACTION,handler);
 
 
         //creation du scrollPane pour les taches
