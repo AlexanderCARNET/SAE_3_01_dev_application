@@ -11,7 +11,6 @@ participant ": Observateur" as Obs
 
 
 Utilisateur -> Ctrl : Relâche la tâche (Drop)
-activate Vue
 
 activate Ctrl
 
@@ -57,12 +56,9 @@ alt tacheEnCours != null
     Modele --> Ctrl
     deactivate Modele
 
-    Ctrl -> Ctrl : tacheEnCours = null
-    Ctrl --> Vue : e.setDropCompleted(true)
 end
 
 deactivate Ctrl
-deactivate Vue
 
 @enduml
 
