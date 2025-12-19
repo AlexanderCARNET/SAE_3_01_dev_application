@@ -67,8 +67,6 @@ public class Modele implements Serializable {
                 break;
             }
         }
-        System.out.println("Source" + source.getListe().size());
-        System.out.println("Cible" + cible.getListe().size());
 
 
 
@@ -77,8 +75,6 @@ public class Modele implements Serializable {
         source.getListe().remove(tache);
         cible.getListe().add(tache);
 
-        System.out.println("Source" + source.getListe().size());
-        System.out.println("Cible" + cible.getListe().size());
 
 
         notifier();

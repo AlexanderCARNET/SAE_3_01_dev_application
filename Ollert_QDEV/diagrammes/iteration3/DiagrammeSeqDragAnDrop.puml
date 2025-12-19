@@ -1,6 +1,6 @@
 @startuml
 
-title Diagramme de Séquence : Déplacer une Tâche (Drop)
+title Diagramme de Séquence : Déplacer une Tâche
 
 actor Utilisateur
 participant ": ControleurDragAndDrop" as Ctrl
