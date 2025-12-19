@@ -72,21 +72,7 @@ public class Modele implements Serializable {
         cible.getListe().add(tache);
         notifier();
     }
-
-
-
-
-
-    private Colonne trouverColonneDe(TacheComposite tache) {
-        for (Colonne c : colonnes) {
-            if (c.contient(tache)) {
-                return c;
-            }
-        }
-        return null;
-    }
-
-
+    
 
 
     public Tache ajouterTache(Colonne colonne, String titre, String description, int duree, Date dateDebut) {
