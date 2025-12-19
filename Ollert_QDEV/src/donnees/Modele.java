@@ -67,16 +67,9 @@ public class Modele implements Serializable {
                 break;
             }
         }
-
-
-
         if (source == null || source == cible) return;
-
         source.getListe().remove(tache);
         cible.getListe().add(tache);
-
-
-
         notifier();
     }
 

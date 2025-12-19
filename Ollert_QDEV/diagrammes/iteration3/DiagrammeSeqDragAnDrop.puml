@@ -7,7 +7,7 @@ participant ": ControleurDragAndDrop" as Ctrl
 participant "modele : Modele" as Modele
 participant "source : Colonne" as ColSource
 participant "cible : Colonne" as ColCible
-participant ": Observateur" as Obs
+participant "observateurs : Observateur" as Obs
 
 
 Utilisateur -> Ctrl : Relâche la tâche (Drop)
