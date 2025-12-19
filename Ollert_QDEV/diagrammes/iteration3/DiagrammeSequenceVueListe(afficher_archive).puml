@@ -6,7 +6,7 @@ participant "PopupArchive" as P
 participant "Modele" as M
 participant "Archive" as A
 
-title Séquence : Archiver une tache
+title Séquence : Afficher archive
 
 User -> V : Clique sur le bouton "Archive"
 activate V
