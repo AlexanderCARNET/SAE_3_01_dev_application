@@ -136,21 +136,21 @@ ControleurDragAndDrop --> Modele : modele
 ControleurDragAndDrop --> TacheComposite : tacheEnCours
 
 class ControleurConfirmeTitreColonne{
-    - VueBureau vueBureau
-    - Colonne c
     + ControleurConfirmeTitreColonne(VueBureau vueBureau, Modele modele, Colonne c)
     + handle(KeyEvent keyEvent)
 }
-ControleurConfirmeTitreColonne -> Modele : m
+ControleurConfirmeTitreColonne ->"1" Modele : m
+ControleurConfirmeTitreColonne ->"1" VueBureau : vueBureau
+ControleurConfirmeTitreColonne ->"1" Colonne : c
 
 
 class ControleurChangeTitreColonne{
-    - VueBureau vueBureau
-    - Colonne c
     + ControleurChangeTitreColonne(VueBureau vueBureau, Colonne c, Modele m)
     + handle(MouseEvent mouseEvent)
 }
-ControleurChangeTitreColonne -> modele : m
+ControleurChangeTitreColonne ->"1" Modele : -m
+ControleurChangeTitreColonne ->"1" VueBureau : -vueBureau
+ControleurChangeTitreColonne ->"1" Colonne : -c
 
 ControleurAjouterSousTache --> Modele : modele
 
