@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant user
+participant "controleurChange : ControleurChangeTitreColonne" as CChange
+participant "controleurConfirme : ControleurConfirmeTitreColonne" as CConfirme
+participant "m : Modele" as m
+participant "vueBureau ; VueBureau" as VB
+
+user -> CChange : double clic
+CChange -> VB : setColonneEnModif(colonne)
+VB -> CChange
+CChange -> m : notifier()
+m --> CChange
+user -> CConfirme : enter
+CConfirme -> m : modifierNomColonne(colonne,"nouveau nom")
+m--> CConfirme
+CConfirme -> VB : setColonneEnModif(null)
+VB --> CConfirme
+CConfirme -> m : notifier()
+
+
+
+@enduml

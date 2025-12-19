@@ -26,7 +26,7 @@ public class ControleurConfirmeTitreColonne implements EventHandler<KeyEvent> {
         if(keyEvent.getCode() == KeyCode.ENTER){
             TextField tf=(TextField)keyEvent.getSource();
             this.m.modifierNomColonne(c,tf.getText());
-            this.vueBureau.colonneEnModif = null; //on remet enleve la colonne en mode modif
+            this.vueBureau.setColonneEnModif(null); //on enleve la colonne du mode modification
             m.notifier();
         }
     }

@@ -19,7 +19,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     private static final int LARGEUR_COLONNE = 100;
     private static final double HAUTEUR_COLONNE = 400;
     private ControleurDragAndDrop dnd;
-    public Colonne colonneEnModif;
+    private Colonne colonneEnModif;
 
     private static VueBureau instance;
 
@@ -133,4 +133,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         return res;
     }
 
+    public void setColonneEnModif(Colonne colonneEnModif) {
+        this.colonneEnModif = colonneEnModif;
+    }
 }
