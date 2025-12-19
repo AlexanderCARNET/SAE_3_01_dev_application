@@ -1,0 +1,72 @@
+@startuml
+
+title Diagramme de Séquence : Déplacer une Tâche (Drop)
+
+actor Utilisateur
+participant "targetNode : Node" as Vue
+participant ": ControleurDragAndDrop" as Ctrl
+participant "modele : Modele" as Modele
+participant "source : Colonne" as ColSource
+participant "cible : Colonne" as ColCible
+participant ": Observateur" as Obs
+
+note right of Ctrl : Pré-condition : tacheEnCours != null
+
+Utilisateur -> Vue : Relâche la tâche (Drop)
+activate Vue
+
+Vue -> Ctrl : handle(DragEvent e)
+activate Ctrl
+
+alt tacheEnCours != null
+    Ctrl -> Modele : deplacerTache(tacheEnCours, colCible)
+    activate Modele
+
+    group Recherche de la colonne source
+        loop pour chaque colonne du modèle
+            Modele -> ColSource : getListe()
+            activate ColSource
+            ColSource --> Modele : ArrayList<TacheComposite>
+            deactivate ColSource
+        end
+    end
+
+    alt source trouvée ET source != cible
+
+
+        Modele -> ColSource : getListe()
+        activate ColSource
+        ColSource -> ColSource : remove(tache)
+        deactivate ColSource
+
+        Modele -> ColCible : getListe()
+        activate ColCible
+        ColCible -> ColCible : add(tache)
+        deactivate ColCible
+
+        Modele -> Modele : notifier()
+        activate Modele
+
+        loop pour chaque observateur
+            Modele -> Obs : actualiser()
+            activate Obs
+            Obs --> Modele
+            deactivate Obs
+        end
+        deactivate Modele
+
+    end
+
+    Modele --> Ctrl
+    deactivate Modele
+
+    Ctrl -> Ctrl : tacheEnCours = null
+    Ctrl -> Vue : e.setDropCompleted(true)
+    Ctrl -> Vue : e.consume()
+end
+
+deactivate Ctrl
+deactivate Vue
+
+@enduml
+
