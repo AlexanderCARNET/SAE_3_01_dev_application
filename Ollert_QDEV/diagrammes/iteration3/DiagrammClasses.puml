@@ -10,6 +10,7 @@ package donnees {
             + ajouterSousTache(parent : TacheComposite, enfant : TacheComposite) : boolean
             + ajouterDependance(cible : TacheComposite, dep : TacheComposite) : boolean
             + notifier() : void
+            + modifierNomColonne(Colonne c, String nouveauNom)
 
 
         }
@@ -121,6 +122,23 @@ class ControleurAjouterSousTache{
 + ControleurAjouterSousTache( modele : Modele\n,  cbParente : ComboBox<TacheComposite>, \n cbSousTache : ComboBox<TacheComposite>)
 + handle(event : ActionEvent) : void
 }
+
+class ControleurConfirmeTitreColonne{
+    - VueBureau vueBureau
+    - Colonne c
+    + ControleurConfirmeTitreColonne(VueBureau vueBureau, Modele modele, Colonne c)
+    + handle(KeyEvent keyEvent)
+}
+ControleurConfirmeTitreColonne -> Modele : m
+
+
+class ControleurChangeTitreColonne{
+    - VueBureau vueBureau
+    - Colonne c
+    + ControleurChangeTitreColonne(VueBureau vueBureau, Colonne c, Modele m)
+    + handle(MouseEvent mouseEvent)
+}
+ControleurChangeTitreColonne -> modele : m
 
 ControleurAjouterSousTache --> Modele : modele
 

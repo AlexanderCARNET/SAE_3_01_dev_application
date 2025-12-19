@@ -13,9 +13,9 @@ import vues.VueBureau;
 
 public class ControleurChangeTitreColonne implements EventHandler<MouseEvent> {
 
-    VueBureau vueBureau;
-    Colonne c;
-    Modele m;
+    private VueBureau vueBureau;
+    private Colonne c;
+    private Modele m;
 
     public ControleurChangeTitreColonne(VueBureau vueBureau, Colonne c, Modele m){
         this.vueBureau=vueBureau;

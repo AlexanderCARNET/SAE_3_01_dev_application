@@ -11,9 +11,9 @@ import vues.VueBureau;
 
 public class ControleurConfirmeTitreColonne implements EventHandler<KeyEvent> {
 
-    Modele m;
-    VueBureau vueBureau;
-    Colonne c;
+    private Modele m;
+    private VueBureau vueBureau;
+    private Colonne c;
 
     public ControleurConfirmeTitreColonne(VueBureau vueBureau, Modele modele, Colonne c) {
         this.vueBureau=vueBureau;
