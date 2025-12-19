@@ -12,12 +12,11 @@ public class Modele implements Serializable {
 
     private ArrayList<Colonne> colonnes;
     private final int NB_MAX_COLONNES = 5;
-    private ArrayList<Observateur> observateurs;
+    private  transient ArrayList<Observateur> observateurs = new ArrayList<>();
     private Archive archive;
 
     public Modele(){
         this.colonnes = new ArrayList<Colonne>();
-        this.observateurs = new ArrayList<Observateur>();
         this.archive = new Archive();
     }
 
@@ -28,7 +27,14 @@ public class Modele implements Serializable {
     }
 
     public void ajouterObservateur(Observateur o){
-        this.observateurs.add(o);
+        try {
+            this.observateurs.add(o);
+        }
+        catch (Exception e){
+            observateurs = new ArrayList<>();
+            ajouterObservateur(o);
+        }
+
     }
 
     public void supprimerObservateur(Observateur o){
@@ -52,6 +58,7 @@ public class Modele implements Serializable {
 
     public void deplacerTache(TacheComposite tache, Colonne cible) {
 
+
         if (tache == null || cible == null) return;
 
         Colonne source = null;
@@ -61,14 +68,24 @@ public class Modele implements Serializable {
                 break;
             }
         }
+        System.out.println("Source" + source.getListe().size());
+        System.out.println("Cible" + cible.getListe().size());
+
+
 
         if (source == null || source == cible) return;
 
         source.getListe().remove(tache);
         cible.getListe().add(tache);
 
+        System.out.println("Source" + source.getListe().size());
+        System.out.println("Cible" + cible.getListe().size());
+
+
         notifier();
     }
+
+
 
 
 

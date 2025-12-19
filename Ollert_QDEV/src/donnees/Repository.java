@@ -1,6 +1,7 @@
 package donnees;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class Repository {
@@ -10,9 +11,7 @@ public class Repository {
 
     private Repository() throws IOException {
         File file = new File(nomFichierSauvegarde);
-        if(!file.exists()) {
-            file.createNewFile();
-        }
+
         instance = this;
     }
 
@@ -30,13 +29,25 @@ public class Repository {
     }
 
     public synchronized Modele loadAll() throws IOException, ClassNotFoundException {
-        ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(Repository.nomFichierSauvegarde));
+        try {
 
-        Modele m  = (Modele) inputStream.readObject();
+            ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(Repository.nomFichierSauvegarde));
 
-        inputStream.close();
+            Modele m = (Modele) inputStream.readObject();
 
-        return m;
+            if (m == null) {
+                return null;
+            }
+
+            inputStream.close();
+
+            return m;
+
+        }
+catch (FileNotFoundException e) {
+            return null;
+}
+
     }
 
     public synchronized static void creerFichier() throws IOException {

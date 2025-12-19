@@ -11,6 +11,7 @@ package donnees {
             + ajouterDependance(cible : TacheComposite, dep : TacheComposite) : boolean
             + notifier() : void
             + modifierNomColonne(Colonne c, String nouveauNom)
+            +deplacerTache(TacheComposite, Colonne)
 
 
         }
@@ -52,6 +53,7 @@ package donnees {
     + Colonne(String)
     + supprimeTache(TacheComposite) : void
     + ajouteTache((TacheComposite) : void
+    + contient(TacheComposite t) : boolean
 
     }
     Colonne -->  "*" TacheComposite : - liste
@@ -122,6 +124,16 @@ class ControleurAjouterSousTache{
 + ControleurAjouterSousTache( modele : Modele\n,  cbParente : ComboBox<TacheComposite>, \n cbSousTache : ComboBox<TacheComposite>)
 + handle(event : ActionEvent) : void
 }
+
+class ControleurDragAndDrop {
+
+-activerDragTache(Node , TacheComposite )
+-activerDropColonne(Node , Colonne )
+
+}
+
+ControleurDragAndDrop --> Modele : modele
+ControleurDragAndDrop --> TacheComposite : tacheEnCours
 
 class ControleurConfirmeTitreColonne{
     - VueBureau vueBureau
