@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title Ajout d'une nouvelle colonne dans la vueBureau
+
 actor user
 participant "controleurAjoutCol : ControleurAjouterColonne" as CC
 participant "m : Modele" as m

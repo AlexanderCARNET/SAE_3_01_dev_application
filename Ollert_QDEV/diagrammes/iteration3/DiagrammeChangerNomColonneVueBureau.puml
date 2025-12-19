@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+title Changement du nom d'une colonne sur la VueBureau
+
 participant user
 participant "controleurChange : ControleurChangeTitreColonne" as CChange
 participant "controleurConfirme : ControleurConfirmeTitreColonne" as CConfirme
