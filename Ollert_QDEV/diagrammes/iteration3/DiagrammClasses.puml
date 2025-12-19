@@ -92,6 +92,7 @@ package vues{
         - genererColonne(Colonne c)
         - genererTache(TacheComposite t)
     }
+    VueBureau ->"1" Colonne : - colonneEnModif
 
     class VueTaches{
         + VueTaches(List<Colonne>)
