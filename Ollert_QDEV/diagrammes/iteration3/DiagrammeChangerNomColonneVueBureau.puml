@@ -6,6 +6,7 @@ participant "controleurChange : ControleurChangeTitreColonne" as CChange
 participant "controleurConfirme : ControleurConfirmeTitreColonne" as CConfirme
 participant "m : Modele" as m
 participant "vueBureau ; VueBureau" as VB
+participant "nomColonne : TextField" as t
 
 activate user
 user -> CChange : double clic
@@ -21,8 +22,13 @@ deactivate m
 deactivate CChange
 
 user -> CConfirme : enter
-
 activate CConfirme
+
+CConfirme -> t : getText()
+activate t
+t --> CConfirme : "nouveau nom"
+deactivate t
+
 CConfirme -> m : modifierNomColonne(colonne,"nouveau nom")
 activate m
 m--> CConfirme
