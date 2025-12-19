@@ -26,7 +26,7 @@ public class ControleurChangeTitreColonne implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         if(mouseEvent.getClickCount() == 2){
-            this.vueBureau.colonneEnModif = c;
+            this.vueBureau.setColonneEnModif(c);
             this.m.notifier();
         }
     }
