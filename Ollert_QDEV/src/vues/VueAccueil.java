@@ -18,7 +18,6 @@ public class VueAccueil extends VBox implements Observateur{
         this.modeAffichage = VueBureau.getInstance();
         this.model = modele;
 
-        super();
 
         this.setPadding(new Insets(10));
 
