@@ -1,0 +1,17 @@
+@startuml
+
+title notification des Observateurs
+participant Modele as "mod : Modele"
+participant Observateur as "observateurs : ArrayList<Observateur>"
+
+-> Modele : notifier()
+loop pour chaque observateur
+Modele -> Observateur : actualiser()
+Observateur --> Modele
+end loop
+
+
+
+
+
+@enduml

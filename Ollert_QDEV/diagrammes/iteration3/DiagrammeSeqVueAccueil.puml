@@ -1,27 +1,32 @@
 @startuml
 
-title "Affichage de l'application en vue Bureau avec l'accueil présent"
+title "Affichage de l'application en vue Bureau (lors du lancement de l'application)"
 participant TestVue
-participant VueAccueil as "VueAccueil : vA"
-participant VueTache as "VueTaches : vT"
-participant VueBureau as "VueBureau : vB"
+participant Modele as "model : Modele"
+participant VueAccueil as "vue : VueAccueil"
+participant VueBureau as "modeAffichage : VueBureau"
 
+
+create Modele
+TestVue -> Modele : new Modele()
 create VueAccueil
-TestVue -> VueAccueil : new VueAccueil()
-create VueTache
-VueAccueil -> VueTache : new VueTache()
-create VueBureau
-VueAccueil -> VueBureau : new VueBureau()
-VueAccueil -> VueTache : setModeAffichage(vB)
-activate VueTache
-VueAccueil <-- VueTache
-deactivate VueTache
-VueAccueil -> VueTache : actualiser()
-activate VueTache
-VueTache -> VueBureau : genererAffichage()
+TestVue -> VueAccueil : new VueAccueil(model)
+
+VueAccueil -> VueBureau : getInstance()
 activate VueBureau
-VueTache <-- VueBureau
-VueTache --> VueAccueil
+VueBureau --> VueAccueil : modeAffichage [VueBureau]
+deactivate VueBureau
+
+TestVue -> Modele : ajouterObservateur(vue)
+activate Modele
+Modele --> TestVue
+deactivate Modele
+TestVue -> VueAccueil : actualiser()
+activate VueAccueil
+VueAccueil -> VueBureau : genererAffichage()
+activate VueBureau
+VueBureau --> VueAccueil : this [Pane]
+VueAccueil --> TestVue
 
 
 
