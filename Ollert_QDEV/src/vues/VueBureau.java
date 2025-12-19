@@ -14,9 +14,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class VueBureau extends HBox implements StrategieModeAffichage {
 
     private static final int LARGEUR_COLONNE = 100;
@@ -24,13 +21,22 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     private ControleurDragAndDrop dnd;
     public Colonne colonneEnModif;
 
+    private static VueBureau instance;
+
 
     public VueBureau() {
         this.setSpacing(20);
     }
 
+    public static VueBureau getInstance(){
+        if(instance == null){
+            instance = new VueBureau();
+        }
+        return instance;
+    }
+
     @Override
-    public void genererAffichage(Modele modele) {
+    public Pane genererAffichage(Modele modele) {
         this.getChildren().clear();
 
         dnd = new ControleurDragAndDrop(modele);
@@ -50,7 +56,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             this.getChildren().add(ajoutColonne);
         }
 
-
+        return this;
     }
 
     private VBox genererColonne(Colonne c, Modele modele){
@@ -96,7 +102,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         dnd.activerDropColonne(scrollPane, c);
 
         //ajout des taches dans le conteneur qui ets dans le scrollPane qui contient les taches
-        for (TacheComposite t : c.getListe()) {
+        for (Tache t : c.getListe()) {
             Label labelTache = genererTache(t);
             dnd.activerDragTache(labelTache, t);
             vBox.getChildren().add(labelTache);

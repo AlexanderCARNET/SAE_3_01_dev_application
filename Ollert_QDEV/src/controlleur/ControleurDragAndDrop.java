@@ -2,7 +2,7 @@ package controlleur;
 
 import donnees.Colonne;
 import donnees.Modele;
-import donnees.TacheComposite;
+import donnees.Tache;
 import javafx.scene.Node;
 import javafx.scene.input.*;
 
@@ -10,13 +10,13 @@ public class ControleurDragAndDrop {
 
     private final Modele modele;
 
-    private TacheComposite tacheEnCours;
+    private Tache tacheEnCours;
 
     public ControleurDragAndDrop(Modele modele) {
         this.modele = modele;
     }
 
-    public void activerDragTache(Node sourceNode, TacheComposite tache) {
+    public void activerDragTache(Node sourceNode, Tache tache) {
         sourceNode.setOnDragDetected(e -> {
             tacheEnCours = tache;
 
