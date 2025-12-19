@@ -9,7 +9,6 @@ public class VueTaches implements Observateur{
     private StrategieModeAffichage modeAffichage;
 
     public VueTaches(Modele mod) {
-        super();
         this.model = mod;
     }
 

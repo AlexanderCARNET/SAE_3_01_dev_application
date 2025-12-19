@@ -2,7 +2,7 @@
 
 package vues{
     interface StrategieModeAffichage{
-        genererAffichage(Modele):void
+        genererAffichage(Modele): Pane
     }
 
     interface Observateur{
@@ -10,17 +10,20 @@ package vues{
     }
 
     class VueListes{
-        - addTache:Button
         - colonnes:Map<TacheComposite, String>
         - table:TableView<TacheComposite>
         - nomColonnes:ObservableList<String>
+        - instance : VueListes
 
 
         + VueListes()
-        + genererAffichage(Modele):void
+        + genererAffichage(Modele): Pane
+        + getInstance(): VueListes
         - creeTable():void
         - deplacerTache(TacheComposite, String, String):void
         - gestionAjout(): void
+        - gestionArchive(Tache): void
+        - gestionModification(Tache): void
     }
 
     class VueTaches{
@@ -32,9 +35,15 @@ package vues{
     class PopupAddTache{
         +display(Modele, Colonne): void
     }
-}
 
-class Colonne{}
+    class PopupEditTache{
+        + display(Modele, Tache): void
+    }
+
+    class PopupArchive{
+        + display(Modele): void
+    }
+}
 
 class Modele{}
 
@@ -42,17 +51,20 @@ class VBox{}
 
 class ControleurAjouterTache{}
 
+class ControleurModifierTache{}
+
 VueListes ..|> StrategieModeAffichage
 VueListes --> "1" Modele:model
 VueListes --|> VBox
 VueListes ...> "<<use>>" PopupAddTache
+VueListes ...> "<<use>>" PopupEditTache
 
 
 VueTaches ..|> Observateur
 VueTaches --> "1" StrategieModeAffichage:modeAffichage
-VueTaches --> "*" Colonne
 VueTaches --> "1" Modele:model
 
 PopupAddTache ...> "<<use>>" ControleurAjouterTache
+PopupEditTache ...> "<<use>>" ControleurModifierTache
 
 @enduml

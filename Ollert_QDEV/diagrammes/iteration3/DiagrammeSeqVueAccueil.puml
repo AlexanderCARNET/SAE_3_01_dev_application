@@ -1,0 +1,34 @@
+@startuml
+
+title "Affichage de l'application en vue Bureau avec l'accueil présent"
+participant TestVue
+participant VueAccueil as "VueAccueil : vA"
+participant VueTache as "VueTaches : vT"
+participant VueBureau as "VueBureau : vB"
+
+create VueAccueil
+TestVue -> VueAccueil : new VueAccueil()
+create VueTache
+VueAccueil -> VueTache : new VueTache()
+create VueBureau
+VueAccueil -> VueBureau : new VueBureau()
+VueAccueil -> VueTache : setModeAffichage(vB)
+activate VueTache
+VueAccueil <-- VueTache
+deactivate VueTache
+VueAccueil -> VueTache : actualiser()
+activate VueTache
+VueTache -> VueBureau : genererAffichage()
+activate VueBureau
+VueTache <-- VueBureau
+VueTache --> VueAccueil
+
+
+
+
+
+
+
+
+
+@enduml

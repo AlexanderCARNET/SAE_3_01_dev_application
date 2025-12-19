@@ -5,11 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class TestVue extends Application {
 
@@ -41,15 +37,10 @@ public class TestVue extends Application {
         }
 
 
-        VueTaches vueTaches = new VueTaches(model);
-        model.ajouterObservateur(vueTaches);
+        VueAccueil vue = new VueAccueil(model);
+        model.ajouterObservateur(vue);
 
-        VueBureau vue = new VueBureau();
-
-        vueTaches.setModeAffichage(vue);
-
-
-        vueTaches.actualiser();
+        vue.actualiser();
 
         VBox root = new VBox(vue);
         root.setFillWidth(true);

@@ -5,7 +5,6 @@ import vues.Observateur;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.time.LocalDate;
 
 
 public class Modele implements Serializable {
@@ -56,7 +55,7 @@ public class Modele implements Serializable {
         return true;
     }
 
-    public void deplacerTache(TacheComposite tache, Colonne cible) {
+    public void deplacerTache(Tache tache, Colonne cible) {
 
 
         if (tache == null || cible == null) return;
@@ -143,20 +142,19 @@ public class Modele implements Serializable {
         notifier();
 
     }
-    public boolean modifierTache(TacheComposite tache, String titre, String description, int duree, Date dateDebut) {
+    public void modifierTache(Tache tache, String titre, String description, int duree, Date dateDebut) {
 
-        if (tache == null) return false;
-        if (titre == null || titre.isBlank()) return false;
-        if (duree < 0) return false;
-        if (dateDebut == null) return false;
+        if (tache == null) return;
+        if (titre == null || titre.isBlank()) return;
+        if (duree < 0) return;
+        if (dateDebut == null) return;
 
         tache.setTitre(titre);
         tache.setDescription(description);
         tache.setDuree(duree);
         tache.setDateDebut(dateDebut);
 
-        notifier();
-        return true;
+        this.notifier();
     }
 
 

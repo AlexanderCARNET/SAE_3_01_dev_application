@@ -1,6 +1,7 @@
 package controlleur;
 
 import donnees.Modele;
+import donnees.Tache;
 import donnees.TacheComposite;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,13 +14,14 @@ import java.util.Date;
 public class ControleurModifierTache implements EventHandler<ActionEvent> {
 
     private final Modele modele;
-    private final ComboBox<TacheComposite> cbTache;
+    //private final ComboBox<TacheComposite> cbTache;
+    private final Tache cbTache;
     private final TextField tfTitre;
     private final TextArea taDescription;
     private final Spinner<Integer> spDuree;
     private final DatePicker dpDateDebut;
 
-    public ControleurModifierTache(Modele modele, ComboBox<TacheComposite> cbTache,TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut) {
+    public ControleurModifierTache(Modele modele, /*ComboBox<TacheComposite>*/Tache cbTache,TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut) {
         this.modele = modele;
         this.cbTache = cbTache;
         this.tfTitre = tfTitre;
@@ -40,7 +42,7 @@ public class ControleurModifierTache implements EventHandler<ActionEvent> {
             );
         }
 
-        modele.modifierTache(cbTache.getValue(), tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut
+        modele.modifierTache(cbTache/*cbTache.getValue()*/, tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut
         );
     }
 }
