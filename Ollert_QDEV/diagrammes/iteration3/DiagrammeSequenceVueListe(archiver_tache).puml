@@ -1,0 +1,57 @@
+@startuml
+
+actor "Utilisateur" as User
+participant "VueListes" as V
+participant "Modele" as M
+participant "Colonne" as C
+participant "Archive" as A
+
+
+title Séquence : Archiver une tache
+
+User -> V : Click droit et clique sur le bouton "Archiver"
+activate V
+
+V -> V : gestionArchive(tache)
+
+V -> M : getColonnes()
+activate M
+M --> V : listeColonnes
+deactivate M
+
+loop Pour chaque Colonne (C)
+    
+    V -> C : getListe()
+    activate C
+    C --> V : listeTaches
+    deactivate C
+
+    opt listeTaches.contains(tache)
+        
+        V -> C : supprimeTache(tache)
+        activate C
+        C --> V
+        deactivate C
+        
+        note right of V : break
+    end
+end
+
+V -> M : getArchive()
+activate M
+M --> V : Archive
+deactivate M
+
+V -> A : ajouterTache(tache)
+activate A
+A --> V
+deactivate A
+
+V -> M : notifier()
+activate M
+M --> V
+deactivate M
+
+deactivate V
+
+@enduml
