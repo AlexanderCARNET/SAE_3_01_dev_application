@@ -3,19 +3,16 @@
 title Diagramme de Séquence : Déplacer une Tâche (Drop)
 
 actor Utilisateur
-participant "targetNode : Node" as Vue
 participant ": ControleurDragAndDrop" as Ctrl
 participant "modele : Modele" as Modele
 participant "source : Colonne" as ColSource
 participant "cible : Colonne" as ColCible
 participant ": Observateur" as Obs
 
-note right of Ctrl : Pré-condition : tacheEnCours != null
 
-Utilisateur -> Vue : Relâche la tâche (Drop)
+Utilisateur -> Ctrl : Relâche la tâche (Drop)
 activate Vue
 
-Vue -> Ctrl : handle(DragEvent e)
 activate Ctrl
 
 alt tacheEnCours != null
@@ -61,8 +58,7 @@ alt tacheEnCours != null
     deactivate Modele
 
     Ctrl -> Ctrl : tacheEnCours = null
-    Ctrl -> Vue : e.setDropCompleted(true)
-    Ctrl -> Vue : e.consume()
+    Ctrl --> Vue : e.setDropCompleted(true)
 end
 
 deactivate Ctrl
