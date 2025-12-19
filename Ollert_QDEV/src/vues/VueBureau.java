@@ -1,8 +1,6 @@
 package vues;
 
-import controlleur.ControleurAjouterColonne;
-import controlleur.ControleurAjouterTache;
-import controlleur.ControleurDragAndDrop;
+import controlleur.*;
 import donnees.Colonne;
 import donnees.Modele;
 import donnees.Tache;
@@ -10,9 +8,9 @@ import donnees.TacheComposite;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -24,6 +22,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     private static final int LARGEUR_COLONNE = 100;
     private static final double HAUTEUR_COLONNE = 400;
     private ControleurDragAndDrop dnd;
+    public Colonne colonneEnModif;
 
 
     public VueBureau() {
@@ -65,7 +64,6 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         vBox.setPrefHeight(VueBureau.LARGEUR_COLONNE);
         vBox.setSpacing(10);
 
-        dnd.activerDropColonne(vBox, c);
 
 
         //creation du controleur pour ajouter une tache a la colonne
@@ -92,6 +90,10 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         scrollPane.setContent(vBox);
         scrollPane.setMaxWidth(VueBureau.LARGEUR_COLONNE);
         scrollPane.setMinWidth(VueBureau.LARGEUR_COLONNE);
+        scrollPane.setMinHeight(VueBureau.HAUTEUR_COLONNE);
+        scrollPane.setMaxHeight(VueBureau.HAUTEUR_COLONNE);
+
+        dnd.activerDropColonne(scrollPane, c);
 
         //ajout des taches dans le conteneur qui ets dans le scrollPane qui contient les taches
         for (TacheComposite t : c.getListe()) {
@@ -100,9 +102,18 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             vBox.getChildren().add(labelTache);
         }
 
+        //creation du titre de la colonne
+        Control titre;
+        if(c.equals(this.colonneEnModif)){
+            titre = new TextField(c.getTitre());
+            titre.addEventHandler(KeyEvent.KEY_PRESSED,new ControleurConfirmeTitreColonne(this,modele, c));
+        }else{
+            titre = new Label(c.getTitre());
+            titre.addEventHandler(MouseEvent.MOUSE_CLICKED, new ControleurChangeTitreColonne(this, c, modele));
+        }
 
         //ajout du titre et du scrollPane dans le conteneur principal
-        res.getChildren().addAll(new Label(c.getTitre()),BajoutTache,scrollPane);
+        res.getChildren().addAll(titre,BajoutTache,scrollPane);
         return res;
     }
 
