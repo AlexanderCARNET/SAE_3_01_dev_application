@@ -176,4 +176,10 @@ public class Modele implements Serializable {
     public void setColonnes(ArrayList<Colonne> colonnes) {
         this.colonnes = colonnes;
     }
+
+    public void modifierNomColonne(Colonne c, String nouveauNom){
+        if(!(nouveauNom == null || nouveauNom.isBlank())){
+            c.setTitre(nouveauNom);
+        };
+    }
 }
