@@ -7,18 +7,35 @@ participant "controleurConfirme : ControleurConfirmeTitreColonne" as CConfirme
 participant "m : Modele" as m
 participant "vueBureau ; VueBureau" as VB
 
+activate user
 user -> CChange : double clic
+activate CChange
 CChange -> VB : setColonneEnModif(colonne)
+activate VB
 VB -> CChange
+deactivate VB
 CChange -> m : notifier()
+activate m
 m --> CChange
-user -> CConfirme : enter
-CConfirme -> m : modifierNomColonne(colonne,"nouveau nom")
-m--> CConfirme
-CConfirme -> VB : setColonneEnModif(null)
-VB --> CConfirme
-CConfirme -> m : notifier()
+deactivate m
+deactivate CChange
 
+user -> CConfirme : enter
+
+activate CConfirme
+CConfirme -> m : modifierNomColonne(colonne,"nouveau nom")
+activate m
+m--> CConfirme
+deactivate m
+CConfirme -> VB : setColonneEnModif(null)
+activate VB
+VB --> CConfirme
+deactivate VB
+CConfirme -> m : notifier()
+activate m
+m--> CConfirme
+deactivate m
+CConfirme --> user
 
 
 @enduml
