@@ -1,0 +1,65 @@
+@startuml
+
+actor "Utilisateur" as User
+participant "VueListes" as V
+participant "PopupEditTache" as P
+participant "ControleurModifierTache" as C
+participant "Modele" as M
+participant "Colonne" as Col
+participant "cbTache" as T
+
+title Séquence : Modifie une tâche
+
+User -> V : Click droit et clique sur le bouton "Modifier"
+activate V
+
+V -> P : display(modele, Tache)
+activate P
+
+Note right of P : Création de l'interface graphique\n(TextField, DatePicker, etc.)
+
+create C
+P -> C : new(modele, Tache, tfTitre, ...)
+
+P --> User : Affiche la fenêtre (showAndWait)
+
+User -> P : Saisit les données (Titre, Date...)
+User -> P : Clique sur "Modifier"
+
+P -> C : handle(event)
+activate C
+
+C -> C : Lit les données des champs (tfTitre.getText...)
+C -> M : modifierTache(cbTache, titre, ...)
+activate M
+alt Données invalides (null ou vide)
+    M --> C : return
+else Données valides
+    create T
+    M -> T : setTitre(titre)
+    activate T
+    M -> T : setDescription(description)
+    M -> T : setDuree(duree)
+    M -> T : setDateDebut(dateDebut)
+    deactivate T
+    M -> M : notifier()
+end
+
+M --> C : retourne la Tache modifiee
+deactivate M
+
+C --> P : return (void)
+deactivate C
+
+P -> P : window.close()
+
+P -> M : notifier()
+activate M
+M -> V : actualiser() / genererAffichage()
+deactivate M
+
+return Retour au contrôle de l'UI
+deactivate P
+deactivate V
+
+@enduml
