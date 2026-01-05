@@ -1,0 +1,30 @@
+@startuml
+title UC9 - Afficher les détails d'une tâche
+
+actor Utilisateur
+participant VueBureau
+participant TacheComposite
+participant PopupDetailsTache
+
+Utilisateur -> VueBureau : clic sur une tâche
+activate VueBureau
+
+VueBureau -> TacheComposite : récupérer informations
+activate TacheComposite
+
+TacheComposite --> VueBureau : titre, description,\ndurée, date, dépendances
+deactivate TacheComposite
+
+VueBureau -> PopupDetailsTache : display(TacheComposite)
+activate PopupDetailsTache
+
+PopupDetailsTache -> TacheComposite : lire attributs
+activate TacheComposite
+TacheComposite --> PopupDetailsTache : données tâche
+deactivate TacheComposite
+
+PopupDetailsTache --> Utilisateur : affichage détails
+deactivate PopupDetailsTache
+
+deactivate VueBureau
+@enduml
