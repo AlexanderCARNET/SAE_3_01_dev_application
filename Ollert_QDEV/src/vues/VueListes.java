@@ -72,10 +72,7 @@ public class VueListes extends VBox implements StrategieModeAffichage{
             );
 
             row.setOnMouseClicked(event -> {
-                if (!row.isEmpty()
-                        && event.getButton() == MouseButton.PRIMARY
-                        && event.getClickCount() == 1) {
-
+                if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
                     Tache tache = row.getItem();
                     new PopupDetailsTache().display((TacheComposite) tache);
                 }

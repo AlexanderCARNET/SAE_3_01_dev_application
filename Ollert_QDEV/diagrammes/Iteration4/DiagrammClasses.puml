@@ -193,15 +193,17 @@ package vues{
     class PopupArchive{
         + display(Modele): void
     }
+
+    class PopupDetailsTache {
+        + display(t : TacheComposite) : void
+    }
+    VueBureau ...> "<<use>>" PopupDetailsTache
+    PopupDetailsTache --> TacheComposite
 }
 
 class VBox{}
 
-class PopupDetailsTache {
-    + display(t : TacheComposite) : void
-}
-VueBureau ...> "<<use>>" PopupDetailsTache
-PopupDetailsTache --> TacheComposite
+
 
 
 ControleurChangeTitreColonne ->"1" Modele : -m
