@@ -104,6 +104,10 @@ package vues{
         + actualiser():void
         + setModeAffichage(StrategieModeAffichage):void
     }
+
+    class PopupSelectionTaches{
+        +static display(Modele m)
+    }
 }
 
  class ControleurAjouterTache  {
@@ -200,9 +204,7 @@ package vues{
         + display(Modele): void
     }
 }
-class PopupSelectionTaches{
-    +static display(Modele m)
-}
+
 
 
 class VBox{}
