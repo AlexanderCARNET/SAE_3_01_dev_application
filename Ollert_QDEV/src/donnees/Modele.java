@@ -72,7 +72,7 @@ public class Modele implements Serializable {
         cible.getListe().add(tache);
         notifier();
     }
-    
+
 
 
     public Tache ajouterTache(Colonne colonne, String titre, String description, int duree, Date dateDebut) {
