@@ -2,6 +2,7 @@ package vues;
 import donnees.TacheComposite;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -74,6 +75,15 @@ public class PopupDetailsTache {
         grid.add(lblDepTitre, 0, 3);
         grid.add(lblDependances, 1, 3);
 
+        Button btnFermer = new Button("Fermer");
+        btnFermer.setStyle(
+                "-fx-background-color: #d9534f;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-padding: 8 18;" +
+                        "-fx-background-radius: 6;" +
+                        "-fx-cursor: hand;"
+        );
 
 
 
