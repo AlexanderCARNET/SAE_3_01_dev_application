@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Diagramme séquence clic sur le bouton de selection de tâches pour gantt
+
+participant user
+participant "bonton : Buttton" as Button
+participant "PopupSelectionTaches" as popupSelectionTaches
+participant "m : Modele" as modele
+participant "tache : Tache" as Tache
+
+activate user
+user -> Button : clic
+
+activate Button
+
+Button -> popupSelectionTaches : PopupSelectionTaches.display(modele)
+activate popupSelectionTaches
+
+popupSelectionTaches -> modele : getTaches()
+activate modele
+modele --> popupSelectionTaches : List<Tache>
+deactivate modele
+loop Pour toutes les taches
+popupSelectionTaches -> Tache : getTitre()
+
+activate Tache
+Tache --> popupSelectionTaches : "titre"
+deactivate Tache
+end loop
+
+popupSelectionTaches --> Button
+deactivate popupSelectionTaches
+deactivate Button
+
+
+@enduml
