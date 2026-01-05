@@ -19,6 +19,7 @@ package donnees {
             +desarchiverTache(Tache): void
             +supprimerArchiverTache(Tache): void
 
+            +getTaches(): List<Tache>
 
         }
 
