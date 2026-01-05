@@ -35,7 +35,6 @@ public class PopupDetailsTache {
         col2.setHgrow(javafx.scene.layout.Priority.ALWAYS);
         grid.getColumnConstraints().addAll(col1, col2);
 
-        // Description
         Label lblDescTitre = new Label("Description :");
         lblDescTitre.setStyle("-fx-font-weight: bold;");
 
@@ -62,6 +61,18 @@ public class PopupDetailsTache {
         Label lblDependances = new Label(
                 String.valueOf(tache.getDependances().size())
         );
+
+        grid.add(lblDescTitre, 0, 0);
+        grid.add(lblDescription, 1, 0);
+
+        grid.add(lblDureeTitre, 0, 1);
+        grid.add(lblDuree, 1, 1);
+
+        grid.add(lblDateTitre, 0, 2);
+        grid.add(lblDate, 1, 2);
+
+        grid.add(lblDepTitre, 0, 3);
+        grid.add(lblDependances, 1, 3);
 
 
 
