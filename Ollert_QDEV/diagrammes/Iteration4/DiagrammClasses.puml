@@ -115,6 +115,10 @@ package vues{
         + actualiser():void
         + setModeAffichage(StrategieModeAffichage):void
     }
+
+    class PopupSelectionTaches{
+        +static display(Modele m)
+    }
 }
 
  class ControleurAjouterTache  {
