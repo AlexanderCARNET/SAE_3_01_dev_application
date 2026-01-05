@@ -1,6 +1,8 @@
 package donnees;
 import exception.MaxColonneException;
 import vues.Observateur;
+import vues.PopupAddTache;
+import vues.PopupEditTache;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -72,7 +74,7 @@ public class Modele implements Serializable {
         cible.getListe().add(tache);
         notifier();
     }
-    
+
 
 
     public Tache ajouterTache(Colonne colonne, String titre, String description, int duree, Date dateDebut) {
@@ -171,5 +173,60 @@ public class Modele implements Serializable {
         if(!(nouveauNom == null || nouveauNom.isBlank())){
             c.setTitre(nouveauNom);
         };
+    }
+
+    public void deplacerTache(Tache tache, String newCol, String oldCol){
+        for(Colonne colonne: this.getColonnes()){
+            if(colonne.getTitre().equals(oldCol))
+                colonne.supprimeTache(tache);
+            if(colonne.getTitre().equals(newCol))
+                colonne.ajouteTache(tache);
+        }
+
+        System.out.println("\n");
+        for(Colonne colonne: this.getColonnes()){
+            if(colonne.getTitre().equals(oldCol) || colonne.getTitre().equals(newCol)){
+                System.out.println(colonne.getTitre());
+                for(TacheComposite task : colonne.getListe()){
+                    System.out.println(task.getTitre());
+                }
+            }
+        }
+    }
+
+    public void gestionAjout(){
+        if(this == null || this.getColonnes().isEmpty()){
+            //throw new ;
+
+            System.out.println("You dont have a model or the colonnes are empty.");
+            return;
+        }
+
+        Colonne col = this.getColonnes().get(0);
+
+        PopupAddTache.display(this, col);
+    }
+
+    public void gestionArchive(Tache tache){
+        for(Colonne col : this.getColonnes()){
+            if(col.getListe().contains(tache)){
+                col.supprimeTache(tache);
+                break;
+            }
+        }
+        Archive archive = this.getArchive();
+        archive.ajouterTache(tache);
+        this.notifier();
+    }
+
+    public void gestionModification(Tache tache){
+        if(this == null || this.getColonnes().isEmpty()){
+            //throw new ;
+
+            System.out.println("You dont have a model or the colonnes are empty.");
+            return;
+        }
+
+        PopupEditTache.display(this, tache);
     }
 }

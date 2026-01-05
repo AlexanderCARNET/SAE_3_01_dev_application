@@ -1,0 +1,237 @@
+@startuml
+
+package donnees {
+
+    class Modele {
+            - final int NB_MAX_COLONNES = 5;
+
+            + ajouterTache(col : Colonne, titre : String, description : String, duree : int, date : Date) : Tache
+            + modifierTache(t : TacheComposite, titre : String, description : String, duree : int, date : Date) : boolean
+            + ajouterSousTache(parent : TacheComposite, enfant : TacheComposite) : boolean
+            + ajouterDependance(cible : TacheComposite, dep : TacheComposite) : boolean
+            + notifier() : void
+            + modifierNomColonne(Colonne c, String nouveauNom)
+            +deplacerTache(TacheComposite, Colonne)
+            +deplacerTache(TacheComposite, String, String):void
+            +gestionAjout(): void
+            +gestionArchive(Tache): void
+            +gestionModification(Tache): void
+
+
+        }
+        Modele ..|> Serializable
+        Modele --> "*" Colonne : - colonnes
+
+        Modele --> Archive : - archive
+
+    abstract class TacheComposite {
+        - String titre
+        - String description
+        - int duree
+        - Date dateDebut
+
+        + TacheComposite(String, String, int, Date)
+        + void ajouterSousTache(TacheComposite)
+        + void supprimerSousTache(TacheComposite)
+        + List<TacheComposite> getSousTaches()
+        + void setSousTaches(List<TacheComposite>)
+        + boolean modifierTache(String, String, int, Date)
++ ajouterDependance(t : TacheComposite) : void
++ supprimerDependance(t : TacheComposite) : void
+    }
+
+    class Tache {
+        + Tache(String, String, int, Date)
+    }
+
+    Tache --|> TacheComposite
+
+    TacheComposite "1" --> "0..*" TacheComposite : sousTaches
+        TacheComposite "1" --> "0..*" TacheComposite : dependances
+
+
+    interface Serializable
+    class Colonne {
+    - String titre
+    - static final long serialVersionUID = 1L
+    + Colonne(String)
+    + supprimeTache(TacheComposite) : void
+    + ajouteTache((TacheComposite) : void
+    + contient(TacheComposite t) : boolean
+
+    }
+    Colonne -->  "*" TacheComposite : - liste
+    Colonne .u.|> Serializable
+}
+
+class Repository{
+    - static String nomFichierSauvegarde
+    - static Repository instance
+    - Repository()
+    + static getInstance() : Repository
+    + saveAll(Modele m)
+    + loadAll() : Modele
+    + static creerFichier()
+    + static supprimerFichier()
+}
+
+package vues{
+    interface StrategieModeAffichage{
+        genererAffichage(Modele m):void
+    }
+
+    interface Observateur{
+        actualiser():void
+    }
+
+    class VueListes{
+        - colonnes:Map<TacheComposite, String>
+
+        + VueListes()
+        + genererAffichage(List<Colonne>):void
+    }
+
+    class VueBureau{
+        +genererAffichage(Modele m)
+        - genererColonne(Colonne c)
+        - genererTache(TacheComposite t)
+    }
+    VueBureau ->"1" Colonne : - colonneEnModif
+
+    class VueTaches{
+        + VueTaches(List<Colonne>)
+        + actualiser():void
+        + setModeAffichage(StrategieModeAffichage):void
+    }
+}
+
+ class ControleurAjouterTache  {
+
+
+    -  tfTitre : TextField;
+    - taDescription : TextArea ;
+    - spDuree : Spinner<Integer> ;
+    - dpDateDebut : DatePicker ;
+
+    - lvDependances: ListView<TacheComposite> ;
+    - lvSousTaches : ListView<TacheComposite> ;
+
+    + ControleurAjouterTache(Modele modele, Colonne colonneCourante, \n TextField tfTitre,TextArea taDescription, Spinner<Integer> spDuree, \n DatePicker dpDateDebut,ListView<TacheComposite> lvDependances, \n ListView<TacheComposite> lvSousTaches);
+
+    + void handle(ActionEvent event);
+
+}
+
+class ControleurAjouterSousTache{
+- modele : Modele
+- cbParente : ComboBox<TacheComposite>
+- cbSousTache : ComboBox<TacheComposite>
++ ControleurAjouterSousTache( modele : Modele\n,  cbParente : ComboBox<TacheComposite>, \n cbSousTache : ComboBox<TacheComposite>)
++ handle(event : ActionEvent) : void
+}
+
+class ControleurDragAndDrop {
+
+-activerDragTache(Node , TacheComposite )
+-activerDropColonne(Node , Colonne )
+
+}
+
+ControleurDragAndDrop --> Modele : modele
+ControleurDragAndDrop --> TacheComposite : tacheEnCours
+
+class ControleurConfirmeTitreColonne{
+    + ControleurConfirmeTitreColonne(VueBureau vueBureau, Modele modele, Colonne c)
+    + handle(KeyEvent keyEvent)
+}
+ControleurConfirmeTitreColonne ->"1" Modele : m
+ControleurConfirmeTitreColonne ->"1" VueBureau : vueBureau
+ControleurConfirmeTitreColonne ->"1" Colonne : c
+
+
+class ControleurChangeTitreColonne{
+    + ControleurChangeTitreColonne(VueBureau vueBureau, Colonne c, Modele m)
+    + handle(MouseEvent mouseEvent)
+}
+
+package vues{
+    interface StrategieModeAffichage{
+        genererAffichage(Modele): Pane
+    }
+
+    interface Observateur{
+        actualiser():void
+    }
+
+    class VueListes{
+        - colonnes:Map<TacheComposite, String>
+        - table:TableView<TacheComposite>
+        - nomColonnes:ObservableList<String>
+        - instance : VueListes
+
+
+        + VueListes()
+        + genererAffichage(Modele): Pane
+        + getInstance(): VueListes
+        - creeTable():void
+    }
+
+    class VueTaches{
+        + VueTaches(Modele)
+        + actualiser():void
+        + setModeAffichage(StrategieModeAffichage):void
+    }
+
+    class PopupAddTache{
+        +display(Modele, Colonne): void
+    }
+
+    class PopupEditTache{
+        + display(Modele, Tache): void
+    }
+
+    class PopupArchive{
+        + display(Modele): void
+    }
+}
+
+class VBox{}
+
+class PopupDetailsTache {
+    + display(t : TacheComposite) : void
+}
+VueBureau ...> "<<use>>" PopupDetailsTache
+PopupDetailsTache --> TacheComposite
+
+
+ControleurChangeTitreColonne ->"1" Modele : -m
+ControleurChangeTitreColonne ->"1" VueBureau : -vueBureau
+ControleurChangeTitreColonne ->"1" Colonne : -c
+
+ControleurAjouterSousTache --> Modele : modele
+
+
+
+ ControleurAjouterTache --> Modele : - modele
+ ControleurAjouterTache --> Colonne : -colonneCourante
+
+
+VueListes ..|> StrategieModeAffichage
+VueBureau ..|> StrategieModeAffichage
+VueTaches ..|> Observateur
+
+Modele --> Observateur : - ArrayList observateurs
+
+VueListes --> "1" Modele:model
+VueListes --|> VBox
+VueListes ...> "<<use>>" PopupAddTache
+VueListes ...> "<<use>>" PopupEditTache
+
+VueTaches --> "1" StrategieModeAffichage:modeAffichage
+VueTaches --> "1" Modele:model
+
+PopupAddTache ...> "<<use>>" ControleurAjouterTache
+PopupEditTache ...> "<<use>>" ControleurModifierTache
+
+
+@enduml
