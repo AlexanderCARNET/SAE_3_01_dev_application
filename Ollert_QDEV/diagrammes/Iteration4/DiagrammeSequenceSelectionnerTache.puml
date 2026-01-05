@@ -3,8 +3,8 @@
 
 title Diagramme séquence clic sur le bouton de selection de tâches pour gantt
 
-participant user
-participant "bonton : Buttton" as Button
+actor user
+participant "bouton : Buttton" as Button
 participant "PopupSelectionTaches" as popupSelectionTaches
 participant "m : Modele" as modele
 participant "tache : Tache" as Tache
