@@ -1,0 +1,52 @@
+@startuml
+
+actor "Utilisateur" as User
+participant "VueAccueil" as V
+participant "PopupArchive" as P
+participant "Modele" as M
+participant "Archive" as A
+
+title Séquence : Afficher archive
+
+User -> V : Clique sur le bouton "Archive"
+activate V
+
+V -> V : afficherArchive(tache)
+
+V -> P : display(model)
+activate P
+
+P -> M : getArchive()
+activate M
+M -> A : getTaches()
+activate A
+A --> P
+Note right of P : Creation affichage
+
+User -> P : Clique droit sur la tache et clique sur Desarchiver
+P -> M : desarchiverTache(tache)
+
+opt contains(tache)
+    M -> A : supprimerTache(tache);
+    A --> M
+    deactivate A
+    M -> M : notifier();
+end
+
+M -> Colonnes : getFirst().ajouteTache(tache)
+activate Colonnes
+Colonnes --> P
+deactivate Colonnes
+
+P -> table : getItems().remove(tache)
+activate table
+table --> P
+deactivate table
+Note right of P : Mettre a' jour affichage
+
+User -> P : Clique sur le bouton "Exit"
+P -> P : window.close()
+P --> User : Retour au contrôle de l'UI
+deactivate P
+
+@enduml

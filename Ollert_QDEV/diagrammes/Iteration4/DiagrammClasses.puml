@@ -16,9 +16,21 @@ package donnees {
             +gestionAjout(): void
             +gestionArchive(Tache): void
             +gestionModification(Tache): void
+            +desarchiverTache(Tache): void
+            +supprimerArchiverTache(Tache): void
 
+            +getTaches(): List<Tache>
 
         }
+
+    class Archive{
+        - taches: ArrayList<Tache>
+
+        +ajouterTache(Tache): void
+        +getTaches(): ArrayList<Tache>
+        +contains(Tache): boolean
+        +supprimerTache(Tache): void
+    }
         Modele ..|> Serializable
         Modele --> "*" Colonne : - colonnes
 
