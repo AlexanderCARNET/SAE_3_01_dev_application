@@ -42,7 +42,7 @@ public class VueListes extends VBox implements StrategieModeAffichage{
 
         Button addTache = new Button("Ajouter une tache");
         addTache.setMaxWidth(150);
-        addTache.setOnAction( e -> gestionAjout());
+        addTache.setOnAction( e -> this.model.gestionAjout());
 
         this.table.setRowFactory(ms -> {
             TableRow<Tache> row = new TableRow<>();
@@ -54,12 +54,12 @@ public class VueListes extends VBox implements StrategieModeAffichage{
 
             modifierTache.setOnAction(event -> {
                 Tache tache = row.getItem();
-                this.gestionModification(tache);
+                this.model.gestionModification(tache);
             });
 
             archiverTache.setOnAction(event -> {
                 Tache tache = row.getItem();
-                this.gestionArchive(tache);
+                this.model.gestionArchive(tache);
             });
 
             contextMenu.getItems().addAll(archiverTache, modifierTache);
@@ -96,7 +96,7 @@ public class VueListes extends VBox implements StrategieModeAffichage{
 
             this.colonnes.put(tache, newCol);
 
-            deplacerTache(tache, newCol, oldCol);
+            this.model.deplacerTache(tache, newCol, oldCol);
         });
 
         colCol.setStyle("-fx-alignment: CENTER;");
@@ -155,60 +155,5 @@ public class VueListes extends VBox implements StrategieModeAffichage{
             instance = new VueListes();
         }
         return instance;
-    }
-
-    private void deplacerTache(Tache tache, String newCol, String oldCol){
-        for(Colonne colonne: this.model.getColonnes()){
-            if(colonne.getTitre().equals(oldCol))
-                colonne.supprimeTache(tache);
-            if(colonne.getTitre().equals(newCol))
-                colonne.ajouteTache(tache);
-        }
-
-        System.out.println("\n");
-        for(Colonne colonne: this.model.getColonnes()){
-            if(colonne.getTitre().equals(oldCol) || colonne.getTitre().equals(newCol)){
-                System.out.println(colonne.getTitre());
-                for(TacheComposite task : colonne.getListe()){
-                    System.out.println(task.getTitre());
-                }
-            }
-        }
-    }
-
-    private void gestionAjout(){
-        if(this.model == null || this.model.getColonnes().isEmpty()){
-            //throw new ;
-
-            System.out.println("You dont have a model or the colonnes are empty.");
-            return;
-        }
-
-        Colonne col = this.model.getColonnes().get(0);
-
-        PopupAddTache.display(this.model, col);
-    }
-
-    private void gestionArchive(Tache tache){
-        for(Colonne col : this.model.getColonnes()){
-            if(col.getListe().contains(tache)){
-                col.supprimeTache(tache);
-                break;
-            }
-        }
-        Archive archive = this.model.getArchive();
-        archive.ajouterTache(tache);
-        this.model.notifier();
-    }
-
-    private void gestionModification(Tache tache){
-        if(this.model == null || this.model.getColonnes().isEmpty()){
-            //throw new ;
-
-            System.out.println("You dont have a model or the colonnes are empty.");
-            return;
-        }
-
-        PopupEditTache.display(this.model, tache);
     }
 }
