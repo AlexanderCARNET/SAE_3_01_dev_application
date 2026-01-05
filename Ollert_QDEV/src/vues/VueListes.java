@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -69,6 +70,17 @@ public class VueListes extends VBox implements StrategieModeAffichage{
                             .then((ContextMenu)null)
                             .otherwise(contextMenu)
             );
+
+            row.setOnMouseClicked(event -> {
+                if (!row.isEmpty()
+                        && event.getButton() == MouseButton.PRIMARY
+                        && event.getClickCount() == 1) {
+
+                    Tache tache = row.getItem();
+                    new PopupDetailsTache().display((TacheComposite) tache);
+                }
+            });
+
 
             return row;
         });
