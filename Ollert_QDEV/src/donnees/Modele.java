@@ -16,10 +16,12 @@ public class Modele implements Serializable {
     private final int NB_MAX_COLONNES = 5;
     private  transient ArrayList<Observateur> observateurs = new ArrayList<>();
     private Archive archive;
+    private Gantt gantt;
 
     public Modele(){
         this.colonnes = new ArrayList<Colonne>();
         this.archive = new Archive();
+        this.gantt = new Gantt();
     }
 
     public void notifier(){
@@ -254,5 +256,9 @@ public class Modele implements Serializable {
             }
         }
         return taches;
+    }
+
+    public Gantt getGantt(){
+        return gantt;
     }
 }
