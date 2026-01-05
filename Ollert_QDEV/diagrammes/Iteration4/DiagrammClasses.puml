@@ -12,6 +12,10 @@ package donnees {
             + notifier() : void
             + modifierNomColonne(Colonne c, String nouveauNom)
             +deplacerTache(TacheComposite, Colonne)
+            +deplacerTache(TacheComposite, String, String):void
+            +gestionAjout(): void
+            +gestionArchive(Tache): void
+            +gestionModification(Tache): void
 
 
         }
@@ -170,10 +174,6 @@ package vues{
         + genererAffichage(Modele): Pane
         + getInstance(): VueListes
         - creeTable():void
-        - deplacerTache(TacheComposite, String, String):void
-        - gestionAjout(): void
-        - gestionArchive(Tache): void
-        - gestionModification(Tache): void
     }
 
     class VueTaches{
