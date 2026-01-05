@@ -85,6 +85,17 @@ public class PopupDetailsTache {
                         "-fx-cursor: hand;"
         );
 
+        btnFermer.setOnMouseEntered(e ->
+                btnFermer.setStyle(
+                        "-fx-background-color: #c9302c;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-padding: 8 18;" +
+                                "-fx-background-radius: 6;" +
+                                "-fx-cursor: hand;"
+                )
+        );
+
 
 
     }
