@@ -197,6 +197,13 @@ package vues{
 
 class VBox{}
 
+class PopupDetailsTache {
+    + display(t : TacheComposite) : void
+}
+VueBureau ...> "<<use>>" PopupDetailsTache
+PopupDetailsTache --> TacheComposite
+
+
 ControleurChangeTitreColonne ->"1" Modele : -m
 ControleurChangeTitreColonne ->"1" VueBureau : -vueBureau
 ControleurChangeTitreColonne ->"1" Colonne : -c
