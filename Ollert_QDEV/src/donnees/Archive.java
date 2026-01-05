@@ -14,4 +14,12 @@ public class Archive implements Serializable {
     public ArrayList<Tache> getTaches() {
         return taches;
     }
+
+    public boolean contains(Tache tache){
+        return this.taches.contains(tache);
+    }
+
+    public void supprimeTache(Tache tache){
+        this.taches.remove(tache);
+    }
 }
