@@ -96,6 +96,17 @@ public class PopupDetailsTache {
                 )
         );
 
+        btnFermer.setOnMouseExited(e ->
+                btnFermer.setStyle(
+                        "-fx-background-color: #d9534f;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-font-weight: bold;" +
+                                "-fx-padding: 8 18;" +
+                                "-fx-background-radius: 6;" +
+                                "-fx-cursor: hand;"
+                )
+        );
+
 
 
     }
