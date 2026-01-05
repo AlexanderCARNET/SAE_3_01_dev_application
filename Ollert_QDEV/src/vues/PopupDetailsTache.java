@@ -2,10 +2,13 @@ package vues;
 import donnees.TacheComposite;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -109,7 +112,23 @@ public class PopupDetailsTache {
 
 
 
-    }
-    }
+        btnFermer.setOnAction(e -> stage.close());
 
+        HBox boxBtn = new HBox(btnFermer);
+        boxBtn.setAlignment(Pos.CENTER_RIGHT);
+
+        root.getChildren().addAll(
+                lblTitre,
+                new Separator(),
+                grid,
+                new Separator(),
+                boxBtn
+        );
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.showAndWait();
+    }
+}
 
