@@ -1,0 +1,30 @@
+@startuml
+
+actor "Utilisateur" as User
+participant "VueAccueil" as V
+participant "PopupArchive" as P
+participant "Modele" as M
+participant "Archive" as A
+
+title Séquence : Afficher archive
+
+User -> V : Clique sur le bouton "Archive"
+activate V
+
+V -> V : afficherArchive(tache)
+
+V -> P : display(model)
+activate P
+
+loop Pour chaque Tache
+    P -> M : getArchive()
+    M -> A : getTaches()
+    A --> P
+    Note right of P : Creation affichage
+end
+User -> P : Clique sur le bouton "Exit"
+P -> P : window.close()
+P --> User : Retour au contrôle de l'UI
+deactivate P
+
+@enduml

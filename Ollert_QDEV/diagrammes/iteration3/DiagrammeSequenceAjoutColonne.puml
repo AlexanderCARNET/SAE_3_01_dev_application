@@ -1,0 +1,29 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Ajout d'une nouvelle colonne dans la vueBureau
+
+actor user
+participant "controleurAjoutCol : ControleurAjouterColonne" as CC
+participant "m : Modele" as m
+
+activate user
+user -> CC : clic
+activate CC
+user -> m : ajouterColonne("Nouvelle colonne")
+activate m
+alt !isBlank("Nouvelle colonne")
+    create "colonne : Colonne" as c
+    m -> c : new
+else isBlank("Nouvelle colonne")
+end
+
+m --> CC
+deactivate m
+CC--> user
+deactivate CC
+
+
+
+
+@enduml

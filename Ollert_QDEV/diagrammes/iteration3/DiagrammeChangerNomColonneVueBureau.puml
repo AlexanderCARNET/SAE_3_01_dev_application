@@ -1,0 +1,49 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Changement du nom d'une colonne sur la VueBureau
+
+participant user
+participant "controleurChange : ControleurChangeTitreColonne" as CChange
+participant "controleurConfirme : ControleurConfirmeTitreColonne" as CConfirme
+participant "m : Modele" as m
+participant "vueBureau ; VueBureau" as VB
+participant "nomColonne : TextField" as t
+
+activate user
+user -> CChange : double clic
+activate CChange
+CChange -> VB : setColonneEnModif(colonne)
+activate VB
+VB -> CChange
+deactivate VB
+CChange -> m : notifier()
+activate m
+m --> CChange
+deactivate m
+deactivate CChange
+
+user -> CConfirme : enter
+activate CConfirme
+
+CConfirme -> t : getText()
+activate t
+t --> CConfirme : "nouveau nom"
+deactivate t
+
+CConfirme -> m : modifierNomColonne(colonne,"nouveau nom")
+activate m
+m--> CConfirme
+deactivate m
+CConfirme -> VB : setColonneEnModif(null)
+activate VB
+VB --> CConfirme
+deactivate VB
+CConfirme -> m : notifier()
+activate m
+m--> CConfirme
+deactivate m
+CConfirme --> user
+
+
+@enduml
