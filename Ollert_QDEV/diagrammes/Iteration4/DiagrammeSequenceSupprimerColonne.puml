@@ -1,0 +1,19 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title Supprimer une colonne
+Actor User
+Participant Modele as "m : Modele"
+Participant Button as "b : Button"
+Participant Colonne as "c : Colonne"
+User -> Button
+Button -> Modele : getColonne()
+activate Modele
+return ArrayList<Colonne>
+deactivate Modele
+Button -> Modele : supprimerColonne(c)
+activate Modele
+Modele -> Modele : notifier()
+return
+
+
+@enduml
