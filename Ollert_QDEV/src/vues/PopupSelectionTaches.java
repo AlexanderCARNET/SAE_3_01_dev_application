@@ -21,15 +21,15 @@ public class PopupSelectionTaches implements Observateur {
 
     private VBox principale;
     private Modele m;
+    private Stage window;
 
     public PopupSelectionTaches(Modele m) {
         this.m = m;
         this.principale = new VBox();
+        this.window = new Stage();
     }
 
     public void display(){
-
-        Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Selection Taches pour Gantt");
