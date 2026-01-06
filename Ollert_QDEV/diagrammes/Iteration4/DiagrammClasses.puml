@@ -16,9 +16,21 @@ package donnees {
             +gestionAjout(): void
             +gestionArchive(Tache): void
             +gestionModification(Tache): void
+            +desarchiverTache(Tache): void
+            +supprimerArchiverTache(Tache): void
 
+            +getTaches(): List<Tache>
 
         }
+
+    class Archive{
+        - taches: ArrayList<Tache>
+
+        +ajouterTache(Tache): void
+        +getTaches(): ArrayList<Tache>
+        +contains(Tache): boolean
+        +supprimerTache(Tache): void
+    }
         Modele ..|> Serializable
         Modele --> "*" Colonne : - colonnes
 
@@ -102,6 +114,10 @@ package vues{
         + VueTaches(List<Colonne>)
         + actualiser():void
         + setModeAffichage(StrategieModeAffichage):void
+    }
+
+    class PopupSelectionTaches{
+        +static display(Modele m)
     }
 }
 
@@ -193,15 +209,17 @@ package vues{
     class PopupArchive{
         + display(Modele): void
     }
+
+    class PopupDetailsTache {
+        + display(t : TacheComposite) : void
+    }
+    VueBureau ...> "<<use>>" PopupDetailsTache
+    PopupDetailsTache --> TacheComposite
 }
 
 class VBox{}
 
-class PopupDetailsTache {
-    + display(t : TacheComposite) : void
-}
-VueBureau ...> "<<use>>" PopupDetailsTache
-PopupDetailsTache --> TacheComposite
+
 
 
 ControleurChangeTitreColonne ->"1" Modele : -m

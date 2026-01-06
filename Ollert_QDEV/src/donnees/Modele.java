@@ -52,10 +52,15 @@ public class Modele implements Serializable {
         if (cible == dependance) return false;
         if (cible.getDependances().contains(dependance)) return false;
 
+        if (dependance.dependsOn(cible)) {
+            return false;
+        }
+
         cible.ajouterDependance(dependance);
         notifier();
         return true;
     }
+
 
     public void deplacerTache(Tache tache, Colonne cible) {
 
@@ -228,5 +233,20 @@ public class Modele implements Serializable {
         }
 
         PopupEditTache.display(this, tache);
+    }
+
+    public void desarchiverTache(Tache tache){
+        if(this.archive.contains(tache)){
+            this.archive.supprimeTache(tache);
+            this.notifier();
+        }
+        this.colonnes.getFirst().ajouteTache(tache);
+    }
+
+    public void supprimerArchiverTache(Tache tache){
+        if(this.archive.contains(tache)){
+            this.archive.supprimeTache(tache);
+            this.notifier();
+        }
     }
 }

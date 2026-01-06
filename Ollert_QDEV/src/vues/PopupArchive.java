@@ -1,14 +1,13 @@
 package vues;
 
-import donnees.Archive;
-import donnees.Colonne;
 import donnees.Modele;
 import donnees.Tache;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -23,24 +22,55 @@ public class PopupArchive {
         window.setMinWidth(200);
         window.setMinHeight(400);
 
-        VBox taches = new VBox(5);
-        taches.setPadding(new Insets(10));
+        TableView<Tache> table = new TableView<>();
+        table.setEditable(true);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        for(Tache task:modele.getArchive().getTaches()){
-            VBox tache = new VBox(5);
-            tache.setPadding(new Insets(10));
+        TableColumn<Tache,String> colTache = new TableColumn<>("Tache");
+        colTache.setCellValueFactory(new PropertyValueFactory<>("titre"));
 
-            Label titre = new Label(task.getTitre());
+        table.getColumns().add(colTache);
 
-            Label desc = new Label(task.getDescription());
-            desc.setMinWidth(100);
+        table.setRowFactory(ms->{
+            TableRow<Tache> row = new TableRow<>();
 
-            tache.getChildren().addAll(titre, desc);
-            taches.getChildren().add(tache);
-        }
+            ContextMenu contextMenu = new ContextMenu();
+
+            MenuItem desarchiver = new MenuItem("Desarchiver");
+            MenuItem supprimer = new MenuItem("Supprimer");
+
+            desarchiver.setOnAction(event -> {
+                Tache tache = row.getItem();
+                modele.desarchiverTache(tache);
+                modele.notifier();
+                table.getItems().remove(tache);
+            });
+
+            supprimer.setOnAction(event -> {
+                Tache tache = row.getItem();
+                modele.supprimerArchiverTache(tache);
+                modele.notifier();
+                table.getItems().remove(tache);
+            });
+
+            contextMenu.getItems().addAll(desarchiver, supprimer);
+
+            row.contextMenuProperty().bind(
+                    javafx.beans.binding.Bindings.when(row.emptyProperty())
+                            .then((ContextMenu)null)
+                            .otherwise(contextMenu)
+            );
+            return row;
+        });
+
+        ObservableList<Tache> taches = FXCollections.observableArrayList();
+
+        taches.addAll(modele.getArchive().getTaches());
+
+        table.setItems(taches);
 
         ScrollPane pane = new ScrollPane();
-        pane.setContent(taches);
+        pane.setContent(table);
         pane.setFitToWidth(true);
 
         Button exit = new Button("Exit");

@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -130,6 +131,15 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         res.setMinHeight(50);
         res.setMaxWidth(200);
         res.setAlignment(Pos.CENTER);
+
+        res.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY) {
+                new PopupDetailsTache().display(t);
+            }
+        });
+
+
+
         return res;
     }
 

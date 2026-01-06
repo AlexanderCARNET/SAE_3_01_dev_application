@@ -21,6 +21,7 @@ CChange -> m : notifier()
 activate m
 m --> CChange
 deactivate m
+CChange --> user
 deactivate CChange
 
 user -> CConfirme : enter
@@ -44,6 +45,7 @@ activate m
 m--> CConfirme
 deactivate m
 CConfirme --> user
+deactivate CConfirme
 
 
 @enduml
