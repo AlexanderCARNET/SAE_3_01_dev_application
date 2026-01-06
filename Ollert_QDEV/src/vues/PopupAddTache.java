@@ -3,6 +3,7 @@ package vues;
 import controlleur.ControleurAjouterTache;
 import donnees.Colonne;
 import donnees.Modele;
+import donnees.Tache;
 import donnees.TacheComposite;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +16,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PopupAddTache {
 
@@ -45,14 +48,47 @@ public class PopupAddTache {
         Spinner<Integer> duree = new Spinner<>(1, 365, 1);
         duree.setEditable(true);
 
-        Label lDep = new Label("Dependances:");
-        ListView<TacheComposite> dependances = new ListView<>();
-        dependances.setPrefHeight(100);
-        dependances.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        Label lDep = new Label("Dépendances :");
 
-        for (Colonne c : modele.getColonnes()) {
-            dependances.getItems().addAll(c.getListe());
+        List<TacheComposite> dependancesChoisies = new ArrayList<>();
+
+        ListView<TacheComposite> dependances = new ListView<>();
+        dependances.setPrefHeight(150);
+
+        for(Colonne col : modele.getColonnes()) {
+            for(Tache t : col.getListe()) {
+                dependances.getItems().add(t);
+            }
         }
+
+        dependances.setCellFactory(param -> new ListCell<TacheComposite>() {
+            private final CheckBox checkBox = new CheckBox();
+
+            @Override
+            protected void updateItem(TacheComposite item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    checkBox.setText(item.getTitre());
+
+                    checkBox.setSelected(dependancesChoisies.contains(item));
+
+                    checkBox.setOnAction(e -> {
+                        if (checkBox.isSelected()) {
+                            if (!dependancesChoisies.contains(item)) {
+                                dependancesChoisies.add(item);
+                            }
+                        } else {
+                            dependancesChoisies.remove(item);
+                        }
+                    });
+
+                    setGraphic(checkBox);
+                }
+            }
+        });
 
         Label lSous = new Label("Sous-taches:");
         ListView<TacheComposite> sousTaches = new ListView<>();
@@ -85,7 +121,7 @@ public class PopupAddTache {
                 tDesc,
                 duree,
                 dateDebut,
-                dependances,
+                dependancesChoisies,
                 sousTaches
         );
 
