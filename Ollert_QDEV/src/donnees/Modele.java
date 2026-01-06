@@ -170,6 +170,9 @@ public class Modele implements Serializable {
     }
 
     public void supprimerColonne(Colonne c){
+        for(Tache t : c.getListe()){
+            this.archive.ajouterTache(t);
+        }
         this.colonnes.remove(c);
     }
 
