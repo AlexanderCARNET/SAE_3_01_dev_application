@@ -1,9 +1,10 @@
 package donnees;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gantt {
+public class Gantt implements Serializable {
     private List<Tache> selection;
 
     public Gantt(){
