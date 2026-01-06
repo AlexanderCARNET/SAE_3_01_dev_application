@@ -65,6 +65,8 @@ public class Modele implements Serializable {
     }
 
 
+
+
     public void deplacerTache(Tache tache, Colonne cible) {
 
 
