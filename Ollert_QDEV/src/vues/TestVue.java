@@ -15,15 +15,6 @@ public class TestVue extends Application {
     public void start(Stage stage) throws Exception {
         Date date = new Date();
 
-        Colonne c1 = new Colonne("Fini");
-        c1.ajouteTache(new Tache("Database Design", "Archi", 2, date));
-
-        Colonne c2 = new Colonne("en Cours");
-        c2.ajouteTache(new Tache("ok", "Dev", 5, date));
-        c2.ajouteTache(new Tache("Sleep", "Hobby", 5, date));
-
-        Colonne c3 = new Colonne("A faire");
-        c3.ajouteTache(new Tache("Testing", "QA", 1, date));
 
 
 
@@ -31,9 +22,6 @@ public class TestVue extends Application {
 
         if (model == null) {
             model = new Modele();
-            model.ajouterColonne(c1);
-            model.ajouterColonne(c2);
-            model.ajouterColonne(c3);
         }
 
 

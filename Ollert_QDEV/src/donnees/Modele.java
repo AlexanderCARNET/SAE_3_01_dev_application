@@ -55,10 +55,15 @@ public class Modele implements Serializable {
         if (cible == dependance) return false;
         if (cible.getDependances().contains(dependance)) return false;
 
+        if (dependance.dependsOn(cible)) {
+            return false;
+        }
+
         cible.ajouterDependance(dependance);
         notifier();
         return true;
     }
+
 
     public void deplacerTache(Tache tache, Colonne cible) {
 

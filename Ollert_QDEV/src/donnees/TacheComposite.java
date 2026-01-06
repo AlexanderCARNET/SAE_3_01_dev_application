@@ -34,9 +34,10 @@ public abstract class TacheComposite implements Serializable {
         sousTaches.remove(t);
     }
 
-    public void ajouterDependance(TacheComposite t) {
+    protected void ajouterDependance(TacheComposite t) {
         dependances.add(t);
     }
+
 
     public void supprimerDependance(TacheComposite t) {
         dependances.remove(t);
@@ -68,6 +69,26 @@ public abstract class TacheComposite implements Serializable {
         return true;
     }
 
+
+
+    public boolean dependsOn(TacheComposite t) {
+
+        if (this == t) {
+            return true;
+        }
+
+        for (TacheComposite dep : dependances) {
+            if (dep.dependsOn(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return titre;
+    }
 
 
 

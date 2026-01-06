@@ -3,6 +3,7 @@ import donnees.Tache;
 import donnees.TacheComposite;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import donnees.Modele;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -88,6 +89,63 @@ class TacheTest {
         assertEquals(2, tache.getSousTaches().size());
         assertSame(c1, tache.getSousTaches().get(0));
         assertSame(c2, tache.getSousTaches().get(1));
+    }
+
+
+    @Test
+    void testAjouterDependanceValide() {
+        Modele modele = new Modele();
+
+        Tache a = new Tache("A", "Desc A", 1, date);
+        Tache b = new Tache("B", "Desc B", 1, date);
+
+        boolean ok = modele.ajouterDependance(a, b);
+
+        assertTrue(ok);
+        assertEquals(1, a.getDependances().size());
+        assertSame(b, a.getDependances().get(0));
+    }
+
+    @Test
+    void testAjouterDependanceAuto() {
+        Modele modele = new Modele();
+
+        boolean ok = modele.ajouterDependance(tache, tache);
+
+        assertFalse(ok);
+        assertTrue(tache.getDependances().isEmpty());
+    }
+
+    @Test
+    void testDependanceCycliqueDirecte() {
+        Modele modele = new Modele();
+
+        Tache a = new Tache("A", "Desc A", 1, date);
+        Tache b = new Tache("B", "Desc B", 1, date);
+
+        assertTrue(modele.ajouterDependance(a, b));
+
+        boolean cycle = modele.ajouterDependance(b, a);
+
+        assertFalse(cycle);
+        assertTrue(b.getDependances().isEmpty());
+    }
+
+    @Test
+    void testDependanceCycliqueIndirecte() {
+        Modele modele = new Modele();
+
+        Tache a = new Tache("A", "Desc A", 1, date);
+        Tache b = new Tache("B", "Desc B", 1, date);
+        Tache c = new Tache("C", "Desc C", 1, date);
+
+        assertTrue(modele.ajouterDependance(a, b));
+        assertTrue(modele.ajouterDependance(b, c));
+
+        boolean cycle = modele.ajouterDependance(c, a);
+
+        assertFalse(cycle);
+        assertTrue(c.getDependances().isEmpty());
     }
 
 
