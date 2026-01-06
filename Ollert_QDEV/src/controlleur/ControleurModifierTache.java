@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 public class ControleurModifierTache implements EventHandler<ActionEvent> {
 
@@ -20,14 +21,16 @@ public class ControleurModifierTache implements EventHandler<ActionEvent> {
     private final TextArea taDescription;
     private final Spinner<Integer> spDuree;
     private final DatePicker dpDateDebut;
+    private final List<TacheComposite> nouvellesDependances;
 
-    public ControleurModifierTache(Modele modele, /*ComboBox<TacheComposite>*/Tache cbTache,TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut) {
+    public ControleurModifierTache(Modele modele, /*ComboBox<TacheComposite>*/Tache cbTache,TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut, List<TacheComposite> dependancesChoisies) {
         this.modele = modele;
         this.cbTache = cbTache;
         this.tfTitre = tfTitre;
         this.taDescription = taDescription;
         this.spDuree = spDuree;
         this.dpDateDebut = dpDateDebut;
+        this.nouvellesDependances = dependancesChoisies;
     }
 
     @Override
@@ -44,5 +47,7 @@ public class ControleurModifierTache implements EventHandler<ActionEvent> {
 
         modele.modifierTache(cbTache/*cbTache.getValue()*/, tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut
         );
+
+        cbTache.setDependances(this.nouvellesDependances);
     }
 }
