@@ -8,4 +8,11 @@ public class GanttTask {
     private final Date debut;
     private final Date fin;
 
+    public GanttTask(TacheComposite tache, Date debut, Date fin) {
+        this.tache = tache;
+        this.debut = debut;
+        this.fin = fin;
+    }
+
+   
 }
