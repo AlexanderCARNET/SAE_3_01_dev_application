@@ -85,6 +85,12 @@ public abstract class TacheComposite implements Serializable {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return titre;
+    }
+
+
 
 
 
