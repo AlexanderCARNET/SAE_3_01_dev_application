@@ -74,6 +74,14 @@ package donnees {
     }
     Colonne -->  "*" TacheComposite : - liste
     Colonne .u.|> Serializable
+
+    class Gantt{
+        +getSelection() : List<Tache>
+        +selectionner(Tache tache)
+        +deselectionner(Tache tache)
+    }
+    Gantt ->"*" Tache : -selection
+
 }
 
 class Repository{
@@ -119,6 +127,7 @@ package vues{
     class PopupSelectionTaches{
         +static display(Modele m)
     }
+    PopupSelectionTaches ->"1" Modele : -m
 }
 
  class ControleurAjouterTache  {
