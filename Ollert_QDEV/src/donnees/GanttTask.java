@@ -14,5 +14,15 @@ public class GanttTask {
         this.fin = fin;
     }
 
-   
+    public TacheComposite getTache() {
+        return tache;
+    }
+
+    public Date getDebut() {
+        return debut;
+    }
+
+    public Date getFin() {
+        return fin;
+    }
 }
