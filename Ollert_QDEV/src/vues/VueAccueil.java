@@ -14,8 +14,14 @@ public class VueAccueil extends VBox implements Observateur{
     private static final double HAUTEUR_COLONNE = 50;
     private StrategieModeAffichage modeAffichage;
     private Modele model;
+    private static VueAccueil instance;
+
 
     public VueAccueil(Modele modele){
+        instance = this;
+        this.modeAffichage = VueBureau.getInstance();
+        this.model = modele;
+
         this.modeAffichage = VueBureau.getInstance();
         this.model = modele;
 
@@ -34,19 +40,17 @@ public class VueAccueil extends VBox implements Observateur{
         vListe.setMaxWidth(50);
         vListe.setOnAction( e -> setVueListe());
 
-        Button vGantt = new Button("Gantt");
-        vGantt.setMaxWidth(50);
-        vGantt.setOnAction(e -> setVueGantt());
-
         Button archive = new Button("Archive");
         archive.setMaxWidth(80);
         archive.setOnAction( e -> afficherArchive());
 
-        Button selectTachesGantt = new Button("Select Taches Gantt");
+        Button selectTachesGantt = new Button("Gantt");
         selectTachesGantt.setMaxWidth(80);
         selectTachesGantt.setOnAction(new ControleurSelectionTache(modele));
 
-        menu.getChildren().addAll(vBureau, vListe, vGantt, archive, selectTachesGantt);
+
+
+        menu.getChildren().addAll(vBureau, vListe, archive, selectTachesGantt);
 
         this.getChildren().add(menu);
     }
@@ -59,6 +63,8 @@ public class VueAccueil extends VBox implements Observateur{
         Pane pane = this.modeAffichage.genererAffichage(this.model);
         this.getChildren().add(pane);
     }
+
+
 
     private void setVueBureau(){
         ArrayList<Observateur> obs = this.model.getObservateurs();
@@ -80,9 +86,15 @@ public class VueAccueil extends VBox implements Observateur{
         this.model.notifier();
     }
 
-    private void setVueGantt(){
-        return;
+    public void setVueGantt(){
+        this.modeAffichage = new VueGantt();
+        actualiser();
     }
+
+    public static VueAccueil getInstance(){
+        return instance;
+    }
+
 
     private void afficherArchive(){
         PopupArchive.display(this.model);
