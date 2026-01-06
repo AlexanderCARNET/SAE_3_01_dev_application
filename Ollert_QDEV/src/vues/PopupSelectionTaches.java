@@ -23,7 +23,7 @@ public class PopupSelectionTaches {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Nouvelle Tâche");
+        window.setTitle("Selection Taches pour Gantt");
         window.setMinWidth(400);
 
         VBox principale = new VBox();

@@ -34,19 +34,15 @@ public class VueAccueil extends VBox implements Observateur{
         vListe.setMaxWidth(50);
         vListe.setOnAction( e -> setVueListe());
 
-        Button vGantt = new Button("Gantt");
-        vGantt.setMaxWidth(50);
-        vGantt.setOnAction(e -> setVueGantt());
-
         Button archive = new Button("Archive");
         archive.setMaxWidth(80);
         archive.setOnAction( e -> afficherArchive());
 
-        Button selectTachesGantt = new Button("Select Taches Gantt");
+        Button selectTachesGantt = new Button("Gantt");
         selectTachesGantt.setMaxWidth(80);
         selectTachesGantt.setOnAction(new ControleurSelectionTache(modele));
 
-        menu.getChildren().addAll(vBureau, vListe, vGantt, archive, selectTachesGantt);
+        menu.getChildren().addAll(vBureau, vListe, archive, selectTachesGantt);
 
         this.getChildren().add(menu);
     }
