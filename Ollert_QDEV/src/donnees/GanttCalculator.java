@@ -41,7 +41,7 @@ public class GanttCalculator {
 
         return result;
     }
-    
+
 }
 
 
