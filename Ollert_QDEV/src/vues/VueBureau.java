@@ -85,6 +85,12 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             }
         };
         BajoutTache.addEventHandler(ActionEvent.ACTION,handler);
+        Button BSupprimerColonne = new Button("X");
+        BSupprimerColonne.setMinHeight(25);
+        BSupprimerColonne.setMaxHeight(25);
+        BSupprimerColonne.setMinWidth(VueBureau.LARGEUR_COLONNE/4.0);
+        EventHandler<ActionEvent> handlerSupp = new ControleurSupprimerColonne(modele, c);
+        BSupprimerColonne.addEventHandler(ActionEvent.ACTION, handlerSupp);
 
 
 
@@ -120,7 +126,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         }
 
         //ajout du titre et du scrollPane dans le conteneur principal
-        res.getChildren().addAll(titre,BajoutTache,scrollPane);
+        res.getChildren().addAll(titre,BajoutTache,scrollPane, BSupprimerColonne);
         return res;
     }
 

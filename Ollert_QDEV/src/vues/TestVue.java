@@ -34,7 +34,7 @@ public class TestVue extends Application {
         root.setFillWidth(true);
         vue.prefHeightProperty().bind(root.heightProperty());
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 650, 650);
         stage.setTitle("Ollert");
         stage.setScene(scene);
         stage.show();
