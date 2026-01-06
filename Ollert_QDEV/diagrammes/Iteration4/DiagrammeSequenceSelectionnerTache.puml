@@ -28,10 +28,6 @@ activate Tache
 Tache --> popupSelectionTaches : "titre"
 deactivate Tache
 end loop
-popupSelectionTaches -> modele : notifier()
-activate modele
-modele --> popupSelectionTaches
-deactivate modele
 
 popupSelectionTaches --> Button
 deactivate popupSelectionTaches
