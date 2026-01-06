@@ -51,6 +51,13 @@ public class PopupSelectionTaches {
         Button bouton = new Button("générer Diagramme");
         conteneurBarBas.getChildren().addAll(bouton, boutonSelectionTout);
 
+        bouton.setOnAction(e -> {
+            VueAccueil.getInstance().setVueGantt();
+            window.close();
+        });
+
+
+
         principale.getChildren().addAll(conteneurBarBas);
 
         Scene scene = new Scene(principale);
