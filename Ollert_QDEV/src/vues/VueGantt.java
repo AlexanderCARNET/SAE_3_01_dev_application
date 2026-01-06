@@ -21,7 +21,7 @@ public class VueGantt extends Pane implements StrategieModeAffichage {
 
         GanttCalculator calc = new GanttCalculator();
 
-        List<TacheComposite> toutesLesTaches =
+        List<Tache> toutesLesTaches = modele.getGantt().getSelection();
 
         List<GanttTask> gantt = calc.generer(toutesLesTaches);
 

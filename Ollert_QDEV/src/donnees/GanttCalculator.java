@@ -28,12 +28,12 @@ public class GanttCalculator {
         return debut;
     }
 
-    public List<GanttTask> generer(List<TacheComposite> taches) {
+    public List<GanttTask> generer(List<Tache> taches) {
         debutCalcule.clear();
 
         List<GanttTask> result = new ArrayList<>();
 
-        for (TacheComposite t : taches) {
+        for (Tache t : taches) {
             Date debut = calculerDateDebut(t);
             Date fin = new Date(debut.getTime() + t.getDuree() * 24L * 60 * 60 * 1000);
             result.add(new GanttTask(t, debut, fin));

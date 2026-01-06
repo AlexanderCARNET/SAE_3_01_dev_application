@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class GanttTask {
 
-    private final TacheComposite tache;
+    private final Tache tache;
     private final Date debut;
     private final Date fin;
 
-    public GanttTask(TacheComposite tache, Date debut, Date fin) {
+    public GanttTask(Tache tache, Date debut, Date fin) {
         this.tache = tache;
         this.debut = debut;
         this.fin = fin;
     }
 
-    public TacheComposite getTache() {
+    public Tache getTache() {
         return tache;
     }
 
