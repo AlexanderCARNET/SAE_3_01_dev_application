@@ -1,0 +1,31 @@
+@startuml
+actor Utilisateur
+participant Bouton as "boutonListe : Button"
+Utilisateur -> Bouton : Clic dessus
+activate Bouton
+Bouton -> VueAccueil : setVueListe()
+activate VueAccueil
+VueAccueil -> VueListe : getInstance()
+activate VueListe
+VueListe --> VueAccueil : vL
+deactivate VueListe
+loop pour tous les observateurs de type [VueAccueil]
+VueAccueil -> VueAccueil : setModeAffichage(vL)
+end loop
+VueAccueil -> Modele : notifier()
+activate Modele
+loop pour tous les observateurs
+
+Modele -> VueAccueil : actualiser()
+activate VueAccueil
+VueAccueil -> VueListe : genererAffichage(modele)
+activate VueListe
+VueListe --> VueAccueil : this [Pane]
+
+VueAccueil --> Modele
+deactivate VueAccueil
+end loop
+Modele --> VueAccueil
+VueAccueil --> Utilisateur
+
+@enduml

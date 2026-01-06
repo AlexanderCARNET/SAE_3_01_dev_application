@@ -1,5 +1,6 @@
 package vues;
 
+import controlleur.ControleurSelectionTache;
 import donnees.Modele;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -41,7 +42,11 @@ public class VueAccueil extends VBox implements Observateur{
         archive.setMaxWidth(80);
         archive.setOnAction( e -> afficherArchive());
 
-        menu.getChildren().addAll(vBureau, vListe, vGantt, archive);
+        Button selectTachesGantt = new Button("Select Taches Gantt");
+        selectTachesGantt.setMaxWidth(80);
+        selectTachesGantt.setOnAction(new ControleurSelectionTache(modele));
+
+        menu.getChildren().addAll(vBureau, vListe, vGantt, archive, selectTachesGantt);
 
         this.getChildren().add(menu);
     }

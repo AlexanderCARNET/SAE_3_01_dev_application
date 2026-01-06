@@ -7,6 +7,7 @@ import vues.PopupEditTache;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Modele implements Serializable {
@@ -15,10 +16,12 @@ public class Modele implements Serializable {
     private final int NB_MAX_COLONNES = 5;
     private  transient ArrayList<Observateur> observateurs = new ArrayList<>();
     private Archive archive;
+    private Gantt gantt;
 
     public Modele(){
         this.colonnes = new ArrayList<Colonne>();
         this.archive = new Archive();
+        this.gantt = new Gantt();
     }
 
     public void notifier(){
@@ -250,5 +253,19 @@ public class Modele implements Serializable {
             this.archive.supprimeTache(tache);
             this.notifier();
         }
+    }
+
+    public List<Tache> getTaches(){
+        List<Tache> taches = new ArrayList<>();
+        for(Colonne col : this.getColonnes()){
+            for(Tache tache : col.getListe()){
+                taches.add(tache);
+            }
+        }
+        return taches;
+    }
+
+    public Gantt getGantt(){
+        return gantt;
     }
 }
