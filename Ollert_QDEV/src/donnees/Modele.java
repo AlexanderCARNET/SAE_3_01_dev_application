@@ -41,6 +41,13 @@ public class Modele implements Serializable {
 
     }
 
+    public void selectionnerTout(){
+        for(Tache tache : this.getTaches()){
+            this.gantt.selectionner(tache);
+        }
+        this.notifier();
+    }
+
     public void supprimerObservateur(Observateur o){
         this.observateurs.remove(o);
     }

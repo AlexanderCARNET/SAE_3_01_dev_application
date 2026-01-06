@@ -14,6 +14,8 @@ public class ControleurSelectionTache implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        PopupSelectionTaches.display(modele);
+        PopupSelectionTaches popup = new PopupSelectionTaches(modele);
+        modele.ajouterObservateur(popup);
+        popup.display();
     }
 }
