@@ -70,6 +70,20 @@ public abstract class TacheComposite implements Serializable {
 
 
 
+    public boolean dependsOn(TacheComposite t) {
+
+        if (this == t) {
+            return true;
+        }
+
+        for (TacheComposite dep : dependances) {
+            if (dep.dependsOn(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 
