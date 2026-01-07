@@ -126,7 +126,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             Bmodifier.setPrefWidth(this.LARGEUR_COLONNE/4);
             Bmodifier.setPrefHeight(this.LARGEUR_COLONNE/4);
             stack.setAlignment(Bmodifier, Pos.BOTTOM_LEFT);
-            Bmodifier.setOnAction(e->{PopupEditTache.display(modele,t);});
+            Bmodifier.setOnAction(e->{modele.gestionModification(t);});
 
             stack.getChildren().addAll(Bmodifier,BArchiver);
             vBox.getChildren().add(stack);
