@@ -1,0 +1,56 @@
+ @startuml
+ title UC - Génération du diagramme de Gantt
+
+ actor Utilisateur
+
+ participant VueAccueil
+ participant ControleurSelectionTache
+ participant PopupSelectionTaches
+ participant Modele
+ participant Gantt
+ participant VueGantt
+ participant GanttCalculator
+
+ Utilisateur -> VueAccueil : clic bouton "Gantt"
+ VueAccueil -> ControleurSelectionTache : handle(ActionEvent)
+
+ ControleurSelectionTache -> PopupSelectionTaches : display(modele)
+ activate PopupSelectionTaches
+
+ PopupSelectionTaches -> Modele : getTaches()
+ PopupSelectionTaches -> Modele : getGantt()
+ PopupSelectionTaches -> Gantt : getSelection()
+
+ Utilisateur -> PopupSelectionTaches : sélection / désélection de tâches
+ PopupSelectionTaches -> Gantt : selectionner(tache)
+ PopupSelectionTaches -> Gantt : deselectionner(tache)
+
+ Utilisateur -> PopupSelectionTaches : clic "générer Diagramme"
+ PopupSelectionTaches -> VueAccueil : setVueGantt()
+ PopupSelectionTaches -> PopupSelectionTaches : close()
+
+ deactivate PopupSelectionTaches
+
+ VueAccueil -> VueGantt : genererAffichage(modele)
+ activate VueGantt
+
+ VueGantt -> Modele : getGantt()
+ VueGantt -> Gantt : getSelection()
+ VueGantt -> GanttCalculator : generer(listeTaches)
+ activate GanttCalculator
+
+ loop pour chaque tâche
+     GanttCalculator -> GanttCalculator : calculerDateDebut(tache)
+     GanttCalculator -> TacheComposite : getDependances()
+     GanttCalculator -> TacheComposite : getDateDebut()
+     GanttCalculator -> TacheComposite : getDuree()
+ end
+
+ GanttCalculator --> VueGantt : List<GanttTask>
+ deactivate GanttCalculator
+
+ VueGantt -> VueGantt : création barres + labels
+ VueGantt --> Utilisateur : affichage du diagramme de Gantt
+ deactivate VueGantt
+
+ @enduml
