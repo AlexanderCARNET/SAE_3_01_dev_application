@@ -5,9 +5,7 @@ import vues.PopupAddTache;
 import vues.PopupEditTache;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class Modele implements Serializable {
@@ -181,6 +179,8 @@ public class Modele implements Serializable {
     public void supprimerColonne(Colonne c){
         for(Tache t : c.getListe()){
             this.archive.ajouterTache(t);
+            this.gantt.deselectionner(t);
+
         }
         this.colonnes.remove(c);
     }
@@ -227,17 +227,29 @@ public class Modele implements Serializable {
         PopupAddTache.display(this, col);
     }
 
-    public void gestionArchive(Tache tache){
-        for(Colonne col : this.getColonnes()){
-            if(col.getListe().contains(tache)){
+    public void gestionArchive(Tache tache) {
+
+        if (tache == null) return;
+
+        supprimerReferencesVers(tache);
+
+        this.gantt.deselectionner(tache);
+
+        for (Colonne col : this.getColonnes()) {
+            if (col.getListe().contains(tache)) {
                 col.supprimeTache(tache);
                 break;
             }
         }
-        Archive archive = this.getArchive();
-        archive.ajouterTache(tache);
+
+        // 4) l’ajouter à l’archive
+        this.archive.ajouterTache(tache);
+
+        // 5) refresh UI
         this.notifier();
     }
+
+
 
     public void gestionModification(Tache tache){
         if(this == null || this.getColonnes().isEmpty()){
@@ -265,6 +277,28 @@ public class Modele implements Serializable {
         }
     }
 
+    public boolean remplacerDependances(TacheComposite cible, List<TacheComposite> nouvelles) {
+        if (cible == null) return false;
+        if (nouvelles == null) nouvelles = List.of();
+
+        Set<TacheComposite> uniques = new LinkedHashSet<>(nouvelles);
+
+        for (TacheComposite dep : uniques) {
+            if (dep == null) return false;
+            if (dep == cible) return false;
+            if (dep.dependsOn(cible)) return false;
+        }
+
+        cible.clearDependances();
+        for (TacheComposite dep : uniques) {
+            cible.ajouterDependance(dep);
+        }
+
+        notifier();
+        return true;
+    }
+
+
     public List<Tache> getTaches(){
         List<Tache> taches = new ArrayList<>();
         for(Colonne col : this.getColonnes()){
@@ -274,6 +308,22 @@ public class Modele implements Serializable {
         }
         return taches;
     }
+
+    private void supprimerReferencesVers(TacheComposite cible) {
+        if (cible == null) return;
+
+        for (Colonne col : this.colonnes) {
+            for (Tache t : col.getListe()) {
+                if (t == cible) continue;
+
+                t.supprimerDependance(cible);
+                t.supprimerSousTache(cible);
+            }
+        }
+
+
+    }
+
 
     public Gantt getGantt(){
         return gantt;
