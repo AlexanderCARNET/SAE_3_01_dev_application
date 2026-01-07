@@ -3,6 +3,8 @@ package vues;
 import controlleur.ControleurModifierTache;
 import donnees.Modele;
 import donnees.Tache;
+import donnees.TacheComposite;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -45,12 +47,29 @@ public class PopupEditTache {
         Date dateDuModele = tache.getDateDebut();
 
         if (dateDuModele != null) {
-            LocalDate dateModerne = dateDuModele.toInstant()
-                    .atZone(ZoneId.systemDefault())
-                    .toLocalDate();
+            LocalDate dateModerne = dateDuModele.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
             dateDebut.setValue(dateModerne);
         }
+
+        Label lDeps = new Label("Dépendances :");
+        ListView<Tache> lvDeps = new ListView<>();
+
+        for (Tache t : modele.getTaches()) {
+            if (t != tache) {
+                lvDeps.getItems().add(t);
+            }
+        }
+
+        lvDeps.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        for (TacheComposite dep : tache.getDependances()) {
+            lvDeps.getSelectionModel().select((Tache) dep);
+        }
+
+        grid.add(lDeps, 0, 4);
+        grid.add(lvDeps, 1, 4);
+
 
         Label lDuree = new Label("Duree (jours): ");
         Spinner<Integer> duree = new Spinner<>(1, 365, 1);
@@ -74,7 +93,8 @@ public class PopupEditTache {
                 tTitre,
                 tDesc,
                 duree,
-                dateDebut
+                dateDebut,
+                lvDeps
         );
 
         modifier.setOnAction(event -> {

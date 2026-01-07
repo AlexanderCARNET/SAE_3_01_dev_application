@@ -4,6 +4,7 @@ import controlleur.ControleurSelectionTache;
 import donnees.Modele;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
@@ -57,12 +58,28 @@ public class VueAccueil extends VBox implements Observateur{
 
     @Override
     public void actualiser() {
-        if(this.getChildren().size()==2){
+        if (this.getChildren().size() == 2) {
             this.getChildren().remove(1);
         }
+
         Pane pane = this.modeAffichage.genererAffichage(this.model);
-        this.getChildren().add(pane);
+
+        if (this.modeAffichage instanceof VueGantt) {
+
+            ScrollPane scroll = new ScrollPane(pane);
+            scroll.setFitToHeight(false);
+            scroll.setFitToWidth(false);
+            scroll.setPannable(true);
+            scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+            this.getChildren().add(scroll);
+
+        } else {
+            this.getChildren().add(pane);
+        }
     }
+
 
 
 

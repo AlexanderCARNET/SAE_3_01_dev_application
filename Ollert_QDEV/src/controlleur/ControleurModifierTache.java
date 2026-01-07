@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 public class ControleurModifierTache implements EventHandler<ActionEvent> {
 
@@ -20,15 +21,27 @@ public class ControleurModifierTache implements EventHandler<ActionEvent> {
     private final TextArea taDescription;
     private final Spinner<Integer> spDuree;
     private final DatePicker dpDateDebut;
+    private final ListView<Tache> lvDependances;
 
-    public ControleurModifierTache(Modele modele, /*ComboBox<TacheComposite>*/Tache cbTache,TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut) {
+
+    public ControleurModifierTache(
+            Modele modele,
+            Tache tache,
+            TextField tfTitre,
+            TextArea taDescription,
+            Spinner<Integer> spDuree,
+            DatePicker dpDateDebut,
+            ListView<Tache> lvDependances
+    ) {
         this.modele = modele;
-        this.cbTache = cbTache;
+        this.cbTache = tache;
         this.tfTitre = tfTitre;
         this.taDescription = taDescription;
         this.spDuree = spDuree;
         this.dpDateDebut = dpDateDebut;
+        this.lvDependances = lvDependances;
     }
+
 
     @Override
     public void handle(ActionEvent event) {
@@ -42,7 +55,15 @@ public class ControleurModifierTache implements EventHandler<ActionEvent> {
             );
         }
 
-        modele.modifierTache(cbTache/*cbTache.getValue()*/, tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut
-        );
+        modele.modifierTache(cbTache/*cbTache.getValue()*/, tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut);
+
+        List<Tache> nouvellesDeps = lvDependances.getSelectionModel().getSelectedItems();
+
+        cbTache.getDependances().removeIf(dep -> !nouvellesDeps.contains(dep));
+
+        for (Tache dep : nouvellesDeps) {
+            modele.ajouterDependance(cbTache, dep);
+        }
+
     }
 }
