@@ -114,12 +114,21 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             dnd.activerDragTache(labelTache, t);
             StackPane stack = new StackPane();
             stack.getChildren().add(labelTache);
+            //bouton archiver
             Button BArchiver = new Button("X");
             BArchiver.setPrefWidth(this.LARGEUR_COLONNE/4);
             BArchiver.setPrefHeight(this.LARGEUR_COLONNE/4);
             stack.setAlignment(BArchiver, Pos.BOTTOM_RIGHT);
             BArchiver.addEventHandler(ActionEvent.ACTION, new ControleurArchiverTache(modele, t));
-            stack.getChildren().add(BArchiver);
+
+            //bouton modifier
+            Button Bmodifier = new Button("M");
+            Bmodifier.setPrefWidth(this.LARGEUR_COLONNE/4);
+            Bmodifier.setPrefHeight(this.LARGEUR_COLONNE/4);
+            stack.setAlignment(Bmodifier, Pos.BOTTOM_LEFT);
+            Bmodifier.setOnAction(e->{PopupEditTache.display(modele,t);});
+
+            stack.getChildren().addAll(Bmodifier,BArchiver);
             vBox.getChildren().add(stack);
         }
 
