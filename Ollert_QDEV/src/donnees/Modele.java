@@ -172,6 +172,8 @@ public class Modele implements Serializable {
     public void supprimerColonne(Colonne c){
         for(Tache t : c.getListe()){
             this.archive.ajouterTache(t);
+            this.gantt.deselectionner(t);
+
         }
         this.colonnes.remove(c);
     }
@@ -218,19 +220,28 @@ public class Modele implements Serializable {
         PopupAddTache.display(this, col);
     }
 
-    public void gestionArchive(Tache tache){
-        for(Colonne col : this.getColonnes()){
-            if(col.getListe().contains(tache)){
+    public void gestionArchive(Tache tache) {
+
+        if (tache == null) return;
+
+        supprimerReferencesVers(tache);
+
+        this.gantt.deselectionner(tache);
+
+        for (Colonne col : this.getColonnes()) {
+            if (col.getListe().contains(tache)) {
                 col.supprimeTache(tache);
                 break;
             }
         }
 
-        this.gantt.deselectionner(tache);
-
+        // 4) l’ajouter à l’archive
         this.archive.ajouterTache(tache);
+
+        // 5) refresh UI
         this.notifier();
     }
+
 
 
     public void gestionModification(Tache tache){
@@ -273,7 +284,7 @@ public class Modele implements Serializable {
 
         cible.clearDependances();
         for (TacheComposite dep : uniques) {
-            cible.ajouterDependance(dep);  
+            cible.ajouterDependance(dep);
         }
 
         notifier();
@@ -290,6 +301,22 @@ public class Modele implements Serializable {
         }
         return taches;
     }
+
+    private void supprimerReferencesVers(TacheComposite cible) {
+        if (cible == null) return;
+
+        for (Colonne col : this.colonnes) {
+            for (Tache t : col.getListe()) {
+                if (t == cible) continue;
+
+                t.supprimerDependance(cible);
+                t.supprimerSousTache(cible);
+            }
+        }
+
+
+    }
+
 
     public Gantt getGantt(){
         return gantt;
