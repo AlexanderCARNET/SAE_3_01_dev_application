@@ -87,6 +87,34 @@ public class PopupDetailsTache {
 
 
 
+
+        Label lblSTTitre = new Label("Sous-Taches :");
+        lblSTTitre.setStyle("-fx-font-weight: bold;");
+
+        String texteST;
+        if (tache.getSousTaches().isEmpty()) {
+            texteST = "Aucune";
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (TacheComposite dep : tache.getSousTaches()) {
+                if (sb.length() > 0) sb.append(", ");
+                sb.append(dep.getTitre());
+            }
+            texteST = sb.toString();
+        }
+
+        Label lblST = new Label(texteST);
+        lblST.setWrapText(true);
+        lblST.setAlignment(Pos.TOP_LEFT);
+        lblST.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-padding: 8;" +
+                        "-fx-border-color: #dddddd;"
+        );
+
+
+
+
         grid.add(lblDescTitre, 0, 0);
         grid.add(lblDescription, 1, 0);
 
@@ -98,6 +126,9 @@ public class PopupDetailsTache {
 
         grid.add(lblDepTitre, 0, 3);
         grid.add(lblDependances, 1, 3);
+
+        grid.add(lblSTTitre, 0, 4);
+        grid.add(lblST, 1, 4);
 
         Button btnFermer = new Button("Fermer");
         btnFermer.setStyle(
