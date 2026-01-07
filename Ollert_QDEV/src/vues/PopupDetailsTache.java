@@ -62,9 +62,30 @@ public class PopupDetailsTache {
 
         Label lblDepTitre = new Label("Dépendances :");
         lblDepTitre.setStyle("-fx-font-weight: bold;");
-        Label lblDependances = new Label(
-                String.valueOf(tache.getDependances().size())
+
+        String texteDeps;
+        if (tache.getDependances().isEmpty()) {
+            texteDeps = "Aucune";
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (TacheComposite dep : tache.getDependances()) {
+                if (sb.length() > 0) sb.append(", ");
+                sb.append(dep.getTitre());
+            }
+            texteDeps = sb.toString();
+        }
+
+        Label lblDependances = new Label(texteDeps);
+        lblDependances.setWrapText(true);
+        lblDependances.setAlignment(Pos.TOP_LEFT);
+        lblDependances.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-padding: 8;" +
+                        "-fx-border-color: #dddddd;"
         );
+
+
+
 
         grid.add(lblDescTitre, 0, 0);
         grid.add(lblDescription, 1, 0);
@@ -100,8 +121,7 @@ public class PopupDetailsTache {
         );
 
         btnFermer.setOnMouseExited(e ->
-                btnFermer.setStyle(
-                        "-fx-background-color: #d9534f;" +
+                btnFermer.setStyle("-fx-background-color: #d9534f;" +
                                 "-fx-text-fill: white;" +
                                 "-fx-font-weight: bold;" +
                                 "-fx-padding: 8 18;" +

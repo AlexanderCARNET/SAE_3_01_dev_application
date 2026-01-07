@@ -242,10 +242,8 @@ public class Modele implements Serializable {
             }
         }
 
-        // 4) l’ajouter à l’archive
         this.archive.ajouterTache(tache);
 
-        // 5) refresh UI
         this.notifier();
     }
 
