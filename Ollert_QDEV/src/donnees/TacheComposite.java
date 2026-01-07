@@ -89,6 +89,20 @@ public abstract class TacheComposite implements Serializable {
         return false;
     }
 
+    public boolean soustachesOn(TacheComposite t) {
+
+        if (this == t) {
+            return true;
+        }
+
+        for (TacheComposite dep : this.sousTaches) {
+            if (dep.soustachesOn(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return titre;
