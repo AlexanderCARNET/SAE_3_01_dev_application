@@ -63,7 +63,7 @@ public class PopupEditTache {
 
         Label lDep = new Label("Dépendances :");
 
-        List<TacheComposite> dependancesChoisies = tache.getDependances();
+        List<TacheComposite> dependancesChoisies = new ArrayList<>(tache.getDependances());
 
         ListView<TacheComposite> listDependances = new ListView<>();
         listDependances.setPrefHeight(150);

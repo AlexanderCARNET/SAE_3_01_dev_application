@@ -17,12 +17,13 @@ public class VueGantt extends Pane implements StrategieModeAffichage {
 
     @Override
     public Pane genererAffichage(Modele modele) {
-
+        List<Tache> toutesLesTaches;
         this.getChildren().clear();
 
         GanttCalculator calc = new GanttCalculator();
 
-        List<Tache> toutesLesTaches = modele.getGantt().getSelection();
+        toutesLesTaches = null;
+        toutesLesTaches = modele.getGantt().getSelection();
 
         List<GanttTask> gantt = calc.generer(toutesLesTaches);
 

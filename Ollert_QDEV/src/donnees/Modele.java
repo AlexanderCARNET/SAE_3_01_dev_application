@@ -5,9 +5,7 @@ import vues.PopupAddTache;
 import vues.PopupEditTache;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class Modele implements Serializable {
@@ -227,10 +225,13 @@ public class Modele implements Serializable {
                 break;
             }
         }
-        Archive archive = this.getArchive();
-        archive.ajouterTache(tache);
+
+        this.gantt.deselectionner(tache);
+
+        this.archive.ajouterTache(tache);
         this.notifier();
     }
+
 
     public void gestionModification(Tache tache){
         if(this == null || this.getColonnes().isEmpty()){
@@ -257,6 +258,28 @@ public class Modele implements Serializable {
             this.notifier();
         }
     }
+
+    public boolean remplacerDependances(TacheComposite cible, List<TacheComposite> nouvelles) {
+        if (cible == null) return false;
+        if (nouvelles == null) nouvelles = List.of();
+
+        Set<TacheComposite> uniques = new LinkedHashSet<>(nouvelles);
+
+        for (TacheComposite dep : uniques) {
+            if (dep == null) return false;
+            if (dep == cible) return false;
+            if (dep.dependsOn(cible)) return false;
+        }
+
+        cible.clearDependances();
+        for (TacheComposite dep : uniques) {
+            cible.ajouterDependance(dep);  
+        }
+
+        notifier();
+        return true;
+    }
+
 
     public List<Tache> getTaches(){
         List<Tache> taches = new ArrayList<>();
