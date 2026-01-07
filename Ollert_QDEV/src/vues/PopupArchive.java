@@ -53,7 +53,10 @@ public class PopupArchive {
                 table.getItems().remove(tache);
             });
 
-            contextMenu.getItems().addAll(desarchiver, supprimer);
+            if(modele.getColonnes().size()>0)
+                contextMenu.getItems().addAll(desarchiver, supprimer);
+            else
+                contextMenu.getItems().add(supprimer);
 
             row.contextMenuProperty().bind(
                     javafx.beans.binding.Bindings.when(row.emptyProperty())
