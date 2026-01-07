@@ -30,11 +30,7 @@ public class TestVue extends Application {
 
         vue.actualiser();
 
-        VBox root = new VBox(vue);
-        root.setFillWidth(true);
-        vue.prefHeightProperty().bind(root.heightProperty());
-
-        Scene scene = new Scene(root, 650, 650);
+        Scene scene = new Scene(vue, 650, 650);
         stage.setTitle("Ollert");
         stage.setScene(scene);
         stage.show();
