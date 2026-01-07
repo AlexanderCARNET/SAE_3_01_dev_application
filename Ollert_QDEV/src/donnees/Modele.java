@@ -261,11 +261,13 @@ public class Modele implements Serializable {
     }
 
     public void desarchiverTache(Tache tache){
-        if(this.archive.contains(tache)){
-            this.archive.supprimeTache(tache);
-            this.notifier();
+        if(!this.getColonnes().isEmpty()){
+            if(this.archive.contains(tache)){
+                this.archive.supprimeTache(tache);
+                this.notifier();
+            }
+            this.colonnes.getFirst().ajouteTache(tache);
         }
-        this.colonnes.getFirst().ajouteTache(tache);
     }
 
     public void supprimerArchiverTache(Tache tache){
