@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 public class ControleurAjouterTache implements EventHandler<ActionEvent> {
 
@@ -22,10 +23,10 @@ public class ControleurAjouterTache implements EventHandler<ActionEvent> {
     private final Spinner<Integer> spDuree;
     private final DatePicker dpDateDebut;
 
-    private final ListView<TacheComposite> lvDependances;
+    private final List<TacheComposite> lvDependances;
     private final ListView<TacheComposite> lvSousTaches;
 
-    public ControleurAjouterTache(Modele modele, Colonne colonneCourante, TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut, ListView<TacheComposite> lvDependances, ListView<TacheComposite> lvSousTaches) {
+    public ControleurAjouterTache(Modele modele, Colonne colonneCourante, TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut, List<TacheComposite> lvDependances, ListView<TacheComposite> lvSousTaches) {
         this.modele = modele;
         this.colonneCourante = colonneCourante;
         this.tfTitre = tfTitre;
@@ -48,7 +49,7 @@ public class ControleurAjouterTache implements EventHandler<ActionEvent> {
 
         if (nouvelle == null) return;
 
-        for (TacheComposite dep : lvDependances.getSelectionModel().getSelectedItems()) {
+        for (TacheComposite dep : lvDependances) {
             modele.ajouterDependance(nouvelle, dep);
         }
 

@@ -21,27 +21,17 @@ public class ControleurModifierTache implements EventHandler<ActionEvent> {
     private final TextArea taDescription;
     private final Spinner<Integer> spDuree;
     private final DatePicker dpDateDebut;
-    private final ListView<Tache> lvDependances;
+    private final List<TacheComposite> nouvellesDependances;
 
-
-    public ControleurModifierTache(
-            Modele modele,
-            Tache tache,
-            TextField tfTitre,
-            TextArea taDescription,
-            Spinner<Integer> spDuree,
-            DatePicker dpDateDebut,
-            ListView<Tache> lvDependances
-    ) {
+    public ControleurModifierTache(Modele modele, /*ComboBox<TacheComposite>*/Tache cbTache,TextField tfTitre, TextArea taDescription, Spinner<Integer> spDuree, DatePicker dpDateDebut, List<TacheComposite> dependancesChoisies) {
         this.modele = modele;
-        this.cbTache = tache;
+        this.cbTache = cbTache;
         this.tfTitre = tfTitre;
         this.taDescription = taDescription;
         this.spDuree = spDuree;
         this.dpDateDebut = dpDateDebut;
-        this.lvDependances = lvDependances;
+        this.nouvellesDependances = dependancesChoisies;
     }
-
 
     @Override
     public void handle(ActionEvent event) {
@@ -55,15 +45,9 @@ public class ControleurModifierTache implements EventHandler<ActionEvent> {
             );
         }
 
-        modele.modifierTache(cbTache/*cbTache.getValue()*/, tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut);
+        modele.modifierTache(cbTache/*cbTache.getValue()*/, tfTitre.getText(), taDescription.getText(), spDuree.getValue(), dateDebut
+        );
 
-        List<Tache> nouvellesDeps = lvDependances.getSelectionModel().getSelectedItems();
-
-        cbTache.getDependances().removeIf(dep -> !nouvellesDeps.contains(dep));
-
-        for (Tache dep : nouvellesDeps) {
-            modele.ajouterDependance(cbTache, dep);
-        }
-
+        cbTache.setDependances(this.nouvellesDependances);
     }
 }
