@@ -105,17 +105,61 @@ public class PopupEditTache {
             }
         });
 
+        Label lSous = new Label("Sous-taches :");
+
+        List<TacheComposite> sousChoisies = tache.getSousTaches();
+
+        ListView<TacheComposite> sousTaches = new ListView<>();
+        sousTaches.setPrefHeight(150);
+
+        for(Colonne col : modele.getColonnes()) {
+            for(Tache t : col.getListe()) {
+                if(!t.equals(tache))
+                    sousTaches.getItems().add(t);
+            }
+        }
+
+        sousTaches.setCellFactory(param -> new ListCell<TacheComposite>() {
+            private final CheckBox checkBox = new CheckBox();
+
+            @Override
+            protected void updateItem(TacheComposite item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setGraphic(null);
+                } else {
+                    checkBox.setText(item.getTitre());
+
+                    checkBox.setSelected(sousChoisies.contains(item));
+
+                    checkBox.setOnAction(e -> {
+                        if (checkBox.isSelected()) {
+                            if (!sousChoisies.contains(item)) {
+                                sousChoisies.add(item);
+                            }
+                        } else {
+                            sousChoisies.remove(item);
+                        }
+                    });
+
+                    setGraphic(checkBox);
+                }
+            }
+        });
+
         grid.add(lTitre, 0, 0);       grid.add(tTitre, 1, 0);
         grid.add(lDesc, 0, 1);        grid.add(tDesc, 1, 1);
         grid.add(lDuree, 0, 2);       grid.add(duree, 1, 2);
         grid.add(lDate, 0, 3);        grid.add(dateDebut, 1, 3);
         grid.add(lDep, 0, 4);         grid.add(listDependances, 1, 4);
+        grid.add(lSous, 0, 5);        grid.add(sousTaches, 1, 5);
 
         Button modifier = new Button("Modifier");
         Button annuler = new Button("Annuler");
         HBox buttonBox = new HBox(10, annuler, modifier);
         buttonBox.setAlignment(Pos.CENTER_RIGHT);
-        grid.add(buttonBox, 1, 5);
+        grid.add(buttonBox, 1, 6);
 
         ControleurModifierTache controller = new ControleurModifierTache(
                 modele,
