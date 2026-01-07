@@ -112,7 +112,15 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         for (Tache t : c.getListe()) {
             Label labelTache = genererTache(t);
             dnd.activerDragTache(labelTache, t);
-            vBox.getChildren().add(labelTache);
+            StackPane stack = new StackPane();
+            stack.getChildren().add(labelTache);
+            Button BArchiver = new Button("X");
+            BArchiver.setPrefWidth(this.LARGEUR_COLONNE/4);
+            BArchiver.setPrefHeight(this.LARGEUR_COLONNE/4);
+            stack.setAlignment(BArchiver, Pos.BOTTOM_RIGHT);
+            BArchiver.addEventHandler(ActionEvent.ACTION, new ControleurArchiverTache(modele, t));
+            stack.getChildren().add(BArchiver);
+            vBox.getChildren().add(stack);
         }
 
         //creation du titre de la colonne
