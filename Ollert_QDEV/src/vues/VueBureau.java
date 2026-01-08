@@ -71,8 +71,9 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         res.setSpacing(8);
         styliserColonne(res);
 
+
+
         res.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,new CornerRadii(5), new BorderWidths(1))));
-        res.setMaxHeight(VueBureau.HAUTEUR_COLONNE);
 
         //creation du conteneur qui va contenir les taches
         VBox vBox = new VBox();
@@ -115,10 +116,12 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         scrollPane.setContent(vBox);
         scrollPane.setMaxWidth(VueBureau.LARGEUR_COLONNE);
         scrollPane.setMinWidth(VueBureau.LARGEUR_COLONNE);
-        scrollPane.setMinHeight(VueBureau.HAUTEUR_COLONNE);
-        scrollPane.setMaxHeight(VueBureau.HAUTEUR_COLONNE);
         scrollPane.setStyle("-fx-background-color: transparent;");
         vBox.setStyle("-fx-background-color: transparent;");
+        scrollPane.setMinHeight(0);
+        scrollPane.setMaxHeight(Double.MAX_VALUE);
+        VBox.setVgrow(scrollPane, Priority.ALWAYS);
+
 
 
         dnd.activerDropColonne(scrollPane, c);

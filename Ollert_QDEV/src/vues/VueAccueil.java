@@ -100,6 +100,11 @@ public class VueAccueil extends VBox implements Observateur{
         }
 
         Pane pane = this.modeAffichage.genererAffichage(this.model);
+        if (pane instanceof Region r) {
+            r.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            VBox.setVgrow(r, Priority.ALWAYS);
+        }
+
 
         if (this.modeAffichage instanceof VueGantt) {
 
