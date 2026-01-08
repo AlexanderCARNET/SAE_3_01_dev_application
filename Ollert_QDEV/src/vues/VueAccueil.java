@@ -34,7 +34,7 @@ public class VueAccueil extends VBox implements Observateur{
         menu.setSpacing(5);
 
         Button vBureau = new Button("Bureau");
-        vBureau.setMaxWidth(50);
+        vBureau.setMaxWidth(100);
         vBureau.setOnAction(e -> setVueBureau());
 
         Button vListe = new Button("Liste");
