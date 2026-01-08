@@ -70,7 +70,7 @@ public class PopupSelectionTaches implements Observateur {
         Button boutonSelectionTout = new Button("Selection tout");
         boutonSelectionTout.setOnAction(new ControleurSelectionnerToutGantt(m));
 
-        Button bouton = new Button("générer Diagramme");
+        Button bouton = new Button("Générer Diagramme");
         conteneurBarBas.getChildren().addAll(bouton, boutonSelectionTout);
 
         bouton.setOnAction(e -> {

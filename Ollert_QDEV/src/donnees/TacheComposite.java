@@ -108,7 +108,7 @@ public abstract class TacheComposite implements Serializable {
         return titre;
     }
 
-    void clearDependances() {
+    public void clearDependances() {
         dependances.clear();
     }
 

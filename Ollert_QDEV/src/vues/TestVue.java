@@ -15,9 +15,6 @@ public class TestVue extends Application {
     public void start(Stage stage) throws Exception {
         Date date = new Date();
 
-
-
-
         model = Repository.getInstance().loadAll();
 
         if (model == null) {
