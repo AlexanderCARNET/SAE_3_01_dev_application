@@ -1,0 +1,31 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant "controleur" as user
+participant "m : Modele" as m
+participant "gantt : Gantt" as gantt
+participant "colonne : Colonne" as c
+
+
+user -> m : selectionnerTout()
+activate m
+
+m->m:getTaches()
+activate m
+
+    loop sur toutes les colones de m
+    m->c:getListe()
+    c-->m:List<Tache>
+    end loop
+
+m-->m : List<Tache>
+deactivate m
+
+m->gantt : selectionner(tache)
+activate gantt
+gantt --> m
+deactivate gantt
+m--> user
+
+
+@enduml
