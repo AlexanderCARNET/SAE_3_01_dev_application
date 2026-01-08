@@ -173,7 +173,9 @@ public class Modele implements Serializable {
     }
 
     public void ajouterColonne(Colonne c){
-        this.colonnes.add(c);
+        if(this.colonnes.size() < this.NB_MAX_COLONNES){
+            this.colonnes.add(c);
+        }
     }
 
     public void supprimerColonne(Colonne c){
