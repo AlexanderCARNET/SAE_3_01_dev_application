@@ -90,16 +90,7 @@ public class PopupEditTache {
 
                     checkBox.setSelected(dependancesChoisies.contains(item));
 
-                    boolean createCycle = item.dependsOn(tache);
 
-                    if (createCycle) {
-                        checkBox.setDisable(true);
-                        checkBox.setTooltip(new Tooltip("Impossible : dépendance circulaire détectée"));
-                    } else {
-                        checkBox.setDisable(false);
-                        checkBox.setStyle("");
-                        checkBox.setTooltip(null);
-                    }
 
                     checkBox.setOnAction(e -> {
                         if (checkBox.isSelected()) {
@@ -144,16 +135,6 @@ public class PopupEditTache {
 
                     checkBox.setSelected(sousChoisies.contains(item));
 
-                    boolean createCycle = item.soustachesOn(tache);
-
-                    if (createCycle) {
-                        checkBox.setDisable(true);
-                        checkBox.setTooltip(new Tooltip("Impossible : sous-tache circulaire détectée"));
-                    } else {
-                        checkBox.setDisable(false);
-                        checkBox.setStyle("");
-                        checkBox.setTooltip(null);
-                    }
 
                     checkBox.setOnAction(e -> {
                         if (checkBox.isSelected()) {

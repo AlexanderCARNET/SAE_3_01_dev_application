@@ -33,11 +33,11 @@ public class VueAccueil extends VBox implements Observateur{
         menu.setPadding(new Insets(5));
         menu.setSpacing(5);
 
-        Button vBureau = new Button("Bur");
-        vBureau.setMaxWidth(50);
+        Button vBureau = new Button("Bureau");
+        vBureau.setMaxWidth(100);
         vBureau.setOnAction(e -> setVueBureau());
 
-        Button vListe = new Button("List");
+        Button vListe = new Button("Liste");
         vListe.setMaxWidth(50);
         vListe.setOnAction( e -> setVueListe());
 
@@ -49,12 +49,49 @@ public class VueAccueil extends VBox implements Observateur{
         selectTachesGantt.setMaxWidth(80);
         selectTachesGantt.setOnAction(new ControleurSelectionTache(modele));
 
+        styliserBoutonMenu(vBureau);
+        styliserBoutonMenu(vListe);
+        styliserBoutonMenu(archive);
+        styliserBoutonMenu(selectTachesGantt);
 
 
         menu.getChildren().addAll(vBureau, vListe, archive, selectTachesGantt);
 
         this.getChildren().add(menu);
+
+
     }
+
+    private void styliserBoutonMenu(Button b) {
+        b.setMinHeight(32);
+        b.setStyle(
+                "-fx-background-color: #2b2b2b;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-padding: 6 12;" +
+                        "-fx-cursor: hand;"
+        );
+
+        b.setOnMouseEntered(e -> b.setStyle(
+                "-fx-background-color: #3a3a3a;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-padding: 6 12;" +
+                        "-fx-cursor: hand;"
+        ));
+
+        b.setOnMouseExited(e -> b.setStyle(
+                "-fx-background-color: #2b2b2b;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-padding: 6 12;" +
+                        "-fx-cursor: hand;"
+        ));
+    }
+
 
     @Override
     public void actualiser() {

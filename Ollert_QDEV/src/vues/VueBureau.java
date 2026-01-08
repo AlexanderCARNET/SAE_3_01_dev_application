@@ -26,6 +26,8 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
 
 
     public VueBureau() {
+        this.setStyle("-fx-background-color: #ffffff; -fx-padding: 10;");
+
         this.setSpacing(20);
     }
 
@@ -46,6 +48,7 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             this.getChildren().add(genererColonne(c, modele));
         }
 
+
         //creation du controleur pour ajouter une colonne
         if(modele.getColonnes().size()< modele.getNB_MAX_COLONNES()){
             Button ajoutColonne = new Button("+");
@@ -54,6 +57,8 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             ajoutColonne.setMinWidth(VueBureau.LARGEUR_COLONNE);
             EventHandler<ActionEvent> controleur = new ControleurAjouterColonne(modele);
             ajoutColonne.addEventHandler(ActionEvent.ACTION,controleur);
+            styliserBoutonPrincipal(ajoutColonne);
+
             this.getChildren().add(ajoutColonne);
         }
 
@@ -63,6 +68,9 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     private VBox genererColonne(Colonne c, Modele modele){
         //creation du conteneur principal
         VBox res = new VBox();
+        res.setSpacing(8);
+        styliserColonne(res);
+
         res.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,new CornerRadii(5), new BorderWidths(1))));
         res.setMaxHeight(VueBureau.HAUTEUR_COLONNE);
 
@@ -78,6 +86,8 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         BajoutTache.setMinHeight(25);
         BajoutTache.setMaxHeight(25);
         BajoutTache.setMinWidth(VueBureau.LARGEUR_COLONNE);
+        styliserBoutonPrincipal(BajoutTache);
+
         EventHandler<ActionEvent> handler = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -89,6 +99,8 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         BSupprimerColonne.setMinHeight(25);
         BSupprimerColonne.setMaxHeight(25);
         BSupprimerColonne.setMinWidth(VueBureau.LARGEUR_COLONNE/4.0);
+        styliserBoutonAction(BSupprimerColonne, "#d9534f");
+
         EventHandler<ActionEvent> handlerSupp = new ControleurSupprimerColonne(modele, c);
         BSupprimerColonne.addEventHandler(ActionEvent.ACTION, handlerSupp);
 
@@ -105,6 +117,9 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
         scrollPane.setMinWidth(VueBureau.LARGEUR_COLONNE);
         scrollPane.setMinHeight(VueBureau.HAUTEUR_COLONNE);
         scrollPane.setMaxHeight(VueBureau.HAUTEUR_COLONNE);
+        scrollPane.setStyle("-fx-background-color: transparent;");
+        vBox.setStyle("-fx-background-color: transparent;");
+
 
         dnd.activerDropColonne(scrollPane, c);
 
@@ -119,6 +134,8 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             BArchiver.setPrefWidth(this.LARGEUR_COLONNE/4);
             BArchiver.setPrefHeight(this.LARGEUR_COLONNE/4);
             stack.setAlignment(BArchiver, Pos.BOTTOM_RIGHT);
+            styliserBoutonAction(BArchiver, "#d9534f");
+
             BArchiver.addEventHandler(ActionEvent.ACTION, new ControleurArchiverTache(modele, t));
 
             //bouton modifier
@@ -126,6 +143,8 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
             Bmodifier.setPrefWidth(this.LARGEUR_COLONNE/4);
             Bmodifier.setPrefHeight(this.LARGEUR_COLONNE/4);
             stack.setAlignment(Bmodifier, Pos.BOTTOM_LEFT);
+            styliserBoutonAction(Bmodifier, "#0275d8");
+
             Bmodifier.setOnAction(e->{modele.gestionModification(t);});
 
             stack.getChildren().addAll(Bmodifier,BArchiver);
@@ -149,12 +168,12 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
 
     private Label genererTache(TacheComposite t){
         Label res = new Label(t.getTitre());
-        res.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID,new CornerRadii(5), new BorderWidths(1))));
         res.setMaxHeight(50);
         res.setMinHeight(50);
         res.setMaxWidth(200);
         res.setAlignment(Pos.CENTER);
 
+        styliserCarte(res);
         res.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY) {
                 new PopupDetailsTache().display(t);
@@ -169,4 +188,78 @@ public class VueBureau extends HBox implements StrategieModeAffichage {
     public void setColonneEnModif(Colonne colonneEnModif) {
         this.colonneEnModif = colonneEnModif;
     }
+
+
+    private void styliserColonne(VBox col) {
+        col.setStyle(
+                "-fx-background-color: #f7f7f7;" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-padding: 10;" +
+                        "-fx-border-color: #d0d0d0;" +
+                        "-fx-border-radius: 10;" +
+                        "-fx-border-width: 1;"
+        );
+    }
+
+    private void styliserBoutonPrincipal(Button b) { // gros bouton + (ajouter)
+        b.setStyle(
+                "-fx-background-color: #2b2b2b;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-cursor: hand;"
+        );
+        b.setOnMouseEntered(e -> b.setStyle(
+                "-fx-background-color: #3a3a3a;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-cursor: hand;"
+        ));
+        b.setOnMouseExited(e -> b.setStyle(
+                "-fx-background-color: #2b2b2b;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 8;" +
+                        "-fx-cursor: hand;"
+        ));
+    }
+
+    private void styliserBoutonAction(Button b, String bg) {
+        b.setStyle(
+                "-fx-background-color: " + bg + ";" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 6;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-padding: 2 6;"
+        );
+        b.setOnMouseEntered(e -> b.setStyle(
+                "-fx-background-color: derive(" + bg + ", -15%);" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 6;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-padding: 2 6;"
+        ));
+        b.setOnMouseExited(e -> b.setStyle(
+                "-fx-background-color: " + bg + ";" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-background-radius: 6;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-padding: 2 6;"
+        ));
+    }
+
+    private void styliserCarte(Label carte) {
+        carte.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-radius: 10;" +
+                        "-fx-border-color: #d0d0d0;" +
+                        "-fx-border-radius: 10;" +
+                        "-fx-padding: 8;"
+        );
+    }
+
 }
