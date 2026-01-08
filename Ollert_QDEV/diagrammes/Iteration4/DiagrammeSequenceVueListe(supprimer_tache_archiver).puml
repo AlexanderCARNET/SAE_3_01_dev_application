@@ -17,10 +17,11 @@ V -> P : display(model)
 activate P
 
 P -> M : getArchive()
+M --> P : archive
 activate M
-M -> A : getTaches()
+P -> A : getTaches()
 activate A
-A --> P
+A --> P : List<Tache>
 Note right of P : Creation affichage
 
 User -> P : Clique droit sur la tache et clique sur Supprimer
