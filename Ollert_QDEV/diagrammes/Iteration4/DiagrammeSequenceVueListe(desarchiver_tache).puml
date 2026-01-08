@@ -17,8 +17,9 @@ V -> P : display(model)
 activate P
 
 P -> M : getArchive()
+M --> P
 activate M
-M -> A : getTaches()
+P -> A : getTaches()
 activate A
 A --> P
 Note right of P : Creation affichage
